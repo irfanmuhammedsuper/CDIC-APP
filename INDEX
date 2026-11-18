@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Hifz Sanad Portal | CDIC</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="theme-color" content="#3f1d45">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="CDIC Portal">
+<meta name="description" content="Official Hifz Sanad application and candidate services portal of the Coordination of Darussalam Islamic Colleges.">
+<link rel="apple-touch-icon" href="logo.jpg">
+<link rel="icon" href="logo.jpg">
+<style>
+:root{--pur:#3f1d45;--pur2:#5a315f;--grn:#b1812a;--red:#b84550;--gold:#986a1e;--bg:#f7f3ed;--card:#fffdfa;--tx:#2a2430;--mut:#756b78;--bd:#e7dfd4;--r:14px}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-family:system-ui,"Noto Sans Malayalam","Nirmala UI","Manjari",sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;font-size:16px;padding-bottom:64px}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--grn);outline-offset:2px}
+.hd{position:sticky;top:0;z-index:20;background:#fff;border-bottom:3px solid var(--grn);box-shadow:0 3px 14px #17204412;display:flex;align-items:center;gap:12px;padding:8px 18px;padding-top:calc(8px + env(safe-area-inset-top))}
+.hd img{height:54px;width:70px;object-fit:contain;border-radius:7px}
+.ttl b{display:block;color:var(--pur);font-size:1.05rem;line-height:1.2;letter-spacing:.035em}.ttl small{color:var(--mut);font-size:.78rem}
+.sp{flex:1}
+.net{font-size:.75rem;padding:2px 8px;border-radius:20px;background:#e5f5e5;color:#145a14}.net.off{background:#fde2e2;color:#8a0b0b}
+.btn{border:0;background:var(--pur);color:#fff;padding:10px 16px;border-radius:var(--r);cursor:pointer;min-height:44px;font-weight:600;transition:background .15s,transform .1s}
+.btn:hover{background:var(--pur2)}.btn:active{transform:scale(.98)}
+.btn.g{background:var(--grn)}.btn.r{background:var(--red)}.btn.l{background:#fff;color:var(--pur);border:1px solid var(--pur)}.btn.s{min-height:34px;padding:4px 10px;font-size:.85rem}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.layout{display:flex;min-height:calc(100vh - 70px)}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:#fff;border-top:1px solid var(--bd);display:flex;overflow-x:auto;padding-bottom:env(safe-area-inset-bottom)}
+nav a{flex:1 0 auto;padding:10px 14px;text-align:center;color:var(--mut);text-decoration:none;font-size:.8rem;cursor:pointer;white-space:nowrap;border-top:3px solid transparent}
+nav a:hover{background:#f4f5fa;color:var(--pur)}nav a.on{color:var(--pur);border-top-color:var(--grn);font-weight:700}nav a.dis{opacity:.45;cursor:default}
+nav hr{display:none}
+main{flex:1;padding:16px;max-width:1200px;margin:0 auto;width:100%;min-width:0}
+@media(min-width:860px){body{padding-bottom:0}nav{position:sticky;top:70px;align-self:flex-start;flex-direction:column;width:230px;height:calc(100vh - 70px);border-top:0;border-right:1px solid var(--bd);padding:12px 0;overflow-y:auto}nav a{text-align:left;border-top:0;border-left:4px solid transparent;font-size:.95rem;padding:11px 20px}nav a.on{border-left-color:var(--grn);background:#f1f0f8}nav hr{display:block;width:100%;border:0;border-top:1px solid var(--bd);margin:8px 0}}
+.crumb{font-size:.82rem;color:var(--mut);margin-bottom:10px}
+h2{margin:.2em 0 .6em;color:var(--pur);letter-spacing:-.02em}h3{color:var(--pur);margin:.2em 0 .5em}h4{margin:.2em 0 .5em}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:var(--r);padding:18px;margin-bottom:14px;box-shadow:0 4px 16px #17204408}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.stat{background:#fff;border:1px solid var(--bd);border-left:4px solid var(--grn);border-radius:var(--r);padding:10px 12px}.stat b{display:block;font-size:1.6rem;color:var(--pur);line-height:1.1}.stat span{font-size:.8rem;color:var(--mut)}
+.g2{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.bar{display:grid;grid-template-columns:minmax(80px,38%) 1fr 34px;gap:8px;align-items:center;font-size:.82rem;margin:4px 0}.bar i{display:block;height:12px;background:var(--grn);border-radius:6px;min-width:3px}.bar span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bar b{text-align:right}
+.hero{background:linear-gradient(135deg,#24215a,#3f0b3c);color:#fff;border-radius:var(--r);padding:24px;margin-bottom:16px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;box-shadow:0 10px 28px #251e5526}
+.hero img{width:112px;height:112px;object-fit:contain;flex:0 0 112px;background:#fff;border-radius:14px;padding:8px}.hero h2{color:#fff;margin:0}.hero p{margin:.45em 0}
+.ph{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bd)}.ph:last-child{border:0}.ph em{font-style:normal;background:var(--pur);color:#fff;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-weight:700}
+.ph small{color:var(--mut);display:block}
+label{display:block;font-weight:600;font-size:.9rem;margin:10px 0 3px}
+input[type=text],input[type=tel],input[type=date],input[type=password],input[type=number],select,textarea{width:100%;min-height:46px;padding:10px 12px;border:1px solid #c9bfcd;border-radius:8px;background:#fff}
+textarea{min-height:90px}
+.rad{display:flex;gap:18px;flex-wrap:wrap}.rad label{display:flex;gap:6px;align-items:center;font-weight:500;margin:4px 0}.rad input{width:20px;height:20px}
+.fld.bad input,.fld.bad select,.fld.bad textarea{border-color:var(--red);background:#fff5f5}.err{color:var(--red);font-size:.82rem;margin-top:2px}
+.fld>label{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.field-ok{flex:0 0 auto;display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:#198754;color:#fff;font-size:.8rem;font-weight:800;line-height:1}
+.success-check{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 12px;border-radius:50%;background:#198754;color:#fff;font-size:2.4rem;font-weight:800;line-height:1}
+.sub{border-bottom:1px solid var(--bd);padding-bottom:4px;margin-top:16px}
+.cols{display:grid;gap:0 14px;grid-template-columns:1fr}@media(min-width:700px){.cols{grid-template-columns:1fr 1fr}}
+.steps{display:flex;gap:4px;margin-bottom:14px}.steps i{flex:1;height:6px;background:var(--bd);border-radius:3px}.steps i.on{background:var(--grn)}
+.decl{background:#faf6fb;border-left:4px solid var(--pur);padding:12px;border-radius:6px;text-align:justify;font-size:.95rem}
+.tw{overflow-x:auto;border:1px solid var(--bd);border-radius:var(--r);background:#fff;box-shadow:0 4px 16px #17204408}
+table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--bd);white-space:nowrap}th{background:#f1f0f8;color:var(--pur);cursor:pointer;position:sticky;top:0}tr.cl:hover{background:#f8f8fc;cursor:pointer}
+.tag{display:inline-block;padding:1px 9px;border-radius:20px;font-size:.78rem;background:#eee;font-weight:600}
+.tag.ok{background:#dff3df;color:#145a14}.tag.no{background:#fde2e2;color:#8a0b0b}.tag.wr{background:#fff0d0;color:#6b4800}.tag.in{background:#e6e8ff;color:#2a2f8a}
+.flt{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin-bottom:10px}.flt>*{margin:0}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:8px 0}
+.mut{color:var(--mut)}
+.big{font-size:1.5rem;font-weight:800;color:var(--pur);letter-spacing:.5px;word-break:break-all}
+.kv{display:grid;grid-template-columns:minmax(120px,40%) 1fr;gap:4px 10px;font-size:.92rem}.kv dt{color:var(--mut)}.kv dd{margin:0;word-break:break-word}
+dialog{border:0;border-radius:14px;padding:0;width:min(780px,96vw);max-height:92vh;box-shadow:0 20px 60px #0005}dialog::backdrop{background:#0007}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--pur);color:#fff;position:sticky;top:0;z-index:2}.dh button{background:none;border:0;color:#fff;font-size:1.5rem;cursor:pointer}.db{padding:16px}
+#toast{position:fixed;top:78px;right:12px;z-index:60;display:flex;flex-direction:column;gap:8px;max-width:92vw}
+#toast div{background:#145a14;color:#fff;padding:10px 14px;border-radius:8px;box-shadow:0 4px 14px #0004;animation:in .2s}#toast .e{background:#8a0b0b}
+@keyframes in{from{opacity:0;transform:translateY(-6px)}}
+#ld{position:fixed;inset:0;background:#fff8;z-index:70;display:none;place-items:center}#ld.on{display:grid}#ld i{width:44px;height:44px;border:5px solid var(--bd);border-top-color:var(--pur);border-radius:50%;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+.ban{background:#fff7e6;border:1px solid #e6c36a;padding:10px 12px;border-radius:8px;margin-bottom:12px;font-size:.9rem}
+#print{display:none}
+@media(max-width:520px){.hd{gap:8px;padding-left:10px;padding-right:10px}.hd img{width:56px;height:46px}.ttl b{font-size:.9rem}.ttl small{font-size:.7rem}.hero{padding:18px}.hero img{width:84px;height:84px;flex-basis:84px}.card{padding:14px}}
+@page{size:A4 portrait;margin:10mm}
+@media print{
+  body{margin:0;padding:0;background:#fff}
+  body>*:not(#print){display:none!important}
+  #print{display:block!important;width:100%;max-width:100%;margin:0;padding:0;color:#000;font-size:10pt;line-height:1.35;overflow-wrap:anywhere}
+  #print *{box-sizing:border-box}
+  #print img{width:24mm!important;height:20mm!important;max-width:24mm!important;object-fit:contain}
+  #print>div:first-child{max-width:100%;gap:4mm!important}
+  #print>div:first-child b{font-size:12pt!important}
+  #print h2{margin:4mm 0;color:#000;text-align:center;font-size:15pt}
+  #print h3{margin:4mm 0 2mm;font-size:11pt;break-after:avoid-page}
+  #print p{margin:2mm 0;overflow-wrap:anywhere}
+  #print .kv{grid-template-columns:minmax(35mm,38%) minmax(0,1fr);gap:1mm 3mm;margin:0;font-size:9pt}
+  #print .kv dt,#print .kv dd{min-width:0;overflow-wrap:anywhere;break-inside:avoid}
+  #print .pb{border:1px solid #000;padding:3mm;margin-top:3mm;break-inside:avoid}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Modern visual system */
+:root{
+  --ease:cubic-bezier(.2,.8,.2,1);
+  --pur:#3f1d45;
+  --pur2:#5a315f;
+  --grn:#b1812a;
+  --grn2:#d2ae66;
+  --red:#b84550;
+  --gold:#986a1e;
+  --bg:#f7f3ed;
+  --card:#fffdfa;
+  --tx:#2a2430;
+  --mut:#756b78;
+  --bd:#e7dfd4;
+  --r:18px;
+  --shadow-sm:0 6px 18px rgba(63,29,69,.07);
+  --shadow-md:0 16px 40px rgba(63,29,69,.13);
+}
+body{
+  background:
+    radial-gradient(circle at 8% 4%,rgba(90,49,95,.07),transparent 22rem),
+    radial-gradient(circle at 92% 12%,rgba(210,174,102,.10),transparent 18rem),
+    var(--bg);
+  letter-spacing:.01em;
+}
+.hd{
+  background:rgba(255,255,255,.88);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(221,229,223,.9);
+  box-shadow:0 8px 30px rgba(63,29,69,.07);
+  padding:10px 20px;
+}
+.hd img{
+  width:58px;
+  height:58px;
+  object-fit:cover;
+  border-radius:50%;
+  border:3px solid #fff;
+  background:#fff;
+  box-shadow:0 5px 16px rgba(63,29,69,.14);
+}
+.ttl b{color:var(--pur);font-size:1.08rem}
+.ttl small{color:var(--mut)}
+.net{
+  border:1px solid #ccebd8;
+  background:#ecf8f1;
+  color:#16623d;
+  padding:5px 10px;
+  font-weight:700;
+  box-shadow:none;
+}
+.net.off{border-color:#f1c5c9;background:#fff0f1;color:#9d2631}
+.btn{
+  min-height:42px;
+  border-radius:12px;
+  background:var(--pur);
+  box-shadow:0 7px 16px rgba(63,29,69,.12);
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.btn:hover{
+  background:var(--pur2);
+  transform:translateY(-2px);
+  box-shadow:0 10px 22px rgba(63,29,69,.16);
+}
+.btn:active{transform:translateY(0) scale(.98)}
+.btn.g{color:#302037;background:linear-gradient(135deg,var(--grn),var(--grn2));box-shadow:0 8px 18px rgba(152,106,30,.22)}
+.btn.g:hover{color:#26172d;background:linear-gradient(135deg,#c59b4f,#dfc27e)}
+.btn.r{background:var(--red)}
+.btn.l{
+  background:rgba(255,255,255,.82);
+  color:var(--pur);
+  border:1px solid var(--bd);
+  box-shadow:0 4px 12px rgba(63,29,69,.05);
+}
+.btn.l:hover{border-color:#b9cbbf;background:#fff}
+.btn.s{min-height:36px;border-radius:10px}
+nav{
+  background:rgba(255,255,255,.94);
+  border-top:1px solid var(--bd);
+  box-shadow:0 -8px 28px rgba(63,29,69,.07);
+}
+nav a{
+  position:relative;
+  border-radius:10px;
+  margin:4px 5px;
+  padding:11px 10px;
+  transition:color .18s ease,background .18s ease,transform .18s ease;
+}
+nav a:hover{transform:translateY(-1px)}
+nav a.on{
+  color:var(--pur);
+  background:linear-gradient(135deg,#f8f1e5,#fffaf1);
+  border-top-color:transparent;
+  box-shadow:inset 0 0 0 1px rgba(152,106,30,.14);
+}
+nav a.on::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:3px;
+  width:18px;
+  height:3px;
+  border-radius:3px;
+  transform:translateX(-50%);
+  background:var(--gold);
+}
+main{padding:22px}
+.crumb{
+  display:inline-flex;
+  align-items:center;
+  min-height:28px;
+  margin-bottom:12px;
+  padding:4px 10px;
+  border:1px solid var(--bd);
+  border-radius:999px;
+  background:rgba(255,255,255,.7);
+  color:var(--mut);
+  font-size:.76rem;
+  font-weight:700;
+  animation:fadeDown .35s ease both;
+}
+h2,h3,h4{color:var(--pur)}
+h2{font-size:clamp(1.45rem,2vw,2rem)}
+.card{
+  border:1px solid rgba(221,229,223,.95);
+  border-radius:var(--r);
+  box-shadow:var(--shadow-sm);
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.card:hover{
+  border-color:#d1ded5;
+  box-shadow:var(--shadow-md);
+}
+.hero{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 82% 20%,rgba(210,174,102,.28),transparent 15rem),
+    linear-gradient(135deg,#35183c 0%,#552a5a 62%,#77552c 135%);
+  box-shadow:0 18px 38px rgba(63,29,69,.18);
+  animation:fadeUp .48s ease both;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  width:220px;
+  height:220px;
+  right:-110px;
+  bottom:-140px;
+  border:24px solid rgba(255,255,255,.05);
+  border-radius:50%;
+}
+.hero img{
+  width:118px;
+  height:118px;
+  border-radius:22px;
+  border:5px solid rgba(255,255,255,.9);
+  box-shadow:0 14px 28px rgba(0,0,0,.18);
+}
+.hero h2{font-size:clamp(1.55rem,3vw,2.2rem)}
+.stat{
+  border:1px solid var(--bd);
+  border-left:0;
+  border-radius:15px;
+  background:linear-gradient(145deg,#fff,#fbfdfc);
+  box-shadow:var(--shadow-sm);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.stat:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.stat b{color:var(--pur)}
+.stat span{color:var(--mut);font-weight:700}
+.ph{
+  margin:5px 0;
+  padding:13px 10px;
+  border:1px solid transparent;
+  border-radius:12px;
+  transition:background .18s ease,border-color .18s ease,transform .18s ease;
+}
+.ph:hover{background:#fbf7f0;border-color:var(--bd);transform:translateX(3px)}
+.ph em{
+  color:#302037;
+  background:linear-gradient(135deg,var(--grn),var(--grn2));
+  box-shadow:0 7px 14px rgba(152,106,30,.20);
+}
+label{color:var(--pur);margin:12px 0 5px}
+input[type=text],input[type=tel],input[type=date],input[type=password],input[type=number],select,textarea{
+  min-height:48px;
+  border:1px solid #ccd6cf;
+  border-radius:12px;
+  background:#fff;
+  transition:border-color .18s ease,box-shadow .18s ease,background .18s ease;
+}
+input:focus,select:focus,textarea:focus{
+  outline:0;
+  border-color:var(--gold);
+  box-shadow:0 0 0 4px rgba(152,106,30,.13);
+  background:#fff;
+}
+.fld.bad input,.fld.bad select,.fld.bad textarea{
+  border-color:var(--red);
+  box-shadow:0 0 0 4px rgba(216,74,85,.08);
+}
+.steps i{height:7px;border-radius:999px;transition:flex .25s ease,background .25s ease}
+.steps i.on{background:linear-gradient(90deg,var(--gold),var(--grn2))}
+.decl{
+  background:linear-gradient(135deg,#fbf7f0,#f6efe3);
+  border-left:4px solid var(--pur);
+  border-radius:12px;
+  border:1px solid var(--bd);
+}
+.tw{
+  border:1px solid var(--bd);
+  border-radius:16px;
+  box-shadow:var(--shadow-sm);
+}
+th{
+  background:#edf3ef;
+  color:var(--pur);
+  border-bottom:1px solid #d9e3dc;
+  font-size:.82rem;
+  text-transform:none;
+  letter-spacing:.02em;
+}
+td{border-bottom:1px solid #edf0ed}
+tr.cl{transition:background .15s ease,transform .15s ease}
+tr.cl:hover{background:#fbf7f0}
+.tag{padding:3px 10px;border-radius:999px}
+.tag.ok{background:#daf1e4;color:#17623f}
+.tag.no{background:#fde8ea;color:#9e2834}
+.tag.wr{background:#fff3d8;color:#815d16}
+.tag.in{background:#e8edf7;color:#35517a}
+.ban{
+  border:1px solid #ead496;
+  background:linear-gradient(135deg,#fffaf0,#fff7df);
+  border-radius:12px;
+}
+dialog{
+  border-radius:20px;
+  box-shadow:0 24px 80px rgba(63,29,69,.28);
+  animation:dialogIn .22s ease both;
+}
+.dh{
+  background:linear-gradient(135deg,var(--pur),var(--pur2));
+  padding:14px 18px;
+}
+.db{padding:20px}
+#toast{top:88px}
+#toast div{
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:12px;
+  background:linear-gradient(135deg,#17623f,#198754);
+  box-shadow:0 12px 28px rgba(63,29,69,.22);
+  animation:toastIn .28s cubic-bezier(.2,.8,.2,1) both;
+}
+#toast .e{background:linear-gradient(135deg,#a52d38,#d84a55)}
+#ld i{border-width:4px;border-color:rgba(63,29,69,.12);border-top-color:var(--grn)}
+#v{animation:fadeUp .38s ease both}
+.admin-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin:4px 0 22px;padding:22px 24px;border:1px solid rgba(255,255,255,.16);border-radius:22px;background:radial-gradient(circle at 88% 12%,rgba(210,174,102,.24),transparent 16rem),linear-gradient(120deg,#35183c,#5a315f 72%,#76572e);color:#fff;box-shadow:0 16px 34px rgba(63,29,69,.16)}
+.admin-head h2{margin:0;color:#fff}
+.admin-head p{margin:5px 0 0;color:rgba(255,255,255,.78);font-size:.92rem}
+.admin-head .btn.l{background:rgba(255,255,255,.94);border-color:rgba(255,255,255,.5)}
+.admin-actions{display:flex;flex-wrap:wrap;gap:8px}
+.dash-section{margin:22px 0}
+.dash-section-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:10px}
+.dash-section-head h3{margin:0}
+.dash-kpis{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.dash-queues{display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:10px}
+.queue-card{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:82px;padding:14px 16px;border:1px solid var(--bd);border-radius:15px;background:rgba(255,253,250,.92);color:var(--tx);text-align:left;font:inherit;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.queue-card:hover{transform:translateY(-2px);border-color:var(--grn2);box-shadow:var(--shadow-md)}
+.queue-card:focus-visible{outline:3px solid var(--grn);outline-offset:2px}
+.queue-card span{font-size:.86rem;font-weight:700;color:var(--mut)}
+.queue-card b{font-size:1.55rem;color:var(--pur)}
+.workload-table{width:100%;border-collapse:collapse}
+.workload-table td,.workload-table th{padding:9px 10px;text-align:left;border-bottom:1px solid var(--bd)}
+.report-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.report-card{display:flex;flex-direction:column;align-items:flex-start;gap:7px;min-height:145px;padding:16px;border:1px solid var(--bd);border-radius:15px;background:var(--card);box-shadow:var(--shadow-sm)}
+.report-card b{color:var(--pur)}
+.report-card .sp{flex:1}
+.result-list{display:grid;gap:9px}
+.result-draft{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 15px;border:1px solid var(--bd);border-radius:13px;background:var(--card)}
+.result-draft strong{color:var(--pur)}
+.timeline{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.timeline-item{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;position:relative;padding:0 0 16px}
+.timeline-item:not(:last-child)::before{content:"";position:absolute;left:12px;top:24px;bottom:0;width:2px;background:var(--bd)}
+.timeline-dot{z-index:1;display:grid;place-items:center;width:26px;height:26px;border:2px solid var(--bd);border-radius:50%;background:#fff;color:var(--mut);font-size:.75rem;font-weight:800}
+.timeline-item.done .timeline-dot{border-color:#198754;background:#e5f5e5;color:#145a14}
+.timeline-item.current .timeline-dot{border-color:var(--gold);background:#fff4d8;color:var(--gold)}
+.timeline-item.skipped .timeline-dot{border-style:dashed}
+.timeline-item b{display:block;color:var(--pur)}
+.timeline-item small{display:block;color:var(--mut)}
+.dashboard-charts{margin-top:8px}
+.section-actions{display:flex;align-items:center;gap:8px}
+.admin-more{margin-top:12px;border-top:1px solid var(--bd);padding-top:10px}
+.admin-more summary{cursor:pointer;color:var(--pur);font-weight:700}
+.admin-more .flt{margin-top:12px}
+.apps-pagination{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:8px}
+.apps-pagination .row{margin:0}
+.page-size{display:flex;align-items:center;gap:8px;margin:0;color:var(--mut);font-size:.85rem}
+.page-size select{width:auto;min-width:76px;min-height:38px;padding:6px 10px}
+.flt input[type=search]{width:100%;min-height:48px;padding:10px 12px;border:1px solid #ccd6cf;border-radius:12px;background:#fff}
+.selection-status{font-size:.85rem;font-weight:700;color:var(--pur)}
+.app-toolbar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 16px;align-items:center;margin-bottom:14px;min-width:0}
+.app-toolbar .select-page,.app-toolbar .bulk-summary{display:flex;align-items:center;gap:9px;margin:0}
+.app-toolbar .select-page{min-width:0;color:var(--tx)}
+.app-toolbar .select-page span{min-width:0;overflow-wrap:anywhere}
+.app-toolbar input[type=checkbox],.app-check input{width:20px;height:20px;accent-color:var(--pur);flex:0 0 auto}
+.bulk-summary{justify-content:flex-end}
+.app-toolbar .row{grid-column:1/-1;width:100%;min-width:0;margin:0}
+.app-toolbar .row>.mut{min-width:0;overflow-wrap:anywhere}
+.app-toolbar select{width:auto;max-width:100%;min-width:220px}
+.app-list{display:grid;gap:10px}
+.app-item{display:grid;grid-template-columns:minmax(190px,1.2fr) minmax(210px,1.3fr) minmax(145px,.8fr) auto;gap:14px;align-items:center;padding:14px 16px;border:1px solid var(--bd);border-radius:15px;background:var(--card);box-shadow:var(--shadow-sm)}
+.app-primary{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.app-check{margin:2px 0 0!important}
+.app-name{font-weight:750;color:var(--pur);overflow-wrap:anywhere}
+.app-number{font-size:.82rem;color:var(--mut)}
+.app-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 12px;margin:0}
+.app-meta div{min-width:0}
+.app-meta dt{font-size:.72rem;color:var(--mut)}
+.app-meta dd{margin:0;font-size:.84rem;font-weight:600;overflow-wrap:anywhere}
+.app-status{display:grid;gap:5px;justify-items:start}
+.app-status small{color:var(--mut)}
+.app-open{white-space:nowrap}
+@media(max-width:600px){
+  .admin-head{flex-direction:column;padding:18px}
+  .admin-actions{width:100%}
+  .admin-actions .btn{flex:1}
+  .dash-section-head{align-items:flex-start;flex-direction:column}
+  .dash-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dash-queues{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .queue-card{min-height:72px;padding:11px}
+  .queue-card span{font-size:.78rem}
+  .apps-pagination{align-items:flex-start;flex-direction:column}
+}
+@media(max-width:760px){
+  .app-toolbar{grid-template-columns:minmax(0,1fr)}
+  .bulk-summary{justify-content:flex-start;flex-wrap:wrap}
+  .app-toolbar .row{grid-column:auto}
+  .app-toolbar select{flex:1;min-width:180px}
+  .app-item{grid-template-columns:minmax(0,1fr) auto;gap:10px 12px;padding:13px}
+  .app-primary{grid-column:1/-1}
+  .app-meta{grid-column:1/-1}
+  .app-status{grid-column:1}
+  .app-open{grid-column:2;grid-row:3;align-self:end}
+  .result-draft{grid-template-columns:minmax(0,1fr) auto}
+  .result-draft .result-meta{grid-column:1/-1}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
+@keyframes toastIn{from{opacity:0;transform:translateX(16px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes dialogIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
+
+@media(min-width:860px){
+  nav{
+    top:79px;
+    height:calc(100vh - 79px);
+    border-right:1px solid var(--bd);
+    border-top:0;
+    background:rgba(255,255,255,.82);
+    backdrop-filter:blur(14px);
+    box-shadow:8px 0 30px rgba(63,29,69,.04);
+  }
+  nav a{
+    border-top:0;
+    border-left:3px solid transparent;
+    margin:3px 10px;
+    padding:12px 16px;
+  }
+  nav a.on{
+    border-left-color:var(--grn);
+    border-top-color:transparent;
+  }
+  nav a.on::after{display:none}
+  main{padding:26px 30px}
+}
+@media(max-width:859px){
+  nav a{min-width:78px;font-size:.72rem}
+  nav a::before{display:block;font-size:1.05rem;line-height:1.15;margin-bottom:3px}
+  nav a[data-nav="home"]::before{content:"⌂"}
+  nav a[data-nav="apply"]::before{content:"+"}
+  nav a[data-nav="track"]::before{content:"◷"}
+  nav a[data-nav="result"]::before{content:"✓"}
+  nav a[data-nav="login"]::before{content:"○"}
+  nav a[data-nav="dash"]::before{content:"▦"}
+  nav a[data-nav="apps"]::before{content:"≡"}
+  nav a[data-nav="results"]::before{content:"✓"}
+  nav a[data-nav="reports"]::before{content:"▤"}
+  nav a[data-nav="settings"]::before{content:"⚙"}
+  nav a[data-nav="users"]::before{content:"◉"}
+  nav a[data-nav="audit"]::before{content:"⌁"}
+}
+@media(max-width:520px){
+  body{padding-bottom:72px}
+  .hd{height:68px;padding:7px 10px}
+  .hd img{width:48px;height:48px}
+  .ttl{flex:1;min-width:0}
+  .sp{flex:0}
+  .net{display:none}
+  #usr .mut{display:none}
+  #usr .btn{font-size:.72rem;padding:5px 8px}
+  .ttl b{font-size:.82rem}
+  .ttl small{max-width:190px;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  main{padding:14px 12px}
+  .hero{align-items:flex-start;padding:18px}
+  .hero img{width:82px;height:82px}
+  .hero h2{font-size:1.35rem}
+  .card{border-radius:15px}
+  dialog{border-radius:16px}
+  .db{padding:14px}
+}
+.hd{transition:box-shadow .24s var(--ease)}
+.hd.sc{box-shadow:0 6px 22px rgba(63,29,69,.12)}
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.rp{
+  position:absolute;
+  z-index:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.36);
+  transform:scale(0);
+  animation:ripple .65s ease-out;
+  pointer-events:none;
+}
+.btn.l .rp{background:rgba(152,106,30,.18)}
+.btn>*:not(.rp){position:relative;z-index:1}
+.confetti-layer{
+  position:fixed;
+  z-index:100;
+  inset:0;
+  overflow:hidden;
+  contain:strict;
+  pointer-events:none;
+}
+.cf{
+  position:absolute;
+  top:-14px;
+  width:8px;
+  height:12px;
+  border-radius:2px;
+  animation:confetti-fall 2.8s var(--ease) forwards;
+}
+@keyframes ripple{to{transform:scale(2.4);opacity:0}}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes confetti-fall{
+  0%{opacity:1;transform:translate3d(0,0,0) rotate(0)}
+  100%{opacity:0;transform:translate3d(var(--dx),105vh,0) rotate(var(--rot))}
+}
+@media(prefers-reduced-motion:reduce){
+  .hd,.hd img{transition:none}
+  .rp,.confetti-layer{display:none!important;animation:none!important}
+}
+</style>
+</head>
+<body>
+<header class="hd">
+  <img src="logo.jpg" alt="Coordination of Darussalam Islamic Colleges emblem">
+  <div class="ttl"><b>CDIC UNIFIED PORTAL</b><small id="sub"></small></div>
+  <div class="sp"></div>
+  <span id="net" class="net"></span>
+  <button class="btn l s" id="inst" hidden></button>
+  <button class="btn l s" id="lang" aria-label="Language">EN</button>
+  <span id="usr"></span>
+</header>
+<div class="layout"><nav id="nav"></nav><main id="main"></main></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<div id="ld"><i></i></div>
+<dialog id="dlg"></dialog>
+<div id="print"></div>
+
+<script>
+'use strict';
+/* ====== CONFIG ====== */
+const API_URL='https://script.google.com/macros/s/AKfycbzbvqzqUdvaZgz_j3vZ-MHogEOV_OerWbxEGcSYDOPvV4RAcjN9JiVEi5PtzRU2DejiSw/exec';
+
+/* ====== HELPERS ====== */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>(crypto.randomUUID?crypto.randomUUID():Date.now().toString(36)+Math.random().toString(36).slice(2)).replace(/[^\w-]/g,'');
+const LS={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}},s(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},d(k){try{localStorage.removeItem(k)}catch(e){}}};
+let L=LS.g('cdic_lang','en'),S={token:sessionStorage.getItem('tk')||'',user:JSON.parse(sessionStorage.getItem('us')||'null'),cfg:{}},view='home';
+document.documentElement.lang=L;
+const b=(ml,en)=>L==='ml'?ml:en;
+const today=()=>new Date().toISOString().slice(0,10);
+const normalizeDate=v=>{
+  const s=String(v||'').trim();
+  let y,m,d;
+  let p;
+  if(/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:?\d{2})?)?$/.test(s)){
+    p=s.match(/^(\d{4})-(\d{2})-(\d{2})/);y=+p[1];m=+p[2];d=+p[3];
+  }else if(/^\d{4}[./-]\d{1,2}[./-]\d{1,2}$/.test(s)){
+    p=s.match(/^(\d{4})[./-](\d{1,2})[./-](\d{1,2})$/);y=+p[1];m=+p[2];d=+p[3];
+  }else if(/^\d{1,2}[./-]\d{1,2}[./-]\d{4}$/.test(s)){
+    p=s.match(/^(\d{1,2})[./-](\d{1,2})[./-](\d{4})$/);d=+p[1];m=+p[2];y=+p[3];
+  }else return '';
+  if(y<1000||m<1||m>12||d<1||d>31)return '';
+  const dt=new Date(Date.UTC(y,m-1,d));
+  if(dt.getUTCFullYear()!==y||dt.getUTCMonth()!==m-1||dt.getUTCDate()!==d)return '';
+  return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+};
+const dateDisplay=v=>{
+  const n=normalizeDate(v);
+  if(!n)return String(v||'');
+  const p=n.split('-');
+  return `${p[2]}/${p[1]}/${p[0]}`;
+};
+const dateLabel=v=>dateDisplay(v)||String(v||'');
+
+/* ====== DATA ====== */
+const DIST=[['Kasaragod','കാസർഗോഡ്'],['Kannur','കണ്ണൂർ'],['Wayanad','വയനാട്'],['Kozhikode','കോഴിക്കോട്'],['Malappuram','മലപ്പുറം'],['Palakkad','പാലക്കാട്'],['Thrissur','തൃശ്ശൂർ'],['Ernakulam','എറണാകുളം'],['Idukki','ഇടുക്കി'],['Kottayam','കോട്ടയം'],['Alappuzha','ആലപ്പുഴ'],['Pathanamthitta','പത്തനംതിട്ട'],['Kollam','കൊല്ലം'],['Thiruvananthapuram','തിരുവനന്തപുരം'],['Outside Kerala','കേരളത്തിന് പുറത്ത്']];
+const STEPS=[
+ {ml:'വ്യക്തിഗത വിവരങ്ങൾ',en:'Personal Information',f:[['name','അപേക്ഷകന്റെ പൂർണ്ണനാമം',"Applicant's Full Name",'text'],['father','പിതാവിന്റെ പേര്',"Father's Name",'text'],['mother','മാതാവിന്റെ പേര്',"Mother's Name",'text'],['dob','ജനനത്തീയതി','Date of Birth','date'],['_a','പൂർണ്ണ വിലാസം','Full Address','h'],['place','സ്ഥലം','Place','text'],['house','വീട്ടുപേര്','House Name','text'],['post','പോസ്റ്റ്','Post Office','text'],['pin','പിൻകോഡ്','PIN Code','pin'],['district','ജില്ല','District','district'],['mobile','മൊബൈൽ നമ്പർ','Mobile Number','tel'],['whatsapp','വാട്സ്ആപ്പ് നമ്പർ','WhatsApp Number','tel']]},
+ {ml:'പഠന വിവരങ്ങൾ',en:'Educational Information',f:[['institution','പഠനം പൂർത്തീകരിച്ച സ്ഥാപനം','Institution where Hifz was completed','text'],['admissionYear','പ്രവേശന വർഷം','Admission Year','year'],['completionYear','പഠനം പൂർത്തീകരിച്ച വർഷം','Completion Year','year'],['examYear','ഹിഫ്‌ള് ഫൈനൽ / പബ്ലിക് പരീക്ഷയിൽ പങ്കെടുത്ത വർഷം','Year of Hifz Final / Public Examination','year'],['teachers','പഠനകാലത്തെ പ്രധാന അധ്യാപകരുടെ പേര്','Principal teachers during Hifz studies','textarea'],['tharqiyya','ഹിഫ്‌ള് പഠനശേഷം തർഖിയയിൽ പഠിച്ചിട്ടുണ്ടോ?','Studied in Tharqiyya after Hifz?','yn'],['tharqiyyaYear','ഉണ്ടെങ്കിൽ ഏതു വർഷം?','If yes, which year?','year']]},
+ {ml:'നിലവിലെ വിവരങ്ങൾ',en:'Current Information',f:[['currentWork','നിലവിൽ ചെയ്യുന്ന ജോലി / പഠനം','Current job / study','text'],['currentOrg','നിലവിൽ പ്രവർത്തിക്കുന്ന സ്ഥാപനം (ഉണ്ടെങ്കിൽ)','Current institution / organisation (if any)','text'],['prevApplication','സനദ് സംബന്ധമായി മുമ്പ് ഏതെങ്കിലും അപേക്ഷ നൽകിയിട്ടുണ്ടോ?','Previously applied regarding Sanad?','yn']]},
+ {ml:'അപേക്ഷകന്റെ സത്യപ്രസ്താവന',en:'Applicant Declaration',decl:1}];
+const DECL=[n=>`${n||'………………………………'} എന്ന ഞാൻ ഈ അപേക്ഷയിൽ നൽകിയിട്ടുള്ള മുഴുവൻ വിവരങ്ങളും സത്യവും വസ്തുനിഷ്ഠവുമാണെന്ന് ബോധ്യപ്പെടുത്തുന്നു.`,
+ 'സമസ്ത കേരള ജംഇയ്യത്തുൽ ഉലമയുടെ ആശയ ആദർശങ്ങൾ അംഗീകരിക്കുന്നവനും ഉപദേശനിർദ്ദേശങ്ങൾ അനുസരിക്കുന്നവനും ജാമിഅ ദാറുസ്സലാമിന്റെ കീഴിൽ നിലനിൽക്കുന്ന വ്യവസ്ഥകൾ നിബന്ധനകൾ അംഗീകരിക്കുകയും സനദ് ലഭിക്കുന്നതിനുള്ള പരിശോധനാ നടപടികളോട് പൂർണമായും സഹകരിക്കുകയും ചെയ്യുമെന്നും പ്രസ്തുത സംവിധാനങ്ങളുടെ ആശയാദർശങ്ങൾക്കും നിലപാടുകൾക്കും വിരുദ്ധമായ പ്രവർത്തനങ്ങളിൽ ഏർപ്പെടുകയില്ലെന്നും ഇതിനാൽ സാക്ഷ്യപ്പെടുത്തുന്നു.',
+ 'മുകളിൽ പ്രസ്താവിച്ച കാര്യങ്ങൾ സത്യമാണെന്ന് ബോധ്യപ്പെടുത്തി എന്റെ പൂർണ സമ്മതത്തോടെ ഈ അപേക്ഷ സമർപ്പിക്കുന്നു.'];
+const PH=[
+ ['അപേക്ഷ','Application','മുഴുവൻ അപേക്ഷകർക്കും അപ്ലിക്കേഷൻ നമ്പർ നൽകുന്നു. നിശ്ചിത ഫീസ് അടച്ച് ഓൺലൈൻ ആയി അപേക്ഷ സമർപ്പിക്കുക. ശേഷം പ്രിന്റ് കോപ്പിയും, പഠിച്ച സ്ഥാപനത്തിന്റെ ലെറ്റർ, SSLC സർട്ടിഫിക്കറ്റ്, അനുബന്ധ രേഖകളും ഓഫീസിൽ എത്തിക്കുക.','Every applicant gets an application number. Pay the prescribed fee and submit online, then deliver the printed copy, previous institution letter, SSLC certificate and supporting documents to the office.'],
+ ['വെരിഫിക്കേഷൻ','Verification','പത്ത് ദിവസത്തെ വെരിഫിക്കേഷൻ. പൂർത്തിയാക്കുന്നവരിൽ യോഗ്യർക്ക് പരീക്ഷക്കുള്ള ഹാൾ ടിക്കറ്റ് നൽകുന്നു.','Ten days of verification to classify applicants. Eligible applicants receive hall tickets.'],
+ ['ഹാൾ ടിക്കറ്റും പരീക്ഷയും','Hall ticket & exam','ഹാൾടിക്കറ്റ് ലഭിച്ചവർ ഹാൾടിക്കറ്റിൽ നിർദ്ദേശിക്കുന്ന ദിവസം പരീക്ഷ കേന്ദ്രത്തിലെത്തി പരീക്ഷ അറ്റൻഡ് ചെയ്യുക.','Download the hall ticket and attend the exam on the stated date.'],
+ ['ഫല പ്രഖ്യാപനം','Results','പരീക്ഷയുടെ ഫലം ഔദ്യോഗികമായി സൈറ്റിലൂടെ പ്രസിദ്ധീകരിക്കുന്നു.','Results are officially published on this site.'],
+ ['സനദ് വിതരണം','Sanad distribution','യോഗ്യത നേടിയവർ സനദ് കൈപ്പറ്റുക.','Qualified candidates collect the Sanad.']];
+const ST={
+'Application Submitted':['അപേക്ഷ സമർപ്പിച്ചു','Application Submitted','നിങ്ങളുടെ അപേക്ഷ ലഭിച്ചു. ഫീസ് അടച്ച് രേഖകൾ ഓഫീസിൽ എത്തിക്കുക.','wr'],
+'Payment Pending':['ഫീസ് അടയ്ക്കാനുണ്ട്','Payment Pending','ഫീസ് ലഭിച്ചതായി ഇതുവരെ സ്ഥിരീകരിച്ചിട്ടില്ല.','wr'],
+'Payment Verified':['ഫീസ് സ്ഥിരീകരിച്ചു','Payment Verified','ഫീസ് ലഭിച്ചതായി സ്ഥിരീകരിച്ചു. പരിശോധന ഉടൻ ആരംഭിക്കും.','in'],
+'Under Verification':['പരിശോധനയിൽ','Under Verification','നിങ്ങളുടെ വിവരങ്ങൾ പരിശോധിച്ചു കൊണ്ടിരിക്കുന്നു.','in'],
+'Documents Pending':['രേഖകൾ ബാക്കി','Documents Pending','ആവശ്യമായ രേഖകൾ ഓഫീസിൽ എത്തിക്കുക.','wr'],
+'Eligible for Examination':['പരീക്ഷയ്ക്ക് യോഗ്യത നേടി','Eligible for Examination','പരീക്ഷയ്ക്ക് യോഗ്യത ലഭിച്ചു. ഹാൾ ടിക്കറ്റിനായി കാത്തിരിക്കുക.','ok'],
+'Hall Ticket Available':['ഹാൾ ടിക്കറ്റ് ലഭ്യമാണ്','Hall Ticket Available','ഹാൾ ടിക്കറ്റ് ഡൗൺലോഡ് ചെയ്യാം.','ok'],
+'Examination Attended':['പരീക്ഷ എഴുതി','Examination Attended','പരീക്ഷ എഴുതിയതായി രേഖപ്പെടുത്തി. ഫലം കാത്തിരിക്കുക.','in'],
+'Result Published':['ഫലം പ്രസിദ്ധീകരിച്ചു','Result Published','ഫലം പ്രസിദ്ധീകരിച്ചു. ഫലം പരിശോധിക്കുക.','in'],
+'Qualified':['യോഗ്യത നേടി','Qualified','അഭിനന്ദനങ്ങൾ! നിങ്ങൾ യോഗ്യത നേടിയിരിക്കുന്നു.','ok'],
+'Not Qualified':['യോഗ്യത നേടിയില്ല','Not Qualified','നിർഭാഗ്യവശാൽ ഇത്തവണ യോഗ്യത നേടിയിട്ടില്ല.','no'],
+'Sanad Ready for Collection':['സനദ് കൈപ്പറ്റാം','Sanad Ready for Collection','നിങ്ങളുടെ സനദ് ഓഫീസിൽ നിന്ന് കൈപ്പറ്റാവുന്നതാണ്.','ok'],
+'Sanad Collected':['സനദ് കൈപ്പറ്റി','Sanad Collected','സനദ് കൈപ്പറ്റിയതായി രേഖപ്പെടുത്തി.','ok'],
+'Rejected':['നിരസിച്ചു','Rejected','അപേക്ഷ നിരസിച്ചു. വിശദവിവരങ്ങൾക്ക് ഓഫീസുമായി ബന്ധപ്പെടുക.','no']};
+const stl=s=>ST[s]?b(ST[s][0],ST[s][1]):s;
+const tag=s=>`<span class="tag ${(ST[s]||[])[3]||''}">${esc(stl(s))}</span>`;
+const ERR={REQUIRED:['ഈ വിവരം നൽകേണ്ടതാണ്','This field is required'],MOBILE:['ശരിയായ 10 അക്ക മൊബൈൽ നമ്പർ നൽകുക','Enter a valid 10-digit mobile number'],PIN:['6 അക്ക പിൻകോഡ് നൽകുക','Enter a 6-digit PIN code'],DATE:['ശരിയായ തീയതി നൽകുക','Enter a valid date'],YEAR:['ശരിയായ വർഷം നൽകുക (ഉദാ. 2015)','Enter a valid year (e.g. 2015)'],YEAR_ORDER:['വർഷം പ്രവേശന വർഷത്തിന് ശേഷമായിരിക്കണം','Year must not be before admission year'],DECL:['സത്യപ്രസ്താവന അംഗീകരിക്കേണ്ടതാണ്','You must accept the declaration']};
+const N={ml:{portal:'ഹിഫ്‌ള് സനദ് അപേക്ഷാ പോർട്ടൽ',home:'ഹോം',apply:'അപേക്ഷിക്കുക',track:'സ്റ്റാറ്റസ്',result:'ഫലം',results:'ഫലങ്ങൾ',reports:'റിപ്പോർട്ടുകൾ',staff:'ലോഗിൻ',logout:'ലോഗൗട്ട്',dash:'ഡാഷ്ബോർഡ്',apps:'അപേക്ഷകൾ',users:'ഉപയോക്താക്കൾ',settings:'ക്രമീകരണങ്ങൾ',audit:'ഓഡിറ്റ് ലോഗ്',soon:'ഉടൻ വരുന്നു',next:'അടുത്തത്',prev:'തിരികെ',submit:'അപേക്ഷ സമർപ്പിക്കുക',draft:'ഡ്രാഫ്റ്റ് സൂക്ഷിച്ചു',save:'സേവ് ചെയ്യുക',cancel:'റദ്ദാക്കുക',review:'പരിശോധിക്കുക'},
+ en:{portal:'Hifz Sanad Application Portal',home:'Home',apply:'Apply',track:'Track',result:'Result',results:'Results',reports:'Reports',staff:'Login',logout:'Logout',dash:'Dashboard',apps:'Applications',users:'Users',settings:'Settings',audit:'Audit log',soon:'Coming soon',next:'Next',prev:'Back',submit:'Submit application',draft:'Draft saved',save:'Save',cancel:'Cancel',review:'Review'}};
+const t=k=>N[L][k];
+
+/* ====== UI UTIL ====== */
+function toast(m,e){const d=document.createElement('div');if(e)d.className='e';d.textContent=e?m:`✓ ${m}`;$('#toast').appendChild(d);setTimeout(()=>d.remove(),e?6000:3500)}
+const load=on=>$('#ld').classList.toggle('on',!!on);
+function modal(title,html){const d=$('#dlg');d.innerHTML=`<div class="dh"><b>${esc(title)}</b><button aria-label="Close" onclick="$('#dlg').close()">×</button></div><div class="db">${html}</div>`;if(!d.open)d.showModal();return d}
+function successPopup(message){const d=modal(b('വിജയം','Success'),`<div style="text-align:center"><span class=success-check role=img aria-label="${b('വിജയകരമായി പൂർത്തിയായി','Completed successfully')}">✓</span><p>${esc(message)}</p><button class="btn g" id=successClose>${b('ശരി','OK')}</button></div>`);$('#successClose').onclick=()=>d.close()}
+function confirmBox(msg){return new Promise(r=>{const d=modal(b('സ്ഥിരീകരണം','Confirm'),`<p>${esc(msg)}</p><div class=row><button class="btn g" id=cy>${b('അതെ, തുടരുക','Yes, continue')}</button><button class="btn l" id=cn>${t('cancel')}</button></div>`);$('#cy').onclick=()=>{d.close();r(true)};$('#cn').onclick=()=>{d.close();r(false)};d.onclose=()=>r(false)})}
+async function run(fn){load(1);try{return await fn()}catch(e){toast(e.net?b('ഇന്റർനെറ്റ്/സെർവർ ബന്ധം ലഭ്യമല്ല','Network or server unavailable'):e.message,1)}finally{load(0)}}
+async function api(action,data,rid){
+  if(API_URL.indexOf('YOUR_')===0){const e=new Error('API_URL not configured in CDIC.HTML');throw e}
+  let r;try{r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,token:S.token,requestId:rid||uid(),data:data||{}})});}catch(x){const e=new Error('network');e.net=1;throw e}
+  let j;try{j=await r.json()}catch(x){const e=new Error('Bad server response');e.net=1;throw e}
+  if(!j.success){if(j.error&&j.error.code==='AUTH_REQUIRED'&&S.token){clearSess();go('login')}const e=new Error(j.message);e.res=j;throw e}
+  return j.data}
+function setSess(d){S.token=d.token;S.user=d.user;sessionStorage.setItem('tk',d.token);sessionStorage.setItem('us',JSON.stringify(d.user))}
+function clearSess(){S.token='';S.user=null;sessionStorage.removeItem('tk');sessionStorage.removeItem('us')}
+const staff=()=>!!S.user;
+const can=(...r)=>S.user&&r.includes(S.user.role);
+
+/* ====== NAV / ROUTER ====== */
+function nav(){
+  let it=[];
+  if(staff()){it=[['dash',t('dash')],['apps',t('apps')]];if(can('SUPER_ADMIN','ADMIN'))it.push(['results',t('results')],['reports',t('reports')],['settings',t('settings')],['users',t('users')]);if(can('SUPER_ADMIN'))it.push(['audit',t('audit')]);}
+  else it=[['home',t('home')],['apply',t('apply')],['track',t('track')],['result',t('result')],['login',t('staff')]];
+  $('#nav').innerHTML=it.map(i=>i[0]==='hr'?'<hr>':/^x\d/.test(i[0])?`<a class="dis" aria-disabled="true">${esc(i[1])}</a>`:`<a data-nav="${i[0]}" class="${view===i[0]?'on':''}" onclick="go('${i[0]}')">${esc(i[1])}</a>`).join('');
+  $('#usr').innerHTML=staff()?`<span class=mut style="font-size:.8rem">${esc(S.user.name)} (${esc(S.user.role)})</span> <button class="btn l s" onclick="doLogout()">${t('logout')}</button>`:'';
+  $('#sub').textContent=staff()?'Coordination of Darussalam Islamic Colleges':t('portal');
+  $('#lang').textContent=L==='ml'?'EN':'മല';
+}
+const V={home:vHome,apply:vApply,track:vTrack,result:vResult,login:vLogin,dash:vDash,apps:vApps,results:vResults,reports:vReports,users:vUsers,settings:vSettings,audit:vAudit};
+function go(v){if(['dash','apps','users','settings','audit','results','reports'].includes(v)&&!staff())v='login';if(['results','reports'].includes(v)&&!can('SUPER_ADMIN','ADMIN'))v='apps';view=v;nav();window.scrollTo(0,0);return run(async()=>{const m=$('#main');m.innerHTML=`<div class=crumb>CDIC › ${staff()?'':'Hifz Sanad › '}${esc((N[L][v]||v))}</div><div id=v></div>`;await V[v]()})}
+$('#lang').onclick=()=>{L=L==='ml'?'en':'ml';LS.s('cdic_lang',L);document.documentElement.lang=L;go(view)};
+async function doLogout(){try{await api('logout')}catch(e){}clearSess();go('home')}
+async function cfg(){try{S.cfg=await api('getPortalSettings')}catch(e){S.cfg=S.cfg||{}}}
+
+/* ====== PUBLIC VIEWS ====== */
+async function vHome(){
+  await cfg();const c=S.cfg||{};
+  $('#v').innerHTML=`<div class=hero><img src="logo.jpg" alt="Coordination of Darussalam Islamic Colleges emblem"><div><h2>${b('ഹിഫ്‌ള് സനദ് അപേക്ഷ','Hifz Sanad Application')}</h2><p>${b('അവസാന തീയതി','Last date')}: <b>${esc(dateLabel(c.deadline)||'—')}</b> · ${b('ഫീസ്','Fee')}: <b>${c.fee?'₹'+esc(c.fee):b('പ്രഖ്യാപിച്ചിട്ടില്ല','not announced')}</b></p><div class=row><button class="btn g" onclick="go('apply')">${t('apply')}</button><button class="btn l" onclick="go('track')">${t('track')}</button></div></div></div>
+  ${c.applicationOpen==='false'?`<div class=ban>${b('അപേക്ഷകൾ നിലവിൽ സ്വീകരിക്കുന്നില്ല.','Applications are currently closed.')}</div>`:''}
+  <div class=card><h3>${b('അപേക്ഷാ നടപടിക്രമം','Application process')}</h3>${PH.map((p,i)=>`<div class=ph><em>${i+1}</em><div><b>${b(p[0],p[1])}</b>${i===0?` <small>${b('അവസാന തീയതി','Deadline')}: ${esc(dateLabel(c.deadline)||'—')}</small>`:''}${i===1?` <small>${esc(c.verificationDays||10)} ${b('ദിവസം','days')}</small>`:''}<small>${b(p[2],p[3])}</small></div></div>`).join('')}
+  <p class=mut>${b('ലഭിക്കുന്ന അപ്ലിക്കേഷൻ നമ്പർ ഉപയോഗിച്ച് സ്റ്റാറ്റസ് അറിയാം.','Use your application number to check status at any time.')}</p></div>
+  <div class=card><h3>${b('ഓഫീസിൽ എത്തിക്കേണ്ട രേഖകൾ','Documents to deliver to the office')}</h3><ul><li>${b('അപേക്ഷയുടെ പ്രിന്റ് കോപ്പി','Printed copy of the application')}</li><li>${b('പഠിച്ച സ്ഥാപനത്തിന്റെ ലെറ്റർ','Letter from the institution studied')}</li><li>${b('SSLC സർട്ടിഫിക്കറ്റ്','SSLC certificate')}</li><li>${b('അനുബന്ധ രേഖകൾ','Other supporting documents')}</li></ul>${c.officeAddress?`<p><b>${b('ഓഫീസ് വിലാസം','Office address')}:</b> ${esc(c.officeAddress)}</p>`:''}</div>
+  <div class=card id=ios hidden><b>iPhone/iPad:</b> Safari › Share › “Add to Home Screen”.</div>`;
+  if(/iphone|ipad/i.test(navigator.userAgent)&&!matchMedia('(display-mode:standalone)').matches)$('#ios').hidden=false;
+}
+
+/* --- Application form --- */
+let FD=LS.g('cdic_draft',{}),step=0,ERRS={};
+const saveDraft=()=>LS.s('cdic_draft',FD);
+function fld(f,v){
+  const [k,ml,en,ty]=f,lb=b(ml,en);
+  if(ty==='h')return `<h4 class=sub style="grid-column:1/-1">${lb}</h4>`;
+  if(k==='tharqiyyaYear'&&FD.tharqiyya!=='Yes')return '';
+  if(ty==='date')v=normalizeDate(v)||v;
+  const filled=v!==undefined&&v!==null&&String(v).trim()!=='';
+  let i;
+  if(ty==='yn')i=`<div class=rad>${['Yes','No'].map(o=>`<label><input type=radio name="${k}" value="${o}" ${v===o?'checked':''}> ${o==='Yes'?b('അതെ','Yes'):b('ഇല്ല','No')}</label>`).join('')}</div>`;
+  else if(ty==='district')i=`<select name="${k}"><option value="">${b('തിരഞ്ഞെടുക്കുക','Select')}</option>${DIST.map(d=>`<option value="${d[0]}" ${v===d[0]?'selected':''}>${b(d[1],d[0])}</option>`).join('')}</select>`;
+  else if(ty==='textarea')i=`<textarea name="${k}">${esc(v)}</textarea>`;
+  else if(ty==='dateText')i=`<input type=text name="${k}" inputmode=numeric maxlength=10 placeholder="DD/MM/YYYY" value="${esc(dateDisplay(v))}">`;
+  else{const a={text:'type=text',date:`type=date max="${today()}"`,tel:'type=tel inputmode=tel maxlength=15 autocomplete=tel',pin:'type=text inputmode=numeric maxlength=6',year:'type=text inputmode=numeric maxlength=4'}[ty];i=`<input ${a} name="${k}" value="${esc(v)}">`}
+  const e=ERRS[k]?`<div class=err>${esc(b(ERR[ERRS[k]][0],ERR[ERRS[k]][1]))}</div>`:'';
+  return `<div class="fld ${e?'bad':''}"><label>${lb}${filled?`<span class=field-ok aria-label="${b('പൂർത്തിയായി','Completed')}">✓</span>`:''}</label>${i}${e}</div>`;
+}
+function fieldHasValue(field){
+  const radios=[...field.querySelectorAll('input[type=radio]')];
+  if(radios.length)return radios.some(el=>el.checked);
+  const checks=[...field.querySelectorAll('input[type=checkbox]')];
+  if(checks.length)return checks.some(el=>el.checked);
+  return [...field.querySelectorAll('input,select,textarea')].some(el=>String(el.value||'').trim()!=='');
+}
+function syncFieldMark(el){
+  const field=el.closest('.fld'),label=field&&field.querySelector('label');
+  if(!field||!label)return;
+  const mark=field.querySelector('.field-ok');
+  if(fieldHasValue(field)&&!mark){
+    const badge=document.createElement('span');
+    badge.className='field-ok';badge.setAttribute('aria-label',b('പൂർത്തിയായി','Completed'));badge.textContent='✓';
+    label.appendChild(badge);
+  }else if(!fieldHasValue(field)&&mark)mark.remove();
+}
+function vErr(f){
+  const e={},cy=new Date().getFullYear(),R=k=>{if(!String(f[k]||'').trim())e[k]='REQUIRED'};
+  ['name','father','mother','place','house','post','district','institution','teachers','currentWork'].forEach(R);
+  const vd=s=>!!normalizeDate(s);
+  f.dob=normalizeDate(f.dob)||f.dob;
+  f.declDate=normalizeDate(f.declDate)||f.declDate;
+  const dob=normalizeDate(f.dob);
+  if(!vd(f.dob||''))e.dob='DATE';else{const a=(Date.now()-new Date(dob+'T00:00:00Z'))/31557600000;if(a<10||a>100)e.dob='DATE'}
+  const nm=v=>{let d=String(v||'').replace(/\D/g,'');if(d.length===12&&d.startsWith('91'))d=d.slice(2);if(d.length===11&&d[0]==='0')d=d.slice(1);return d};
+  if(!/^[6-9]\d{9}$/.test(nm(f.mobile)))e.mobile='MOBILE';if(f.whatsapp&&!/^[6-9]\d{9}$/.test(nm(f.whatsapp)))e.whatsapp='MOBILE';
+  if(!/^\d{6}$/.test(f.pin||''))e.pin='PIN';
+  const vy=y=>/^\d{4}$/.test(String(y||''))&&+y>=1950&&+y<=cy+1;
+  ['admissionYear','completionYear','examYear'].forEach(k=>{if(!vy(f[k]))e[k]='YEAR'});
+  if(!e.admissionYear&&!e.completionYear&&+f.completionYear<+f.admissionYear)e.completionYear='YEAR_ORDER';
+  if(!e.admissionYear&&!e.examYear&&+f.examYear<+f.admissionYear)e.examYear='YEAR_ORDER';
+  if(!['Yes','No'].includes(f.tharqiyya))e.tharqiyya='REQUIRED';else if(f.tharqiyya==='Yes'&&!vy(f.tharqiyyaYear))e.tharqiyyaYear='YEAR';
+  if(!['Yes','No'].includes(f.prevApplication))e.prevApplication='REQUIRED';
+  if(f.declAccepted!==true)e.declAccepted='DECL';R('declPlace');if(!vd(f.declDate||''))e.declDate='DATE';
+  return e}
+const stepKeys=i=>i===3?['declAccepted','declPlace','declDate']:STEPS[i].f.map(x=>x[0]);
+function bind(){
+  document.querySelectorAll('#v [name]').forEach(el=>{
+    const h=()=>{
+      FD[el.name]=el.type==='checkbox'
+        ?el.checked
+        :el.type==='radio'
+          ?(el.checked?el.value:FD[el.name])
+          :el.name==='dob'
+            ?(normalizeDate(el.value)||el.value)
+            :el.type==='date'
+              ?(normalizeDate(el.value)||el.value)
+              :el.value;
+      saveDraft();
+      syncFieldMark(el);
+      if(el.name==='tharqiyya')vApply();
+    };
+    const events=el.type==='radio'||el.type==='checkbox'||el.tagName==='SELECT'
+      ?['change']
+      :el.type==='date'
+        ?['input','change']
+        :['input'];
+    events.forEach(event=>el.addEventListener(event,h));
+  });
+}
+async function vApply(){
+  if(!S.cfg.year)await cfg();
+  if(S.cfg.applicationOpen==='false'){$('#v').innerHTML=`<div class=ban>${b('അപേക്ഷകൾ നിലവിൽ സ്വീകരിക്കുന്നില്ല.','Applications are currently closed.')}</div>`;return}
+  if(!FD.declDate)FD.declDate=today();
+  if(FD.dob)FD.dob=normalizeDate(FD.dob)||FD.dob;
+  if(FD.declDate)FD.declDate=normalizeDate(FD.declDate)||FD.declDate;
+  const q=LS.g('cdic_q',[]);const qb=q.length?`<div class=ban>${b(`${q.length} അപേക്ഷ ഓഫ്‌ലൈൻ ആയി സൂക്ഷിച്ചിട്ടുണ്ട്; ഇന്റർനെറ്റ് ലഭിക്കുമ്പോൾ സ്വയം സമർപ്പിക്കും.`,`${q.length} application(s) queued offline; they will be sent automatically when you are online.`)}</div>`:'';
+  const bar=`<div class=steps>${[0,1,2,3,4].map(i=>`<i class="${i<=step?'on':''}"></i>`).join('')}</div>`;
+  let body;
+  if(step<4){const s=STEPS[step];
+    body=`<h3>${String.fromCharCode(65+step)}. ${b(s.ml,s.en)}</h3>`+(s.decl?`<div class=decl><p>${esc(DECL[0](FD.name))}</p><p>${esc(DECL[1])}</p><p>${esc(DECL[2])}</p></div>
+      <div class="fld ${ERRS.declAccepted?'bad':''}"><label style="display:flex;gap:8px;align-items:flex-start"><input type=checkbox name=declAccepted style="width:22px;height:22px" ${FD.declAccepted===true?'checked':''}> ${b('മുകളിലെ സത്യപ്രസ്താവന ഞാൻ വായിച്ച് അംഗീകരിക്കുന്നു.','I have read and accept the declaration above.')}${FD.declAccepted===true?`<span class=field-ok aria-label="${b('പൂർത്തിയായി','Completed')}">✓</span>`:''}</label>${ERRS.declAccepted?`<div class=err>${esc(b(ERR.DECL[0],ERR.DECL[1]))}</div>`:''}</div>
+      <div class=cols>${fld(['declPlace','സ്ഥലം','Place','text'],FD.declPlace)}${fld(['declDate','തീയതി','Date','date'],FD.declDate)}</div><p class=mut>${b('അപേക്ഷകന്റെ പേര്','Applicant name')}: <b>${esc(FD.name||'')}</b> · ${b('ഒപ്പ്: പ്രിന്റ് എടുത്ത ശേഷം ഒപ്പിടുക.','Signature: sign the printed copy.')}</p>`
+      :`<div class=cols>${s.f.map(f=>fld(f,FD[f[0]])).join('')}</div>`)}
+  else{body=`<h3>${t('review')}</h3>`+STEPS.slice(0,3).map(s=>`<div class=card><b>${b(s.ml,s.en)}</b><dl class=kv>${s.f.filter(f=>f[3]!=='h'&&!(f[0]==='tharqiyyaYear'&&FD.tharqiyya!=='Yes')).map(f=>`<dt>${b(f[1],f[2])}</dt><dd>${esc(f[3]==='yn'?(FD[f[0]]==='Yes'?b('അതെ','Yes'):FD[f[0]]?b('ഇല്ല','No'):''):f[3]==='district'?(DIST.find(d=>d[0]===FD[f[0]])||[,FD[f[0]]])[L==='ml'?1:0]:f[0]==='dob'?dateDisplay(FD[f[0]]):FD[f[0]])}</dd>`).join('')}</dl></div>`).join('')}
+  $('#v').innerHTML=`${qb}<h2>${b('ഹിഫ്‌ള് സനദ് അപേക്ഷ','Hifz Sanad application')}</h2>${bar}<div class=card>${body}</div>
+   <div class=row>${step>0?`<button class="btn l" onclick="stp(-1)">${t('prev')}</button>`:''}<button class="btn l" onclick="saveDraft();toast(t('draft'))">${b('ഡ്രാഫ്റ്റ് സൂക്ഷിക്കുക','Save draft')}</button><span class=sp></span>${step<4?`<button class="btn" onclick="stp(1)">${t('next')}</button>`:`<button class="btn g" onclick="submitApp()">${t('submit')}</button>`}</div>`;
+  bind()}
+function stp(d){
+  document.querySelectorAll('#v [name]').forEach(el=>{
+    if(el.type==='checkbox')FD[el.name]=el.checked;
+    else if(el.type==='radio'){if(el.checked)FD[el.name]=el.value}
+    else if(el.name==='dob')FD.dob=normalizeDate(el.value)||el.value;
+    else if(el.type==='date')FD[el.name]=normalizeDate(el.value)||el.value;
+    else FD[el.name]=el.value;
+  });
+  if(d>0&&step<4){const e=vErr(FD),ks=stepKeys(step);ERRS={};ks.forEach(k=>{if(e[k]&&!(k==='tharqiyyaYear'&&FD.tharqiyya!=='Yes'))ERRS[k]=e[k]});if(Object.keys(ERRS).length){vApply();toast(b('ചുവപ്പ് അടയാളമിട്ട വിവരങ്ങൾ ശരിയാക്കുക','Please correct the highlighted fields'),1);return}}
+  ERRS={};step=Math.max(0,Math.min(4,step+d));vApply();window.scrollTo(0,0);
+}
+async function submitApp(){
+  const dobInput=document.querySelector('#v [name="dob"]');
+  if(dobInput)FD.dob=normalizeDate(dobInput.value)||dobInput.value;
+  document.querySelectorAll('#v [name]').forEach(el=>{
+    if(el.type==='checkbox')FD[el.name]=el.checked;
+    else if(el.type==='radio'){if(el.checked)FD[el.name]=el.value}
+    else if(el.name==='dob')FD.dob=normalizeDate(el.value)||el.value;
+    else if(el.type==='date')FD[el.name]=normalizeDate(el.value)||el.value;
+    else FD[el.name]=el.value;
+  });
+  if(FD.dob)FD.dob=normalizeDate(FD.dob)||FD.dob;
+  if(FD.declDate)FD.declDate=normalizeDate(FD.declDate)||FD.declDate;
+  const e=vErr(FD);if(Object.keys(e).length){ERRS=e;for(let i=0;i<4;i++)if(stepKeys(i).some(k=>e[k])){step=i;break}vApply();toast(b('ചില വിവരങ്ങൾ ശരിയല്ല','Some fields need correction'),1);return}
+  if(!await confirmBox(b('അപേക്ഷ സമർപ്പിക്കട്ടെ? സമർപ്പിച്ച ശേഷം മാറ്റം വരുത്താൻ കഴിയില്ല.','Submit the application? You cannot edit it after submission.')))return;
+  FD._rid=FD._rid||uid();saveDraft();  const form={...FD,dob:normalizeDate(FD.dob),declDate:normalizeDate(FD.declDate)};delete form._rid;
+  await run(async()=>{try{const r=await api('submitApplication',{form},FD._rid);LS.d('cdic_draft');done(r.applicationNo,form);FD={};step=0}
+   catch(x){if(x.net){const q=LS.g('cdic_q',[]);q.push({rid:FD._rid,form});LS.s('cdic_q',q);LS.d('cdic_draft');FD={};step=0;toast(b('ഓഫ്‌ലൈൻ ആണ്; ഇന്റർനെറ്റ് വരുമ്പോൾ സ്വയം സമർപ്പിക്കും.','Offline: will be submitted automatically when online.'));go('home')}
+   else{if(x.res&&x.res.error&&x.res.error.details){ERRS=x.res.error.details;for(let i=0;i<4;i++)if(stepKeys(i).some(k=>ERRS[k])){step=i;break}vApply()}throw x}}})}
+function done(no,form){LS.s('cdic_last',{no,form});$('#v').innerHTML=`<div class=card style="text-align:center"><span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><h2>${b('അപേക്ഷ ലഭിച്ചു','Application received')}</h2><p>${b('നിങ്ങളുടെ അപേക്ഷാ നമ്പർ','Your application number')}</p><div class=big>${esc(no)}</div><p class=mut>${b('ഈ നമ്പറും രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പറും ഉപയോഗിച്ച് സ്റ്റാറ്റസ് പരിശോധിക്കാം.','Use this number with your registered mobile number to track status.')}</p><div class=row style="justify-content:center"><button class="btn g" onclick='printApp(${JSON.stringify(no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ് / ഡൗൺലോഡ്','Print / Download')}</button><button class="btn l" onclick="go('track')">${t('track')}</button></div></div>
+ <div class=card><h3>${b('ഇനി ചെയ്യേണ്ടത്','Next steps')}</h3><p>${b(PH[0][2],PH[0][3])}</p><p>${b('ഫീസ്','Fee')}: <b>${S.cfg.fee?'₹'+esc(S.cfg.fee):b('ഓഫീസിൽ നിന്ന് അറിയിക്കും','will be announced by the office')}</b> · ${b('അവസാന തീയതി','Deadline')}: <b>${esc(dateLabel(S.cfg.deadline)||'—')}</b></p></div>`;window.scrollTo(0,0)}
+async function flushQ(){const q=LS.g('cdic_q',[]);if(!q.length||!navigator.onLine||API_URL.indexOf('YOUR_')===0)return;const keep=[];for(const it of q){try{const r=await api('submitApplication',{form:it.form},it.rid);LS.s('cdic_last',{no:r.applicationNo,form:it.form});toast((b('ഓഫ്‌ലൈൻ അപേക്ഷ സമർപ്പിച്ചു: ','Offline application sent: '))+r.applicationNo);}catch(x){if(x.net)keep.push(it);else toast(x.message,1)}}LS.s('cdic_q',keep);const l=LS.g('cdic_last');if(l&&keep.length<q.length)modal(b('അപേക്ഷ ലഭിച്ചു','Application received'),`<span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><div class=big>${esc(l.no)}</div><button class="btn g" onclick='printApp(${JSON.stringify(l.no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ്','Print')}</button>`)}
+
+/* --- Print --- */
+function printApp(no,f,off){
+  f={...f,dob:dateDisplay(f.dob),declDate:dateDisplay(f.declDate)};
+  const rowsH=STEPS.slice(0,3).map((s,i)=>`<h3>${String.fromCharCode(65+i)}. ${s.ml} / ${s.en}</h3><dl class=kv>${s.f.filter(x=>x[3]!=='h'&&!(x[0]==='tharqiyyaYear'&&f.tharqiyya!=='Yes')).map(x=>`<dt>${x[1]}<br><small>${x[2]}</small></dt><dd>${esc(x[3]==='yn'?(f[x[0]]==='Yes'?'അതെ / Yes':f[x[0]]==='No'?'ഇല്ല / No':''):f[x[0]])}</dd>`).join('')}</dl>`).join('');
+  const o={...(off||{}),receivedDate:dateDisplay(off&&off.receivedDate)};
+  $('#print').innerHTML=`<div style="display:flex;align-items:center;gap:12px"><img src="logo.jpg" alt="CDIC emblem" style="height:80px;width:104px;object-fit:contain"><div><b style="font-size:16pt">CDIC — Coordination of Darussalam Islamic Colleges</b><br>ഹിഫ്‌ള് സനദ് അപേക്ഷ / Hifz Sanad Application</div></div><h2>${esc(no)}</h2>${rowsH}
+  <h3>D. അപേക്ഷകന്റെ സത്യപ്രസ്താവന</h3><p>${esc(DECL[0](f.name))}</p><p>${esc(DECL[1])}</p><p>${esc(DECL[2])}</p><p>സ്ഥലം: ${esc(f.declPlace||'')} &nbsp; തീയതി: ${esc(f.declDate||'')}</p><p style="text-align:right">അപേക്ഷകന്റെ പേര്: ${esc(f.name)}<br><br>ഒപ്പ്: ......................................</p>
+  <div class=pb><b>ഓഫീസ് ആവശ്യത്തിന് മാത്രം / Office use only</b><dl class=kv><dt>അപ്ലിക്കേഷൻ നമ്പർ</dt><dd>${esc(no)}</dd><dt>അപേക്ഷ ലഭിച്ച തീയതി</dt><dd>${esc(o.receivedDate||'')}</dd><dt>പഠനവിവരങ്ങൾ പരിശോധിച്ചു</dt><dd>${o.eduVerified?(o.eduVerified==='Yes'?'അതെ':'ഇല്ല'):'അതെ / ഇല്ല'}</dd><dt>ബന്ധപ്പെട്ട സ്ഥാപനത്തിൽനിന്ന് സ്ഥിരീകരിച്ചു</dt><dd>${o.instConfirmed?(o.instConfirmed==='Yes'?'അതെ':'ഇല്ല'):'അതെ / ഇല്ല'}</dd><dt>സനദിന് അർഹത</dt><dd>${esc(o.eligibility||'അംഗീകരിച്ചു / നിരസിച്ചു / പരിശോധനയിൽ')}</dd><dt>മറ്റ് വിവരങ്ങൾ</dt><dd>${esc(o.remarks||'')}</dd><dt>പരിശോധിച്ച ഉദ്യോഗസ്ഥന്റെ പേര്, ഒപ്പ്</dt><dd>${esc(o.verifierName||'')}</dd></dl></div>
+  <p style="font-size:10pt">ഓഫീസിൽ എത്തിക്കേണ്ടത്: പ്രിന്റ് കോപ്പി, പഠിച്ച സ്ഥാപനത്തിന്റെ ലെറ്റർ, SSLC സർട്ടിഫിക്കറ്റ്, അനുബന്ധ രേഖകൾ. / Deliver this printout, institution letter, SSLC certificate and supporting documents to the office.</p>`;
+  setTimeout(()=>window.print(),150)}
+function printHall(h,no){
+  const oldTitle=document.title,printTitle=`${String(h.name||no).replace(/[\\/:*?"<>|]/g,'').trim()||no}-Hall-Ticket`;
+  const restoreTitle=()=>{document.title=oldTitle;removeEventListener('afterprint',restoreTitle)};
+  document.title=printTitle;addEventListener('afterprint',restoreTitle,{once:true});
+  $('#print').innerHTML=`<div style="display:flex;align-items:center;gap:12px"><img src="logo.jpg" alt="CDIC emblem" style="height:80px;width:104px;object-fit:contain"><b style="font-size:16pt">CDIC — ഹാൾ ടിക്കറ്റ് / Hall Ticket</b></div><div class=pb><dl class=kv><dt>Application No</dt><dd>${esc(no)}</dd><dt>പേര് / Name</dt><dd>${esc(h.name)}</dd><dt>പിതാവിന്റെ പേര്</dt><dd>${esc(h.father)}</dd><dt>സ്ഥാപനം</dt><dd>${esc(h.institution)}</dd><dt>ജില്ല</dt><dd>${esc(h.district)}</dd><dt>പരീക്ഷാ തീയതി / Exam date</dt><dd>${esc(dateDisplay(h.examDate)||'—')}</dd><dt>കേന്ദ്രം / Venue</dt><dd>${esc(h.venue||'—')}</dd></dl></div><h3>നിർദ്ദേശങ്ങൾ / Instructions</h3><p style="white-space:pre-wrap">${esc(h.instructions||'')}</p>`;
+  setTimeout(()=>window.print(),150)
+}
+function downloadHallTicketPdf(h,no){printHall(h,no)}
+/* --- Track / Result --- */
+function lookupForm(id,btn){return `<div class=card style="max-width:520px"><label>${b('അപേക്ഷാ നമ്പർ','Application number')}</label><input type=text id=${id}n placeholder="CDIC-HIFZ-2026-00001" autocapitalize=characters><label>${b('രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പർ','Registered mobile number')}</label><input type=tel id=${id}m inputmode=tel><div class=row><button class="btn g" id=${id}b>${btn}</button></div></div><div id=${id}r></div>`}
+async function vTrack(){
+  $('#v').innerHTML=`<h2>${b('അപേക്ഷയുടെ സ്റ്റാറ്റസ്','Application status')}</h2>`+lookupForm('t',b('സ്റ്റാറ്റസ് നോക്കുക','Check status'));
+  $('#tb').onclick=()=>run(async()=>{const r=await api('trackApplication',{applicationNo:$('#tn').value,mobile:$('#tm').value});const s=ST[r.status]||[];
+   $('#tr').innerHTML=`<div class=card><div class=mut>${esc(r.applicationNo)} · ${esc(r.name)}</div><h3>${tag(r.status)}</h3><p>${esc(s[L==='ml'?2:0]&&L==='ml'?s[2]:stl(r.status))}</p><p class=mut>${b('അപേക്ഷിച്ച തീയതി','Applied on')}: ${esc(dateDisplay(r.appliedOn))} · ${b('ഫീസ്','Payment')}: ${esc(r.paymentStatus==='Verified'?b('സ്ഥിരീകരിച്ചു','Verified'):b('ബാക്കി','Pending'))}</p>${r.hallTicket?`<div class=row><button class="btn g" id=downloadPdfTicket>${b('PDF ഡൗൺലോഡ്','Download PDF')}</button><button class="btn l" id=printTicket>${b('ഹാൾ ടിക്കറ്റ് പ്രിന്റ് ചെയ്യുക','Print hall ticket')}</button></div><small class=mut>${b('PDF ആയി സൂക്ഷിക്കാൻ പ്രിന്റ് വിൻഡോയിൽ “Save as PDF” തിരഞ്ഞെടുക്കുക.','To save a PDF, choose “Save as PDF” in the print window.')}</small>`:''}</div>`;
+   if(r.hallTicket){$('#downloadPdfTicket').onclick=()=>downloadHallTicketPdf(r.hallTicket,r.applicationNo);$('#printTicket').onclick=()=>printHall(r.hallTicket,r.applicationNo)}
+  })}
+async function vResult(){
+  $('#v').innerHTML=`<h2>${b('ഫലം അറിയുക','Check result')}</h2>`+lookupForm('r',b('ഫലം നോക്കുക','View result'));
+  $('#rb').onclick=()=>run(async()=>{try{const r=await api('getPublishedResult',{applicationNo:$('#rn').value,mobile:$('#rm').value});$('#rr').innerHTML=`<div class=card><div class=mut>${esc(r.applicationNo)}</div><h3>${esc(r.name)}</h3><p>${tag(r.result)}</p></div>`}catch(e){if(e.res&&e.res.error.code==='NOT_PUBLISHED'){$('#rr').innerHTML=`<div class=ban>${b('ഫലം ഇതുവരെ പ്രസിദ്ധീകരിച്ചിട്ടില്ല.','Result has not been published yet.')}</div>`}else throw e}})}
+async function vLogin(){
+  $('#v').innerHTML=`<div class=card style="max-width:420px;margin:20px auto;text-align:center"><img src="logo.jpg" style="height:110px;max-width:100%;object-fit:contain" alt="Coordination of Darussalam Islamic Colleges emblem"><h3>CDIC UNIFIED PORTAL</h3><div style="text-align:left"><label>${b('ഉപയോക്തൃനാമം','Username')}</label><input type=text id=lu autocomplete=username autocapitalize=none><label>${b('പാസ്‌വേഡ്','Password')}</label><input type=password id=lp autocomplete=current-password></div><div class=row><button class="btn" style="width:100%" id=lb>${b('ലോഗിൻ','Log in')}</button></div></div>`;
+  const go_=()=>run(async()=>{const d=await api('login',{username:$('#lu').value,password:$('#lp').value});setSess(d);if(d.user.mustChange)await pwModal(true);go('dash')});
+  $('#lb').onclick=go_;$('#lp').onkeydown=e=>{if(e.key==='Enter')go_()}}
+function pwModal(force){return new Promise(r=>{const d=modal(b('പാസ്‌വേഡ് മാറ്റുക','Change password'),`${force?`<div class=ban>${b('തുടരാൻ പുതിയ പാസ്‌വേഡ് സജ്ജമാക്കുക.','Set a new password to continue.')}</div>`:''}<label>${b('നിലവിലെ പാസ്‌വേഡ്','Current password')}</label><input type=password id=po><label>${b('പുതിയ പാസ്‌വേഡ് (10+ അക്ഷരം, അക്ഷരവും അക്കവും)','New password (10+ chars, letters and numbers)')}</label><input type=password id=pn><div class=row><button class="btn g" id=ps>${t('save')}</button></div>`);
+  $('#ps').onclick=()=>run(async()=>{await api('changePassword',{oldPassword:$('#po').value,newPassword:$('#pn').value});S.user.mustChange=false;sessionStorage.setItem('us',JSON.stringify(S.user));toast(b('പാസ്‌വേഡ് മാറ്റി','Password changed'));d.close();r()});d.onclose=()=>{if(!force||!S.user.mustChange)r();else pwModal(true)}})}
+
+/* ====== STAFF VIEWS ====== */
+async function vDash(){
+  const d=await api('getDashboard'),c=d.cards;
+  const queues=[['verification','പരിശോധന വേണ്ടവർ','Needs verification',d.workQueues.verification],['exam','പരീക്ഷയ്ക്ക് തയ്യാറുള്ളവർ','Ready for exam',d.workQueues.exam],['attendance','ഹാജർ രേഖപ്പെടുത്തുക','Record attendance',d.workQueues.attendance],['results','ഫലം തയ്യാറാക്കുക','Prepare results',d.workQueues.results],['resultDrafts','ഫല ഡ്രാഫ്റ്റുകൾ പരിശോധിക്കുക','Review result drafts',d.workQueues.resultDrafts],['sanad','സനദ് വിതരണം','Sanad to distribute',d.workQueues.sanad]];
+  const workload=d.workload?`<section class=dash-section><div class=dash-section-head><h3>${b('വെരിഫയർ ജോലിഭാരം','Verifier workload')}</h3><span class=mut>${b('വെരിഫിക്കേഷൻ ലക്ഷ്യം','Verification target')}: ${d.workload.targetDays} ${b('ദിവസം','days')}</span></div>${d.workload.unassigned.total?`<div class=ban>${d.workload.unassigned.total} ${b('അപേക്ഷകൾക്ക് വെരിഫയർ നിയമിച്ചിട്ടില്ല','applications have no verifier assigned')} · ${d.workload.unassigned.overdue} ${b('കാലതാമസം','overdue')}</div>`:''}<div class=tw><table class=workload-table><thead><tr><th>${b('വെരിഫയർ','Verifier')}</th><th>${b('അസൈൻ ചെയ്തത്','Assigned')}</th><th>${b('കാലതാമസം','Overdue')}</th></tr></thead><tbody>${d.workload.verifiers.map(v=>`<tr><td>${esc(v.name)} <small class=mut>(${esc(v.username)})</small></td><td>${v.assigned}</td><td>${v.overdue}</td></tr>`).join('')||`<tr><td colspan=3 class=mut>${b('സജീവ വെരിഫയർമാരില്ല','No active verifiers')}</td></tr>`}</tbody></table></div></section>`:'';
+  $('#v').innerHTML=`<div class=admin-head><div><h2>${b('നമസ്കാരം','Welcome')}, ${esc(S.user.name||'')}</h2><p>${b('ഇന്നത്തെ അപേക്ഷാ നിലയും തുടർനടപടികളും ഇവിടെ കാണാം.','Review application activity and continue the next steps from one place.')}</p></div><div class=admin-actions><button class="btn l" onclick="go('apps')">${b('അപേക്ഷകൾ കാണുക','View applications')}</button>${can('SUPER_ADMIN','ADMIN')?`<button class="btn l" onclick="go('results')">${t('results')}</button><button class="btn l" onclick="go('reports')">${t('reports')}</button>`:''}<button class="btn l" onclick="go('dash')" aria-label="${b('ഡാഷ്ബോർഡ് പുതുക്കുക','Refresh dashboard')}">↻ ${b('പുതുക്കുക','Refresh')}</button></div></div>
+  <section class=dash-section aria-label="${b('പ്രധാന കണക്കുകൾ','Key metrics')}"><div class="grid dash-kpis">${[['total','Total Applications','ആകെ അപേക്ഷകൾ'],['underVerification','Under Verification','പരിശോധനയിൽ'],['eligible','Eligible Candidates','യോഗ്യർ'],['hallTickets','Hall Tickets Issued','ഹാൾ ടിക്കറ്റ് നൽകിയവ']].map(x=>`<div class=stat><b>${c[x[0]]}</b><span>${b(x[2],x[1])}</span></div>`).join('')}</div></section>
+  <section class=dash-section aria-label="${b('തുടർനടപടികൾ','Next steps')}"><div class=dash-section-head><h3>${b('തുടർനടപടികൾ','Next steps')}</h3><span class=mut>${b('ഒരു വിഭാഗം തിരഞ്ഞെടുക്കുക; അതിലെ അപേക്ഷകളുടെ എണ്ണം കാണാം.','Choose a queue to open its applications.')}</span></div><div class=dash-queues>${queues.map(([key,ml,en,count])=>`<button class=queue-card type=button onclick="openDashboardQueue('${key}')"><span>${b(ml,en)}</span><b>${count||0}</b></button>`).join('')}</div></section>
+  ${workload}<section class=dash-section><div class=dash-section-head><h3>${b('പുതിയ അപേക്ഷകൾ','Recent applications')}</h3><div class=section-actions><span class=mut>${d.recent.length} ${b('പുതിയ രേഖകൾ','recent records')}</span><button class="btn l s" onclick="go('apps')">${b('എല്ലാം കാണുക','View all')}</button></div></div><div class=tw><table><thead><tr><th>No</th><th>${b('പേര്','Name')}</th><th>${b('ജില്ല','District')}</th><th>${b('സ്റ്റാറ്റസ്','Status')}</th><th>${b('തീയതി','Date')}</th></tr></thead><tbody>${d.recent.map(r=>`<tr class=cl tabindex=0 onclick="showApp('${esc(r.applicationNo)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();showApp('${esc(r.applicationNo)}')}"><td>${esc(r.applicationNo)}</td><td>${esc(r.name)}</td><td>${esc(r.district)}</td><td>${tag(r.status)}</td><td>${esc(r.createdAt.slice(0,10))}</td></tr>`).join('')||`<tr><td colspan=5 class=mut>${b('ഇതുവരെ അപേക്ഷകളില്ല','No applications yet')}</td></tr>`}</tbody></table></div></section>`}
+function openDashboardQueue(queue){if(queue==='resultDrafts'){go('results');return}AQ={...AQ,q:'',district:'',institution:'',admissionYear:'',status:'',queue:queue,page:1};go('apps')}
+
+let AQ={q:'',district:'',institution:'',admissionYear:'',status:'',queue:'',sort:'createdAt',dir:'desc',page:1,pageSize:20},SEL=new Set(),LAST=null;
+function clearAppFilters(){AQ={...AQ,q:'',district:'',institution:'',admissionYear:'',status:'',queue:'',sort:'createdAt',dir:'desc',page:1};go('apps')}
+function syncAppSelection(){
+  const count=SEL.size,status=$('#selectionStatus'),bulk=$('#ba'),apply=$('#bulkBtn'),exportSelected=$('#exportSelected'),clear=$('#clearSelection');
+  if(status)status.textContent=count?`${count} ${b('അപേക്ഷകൾ തിരഞ്ഞെടുത്തു','applications selected')}`:b('അപേക്ഷകൾ തിരഞ്ഞെടുത്തിട്ടില്ല','No applications selected');
+  if(bulk)bulk.disabled=!count;
+  if(apply)apply.disabled=!count;
+  if(exportSelected)exportSelected.disabled=!count;
+  if(clear)clear.disabled=!count;
+  const boxes=[...document.querySelectorAll('[data-no]')],checked=boxes.filter(x=>SEL.has(x.dataset.no)).length,all=$('#sa');
+  boxes.forEach(box=>box.checked=SEL.has(box.dataset.no));
+  if(all){all.disabled=!boxes.length;all.checked=boxes.length>0&&checked===boxes.length;all.indeterminate=checked>0&&checked<boxes.length}
+}
+async function vApps(){
+  const d=await api('listApplications',AQ);LAST=d;const o=d.options;
+  const queueTitle={verification:b('പരിശോധന വേണ്ടവർ','Needs verification'),exam:b('പരീക്ഷയ്ക്ക് തയ്യാറുള്ളവർ','Ready for exam'),attendance:b('ഹാജർ രേഖപ്പെടുത്തുക','Record attendance'),results:b('ഫലം തയ്യാറാക്കുക','Prepare results')};
+  const sel=(id,k,arr,lab)=>`<select id=${id}><option value="">${lab}</option>${arr.map(x=>`<option value="${esc(x)}" ${AQ[k]===x?'selected':''}>${esc(ST[x]?stl(x):x)}</option>`).join('')}</select>`;
+  $('#v').innerHTML=`<div class="dash-section-head"><div><h2>${t('apps')} <small class=mut>(${d.total})</small></h2><span class=mut>${b('അപേക്ഷ തിരഞ്ഞെടുക്കുക; മുഴുവൻ വിവരങ്ങളും തുടർനടപടികളും തുറക്കാം.','Open an application to review all details and available next steps.')}</span>${AQ.queue&&queueTitle[AQ.queue]?`<p><span class="tag in">${esc(queueTitle[AQ.queue])}</span></p>`:''}</div></div>
+  <div class=card><div class=flt><input type=search id=fq placeholder="${b('പേര് / നമ്പർ / മൊബൈൽ','Name / number / mobile')}" value="${esc(AQ.q)}">${sel('fs','status',Object.keys(ST),b('എല്ലാ സ്റ്റാറ്റസുകളും','All statuses'))}<button class="btn" id=fb>${b('തിരയുക','Search')}</button></div>
+  <details class=admin-more><summary>${b('കൂടുതൽ ഫിൽട്ടറുകളും റിപ്പോർട്ടുകളും','More filters and reports')}</summary><div class=flt>${sel('fd','district',o.districts,b('ജില്ല','District'))}${sel('fi','institution',o.institutions,b('സ്ഥാപനം','Institution'))}${sel('fy','admissionYear',o.years,b('പ്രവേശന വർഷം','Admission year'))}<select id=fo aria-label="${b('ക്രമം','Sort order')}">${[['createdAt','desc','Newest'],['createdAt','asc','Oldest'],['name','asc','Name A-Z'],['district','asc','District'],['status','asc','Status']].map(x=>`<option value="${x[0]}|${x[1]}" ${AQ.sort===x[0]&&AQ.dir===x[1]?'selected':''}>${x[2]}</option>`).join('')}</select></div><div class=row><button class="btn l s" onclick="clearAppFilters()">${b('ഫിൽട്ടറുകൾ മായ്ക്കുക','Clear filters')}</button>${can('SUPER_ADMIN','ADMIN','VIEWER')?`<button class="btn l s" onclick="exp('filtered')">CSV: ${b('ഫിൽട്ടർ ചെയ്തവ','filtered')}</button>`:''}</div></details></div>
+  <div class="card app-toolbar"><label class=select-page><input type=checkbox id=sa aria-label="${b('ഈ പേജിലെ അപേക്ഷകൾ തിരഞ്ഞെടുക്കുക','Select applications on this page')}"><span>${b('ഈ പേജിലെ എല്ലാം തിരഞ്ഞെടുക്കുക','Select all on this page')}</span></label>
+  <div class=bulk-summary><span id=selectionStatus class=selection-status aria-live=polite></span><button type=button class="btn l s" id=clearSelection disabled>${b('തിരഞ്ഞെടുപ്പ് മായ്ക്കുക','Clear selection')}</button></div>
+  <div class=row>${can('SUPER_ADMIN','ADMIN')?`<select id=ba aria-label="${b('തിരഞ്ഞെടുത്തവയിൽ ബൾക്ക് നടപടി','Bulk action for selected applications')}" disabled><option value="">${b('തിരഞ്ഞെടുത്തവയിൽ നടപടി…','Action for selected…')}</option><option value=ht>${b('ഹാൾ ടിക്കറ്റ് നൽകുക','Issue hall tickets')}</option><option value=at>${b('പരീക്ഷ എഴുതി','Mark attended')}</option><option value=an>${b('പരീക്ഷ എഴുതിയില്ല','Mark not attended')}</option><option value=drq>${b('ഡ്രാഫ്റ്റ് ഫലം: യോഗ്യത നേടി','Draft result: Qualified')}</option><option value=drn>${b('ഡ്രാഫ്റ്റ് ഫലം: യോഗ്യത നേടിയില്ല','Draft result: Not Qualified')}</option><option value=sr>${b('സനദ് കൈപ്പറ്റാൻ തയ്യാർ','Sanad ready')}</option><option value=sc>${b('സനദ് കൈപ്പറ്റി','Sanad collected')}</option><option value=st>${b('സ്റ്റാറ്റസ് മാറ്റുക','Change status')}</option><option value=av>${b('വെരിഫയർ നിയമിക്കുക','Assign verifier')}</option></select><button id=bulkBtn class="btn s" onclick="bulk()" disabled>${b('നടപ്പാക്കുക','Apply')}</button><button type=button class="btn l s" onclick="go('results')">${b('ഫല ഡ്രാഫ്റ്റുകൾ പരിശോധിക്കുക','Review result drafts')}</button>`:''}${can('SUPER_ADMIN','ADMIN','VIEWER')?`<button id=exportSelected class="btn l s" onclick="exp('selected')" disabled>CSV: ${b('തിരഞ്ഞെടുത്തവ കയറ്റുമതി ചെയ്യുക','Export selected')}</button>`:''}<span class=mut>${b('നടപടികൾ തിരഞ്ഞെടുത്ത അപേക്ഷകളിൽ മാത്രം ബാധകമാണ്.','Actions apply only to selected applications.')}</span></div></div>
+  <section class=app-list aria-label="${b('അപേക്ഷകളുടെ പട്ടിക','Application list')}">${d.rows.map(r=>`<article class=app-item><div class=app-primary><label class=app-check><input type=checkbox data-no="${esc(r.applicationNo)}" aria-label="${b('അപേക്ഷ തിരഞ്ഞെടുക്കുക','Select application')} ${esc(r.applicationNo)}"></label><div><div class=app-name>${esc(r.name)}</div><div class=app-number>${esc(r.applicationNo)} · ${esc(r.mobile)}</div></div></div><dl class=app-meta><div><dt>${b('ജില്ല','District')}</dt><dd>${esc(r.district)}</dd></div><div><dt>${b('സ്ഥാപനം','Institution')}</dt><dd>${esc(r.institution)}</dd></div><div><dt>${b('പ്രവേശന വർഷം','Admission year')}</dt><dd>${esc(r.admissionYear)}</dd></div><div><dt>${b('വെരിഫയർ','Verifier')}</dt><dd>${esc(r.assignedVerifier)||'—'}</dd></div></dl><div class=app-status>${tag(r.status)}<small>${b('സ്റ്റാറ്റസ്','Status')}</small></div><button type=button class="btn l s app-open" data-open="${esc(r.applicationNo)}">${b('തുറക്കുക','Open')}</button></article>`).join('')||`<div class=card>${b('അപേക്ഷകൾ കണ്ടെത്തിയില്ല','No applications found')}</div>`}</section>
+  <div class=apps-pagination><div class=row><span class=mut>${b('കാണിക്കുന്നത്','Showing')} ${d.total?(d.page-1)*AQ.pageSize+1:0}–${Math.min(d.total,d.page*AQ.pageSize)} / ${d.total}</span><label class=page-size>${b('ഒരു പേജിൽ','Rows per page')}<select id=pageSizeSelect>${[20,50,100].map(n=>`<option value="${n}" ${AQ.pageSize===n?'selected':''}>${n}</option>`).join('')}</select></label></div><div class=row><button class="btn l s" aria-label="${b('മുൻ പേജ്','Previous page')}" ${d.page<=1?'disabled':''} onclick="AQ.page--;go('apps')">‹</button><span>${d.page} / ${d.pages}</span><button class="btn l s" aria-label="${b('അടുത്ത പേജ്','Next page')}" ${d.page>=d.pages?'disabled':''} onclick="AQ.page++;go('apps')">›</button></div></div>`;
+  $('#fb').onclick=()=>{AQ.q=$('#fq').value;AQ.district=$('#fd').value;AQ.institution=$('#fi').value;AQ.admissionYear=$('#fy').value;AQ.status=$('#fs').value;[AQ.sort,AQ.dir]=$('#fo').value.split('|');AQ.page=1;go('apps')};
+  $('#fq').onkeydown=e=>{if(e.key==='Enter')$('#fb').click()};
+  $('#pageSizeSelect').onchange=e=>{AQ.pageSize=Number(e.target.value)||20;AQ.page=1;go('apps')};
+  $('#sa').onchange=e=>{document.querySelectorAll('[data-no]').forEach(c=>e.target.checked?SEL.add(c.dataset.no):SEL.delete(c.dataset.no));syncAppSelection()};
+  $('#clearSelection').onclick=()=>{SEL.clear();syncAppSelection()};
+  document.querySelectorAll('[data-no]').forEach(c=>c.onchange=()=>{c.checked?SEL.add(c.dataset.no):SEL.delete(c.dataset.no);syncAppSelection()});
+  document.querySelectorAll('[data-open]').forEach(button=>button.onclick=()=>showApp(button.dataset.open));
+  syncAppSelection()}
+async function exp(mode){if(mode==='selected'&&!SEL.size)return toast(b('ഒന്നും തിരഞ്ഞെടുത്തിട്ടില്ല','Nothing selected'),1);await run(async()=>{const d=await api('exportApplications',mode==='selected'?{applicationNos:[...SEL]}:{filters:AQ});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d.csv],{type:'text/csv;charset=utf-8'}));a.download=d.filename;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);toast(d.count+' '+b('രേഖകൾ','records'))})}
+function ask(title,fields){return new Promise(r=>{const d=modal(title,fields.map(f=>`<label>${f[1]}</label>${f[2]==='sel'?`<select id="a_${f[0]}">${f[3].map(o=>`<option>${esc(o)}</option>`).join('')}</select>`:`<input type=${f[2]||'text'} id="a_${f[0]}" value="${esc(f[3]||'')}">`}`).join('')+`<div class=row><button class="btn g" id=ak>OK</button></div>`);$('#ak').onclick=()=>{const o={};fields.forEach(f=>o[f[0]]=$('#a_'+f[0]).value);d.close();r(o)};d.onclose=()=>r(null)})}
+function resultDraftPreview(preview){
+  const eligible=preview.eligible.map(r=>`<li><b>${esc(r.name)}</b> · ${esc(r.applicationNo)}${r.previousResult?` <small class=mut>(${b('ഡ്രാഫ്റ്റ് മാറ്റും','will replace draft')}: ${esc(r.previousResult)})</small>`:''}</li>`).join('');
+  const reasonText={NOT_FOUND:b('അപേക്ഷ കണ്ടെത്തിയില്ല','Application not found'),ATTENDANCE_NOT_RECORDED:b('പരീക്ഷാ ഹാജർ രേഖപ്പെടുത്തിയിട്ടില്ല','Exam attendance is not recorded'),RESULT_ALREADY_PUBLISHED:b('ഫലം ഇതിനകം പ്രസിദ്ധീകരിച്ചു','Result is already published')};
+  const excluded=preview.excluded.map(r=>`<li>${esc(r.name||r.applicationNo)} · ${esc(reasonText[r.reason]||r.reason)}</li>`).join('');
+  return new Promise(resolve=>{const d=modal(b('ഫല ഡ്രാഫ്റ്റ് പരിശോധിക്കുക','Review result draft'),`<div class=ban>${b('ഇത് ഡ്രാഫ്റ്റായി മാത്രം സേവ് ചെയ്യും; പൊതുജനങ്ങൾക്ക് കാണിക്കില്ല.','This saves a draft only; it will not be visible publicly.')}</div><p><b>${preview.eligible.length}</b> ${b('യോഗ്യ അപേക്ഷകൾ','eligible applicants')} · <b>${preview.excluded.length}</b> ${b('ഒഴിവാക്കും','excluded')}</p><p>${b('ഫലം','Result')}: ${tag(preview.result)}</p><ul>${eligible||`<li>${b('യോഗ്യരായ അപേക്ഷകളില്ല','No eligible applicants')}</li>`}</ul>${excluded?`<details><summary>${b('ഒഴിവാക്കിയവ കാണുക','View excluded applicants')}</summary><ul>${excluded}</ul></details>`:''}<div class=row><button class="btn g" id=saveResultDraft ${preview.eligible.length?'':'disabled'}>${b('ഡ്രാഫ്റ്റ് സേവ് ചെയ്യുക','Save draft')}</button><button class="btn l" id=cancelResultDraft>${t('cancel')}</button></div>`);d.onclose=()=>resolve(false);$('#cancelResultDraft').onclick=()=>d.close();$('#saveResultDraft').onclick=()=>{d.onclose=null;d.close();resolve(true)}});
+}
+async function draftResult(n,result){
+  const preview=await run(()=>api('previewResultDraft',{applicationNos:n,result}));if(!preview)return;
+  if(!await resultDraftPreview(preview))return;
+  await run(async()=>{const r=await api('saveResultDraft',{applicationNos:preview.eligible.map(x=>x.applicationNo),result});toast(`${r.updated} ${b('ഫലങ്ങളുടെ ഡ്രാഫ്റ്റ് സേവ് ചെയ്തു','result drafts saved')}${r.skipped.length?` · ${r.skipped.length} ${b('മാറ്റം വന്നതിനാൽ ഒഴിവാക്കി','skipped because records changed')}`:''}`);SEL.clear();await go('apps')});
+}
+async function bulk(){
+  const a=$('#ba').value,n=[...SEL];if(!a)return;if(!n.length)return toast(b('അപേക്ഷകൾ തിരഞ്ഞെടുക്കുക','Select applications first'),1);
+  if(n.length>100)return toast(b('ഒരേസമയം പരമാവധി 100 അപേക്ഷകൾ തിരഞ്ഞെടുക്കുക','Select no more than 100 applications at a time'),1);
+  if(a==='drq'||a==='drn'){await draftResult(n,a==='drq'?'Qualified':'Not Qualified');return}
+  let call;
+  if(a==='ht')call=['publishHallTicket',{applicationNos:n}];
+  if(a==='at'||a==='an')call=['recordExamAttendance',{applicationNos:n,attended:a==='at'}];
+  if(a==='sr')call=['updateApplicationStatus',{applicationNos:n,status:'Sanad Ready for Collection'}];
+  if(a==='sc'){const o=await ask(b('സനദ് വിതരണം','Sanad collection'),[['officer',b('ഉദ്യോഗസ്ഥൻ','Responsible officer'),'text',S.user.name],['date',b('തീയതി','Date'),'date',today()]]);if(!o)return;call=['recordSanadCollection',{applicationNos:n,officer:o.officer,date:o.date}]}
+  if(a==='st'){const o=await ask(b('സ്റ്റാറ്റസ്','Status'),[['status','Status','sel',Object.keys(ST)]]);if(!o)return;call=['updateApplicationStatus',{applicationNos:n,status:o.status}]}
+  if(a==='av'){const o=await ask(b('വെരിഫയർ','Verifier'),[['verifier','Username','text','']]);if(!o)return;call=['assignVerifier',{applicationNos:n,verifier:o.verifier}]}
+  if(!await confirmBox(b(`${n.length} അപേക്ഷകളിൽ നടപ്പാക്കട്ടെ?`,`Apply to ${n.length} application(s)?`)))return;
+  await run(async()=>{const r=await api(call[0],call[1]);toast(`${r.updated} ${b('പുതുക്കി','updated')}${r.skipped.length?` · ${r.skipped.length} ${b('ഒഴിവാക്കി (നിബന്ധന പാലിക്കുന്നില്ല)','skipped (preconditions not met)')}`:''}`);SEL.clear();go('apps')})}
+
+async function vResults(){
+  const d=await api('getResultDrafts'),draftCount=d.rows.length,publishedCount=d.publishedRows.length,qualified=d.rows.filter(r=>r.resultStatus==='Qualified').length,notQualified=d.rows.length-qualified;
+  const reviewRows=d.publicEnabled?d.rows:d.publishedRows.map(r=>({...r,alreadyPublished:true})).concat(d.rows);
+  const publicStatus=d.publicEnabled?b('പ്രസിദ്ധീകരിച്ച ഫലങ്ങൾ പൊതുജനങ്ങൾക്ക് കാണാം','Published results are visible publicly'):b('ഫലങ്ങൾ നിലവിൽ പൊതുജനങ്ങൾക്ക് കാണാനാകില്ല','Results are currently hidden from the public');
+  $('#v').innerHTML=`<div class=dash-section-head><div><h2>${t('results')}</h2><span class=mut>${b('ഡ്രാഫ്റ്റുകൾ പരിശോധിച്ച് തയ്യാറായപ്പോൾ ഒരുമിച്ച് പ്രസിദ്ധീകരിക്കുക.','Review drafts and release them publicly when ready.')}</span></div><div class=row><button class="btn l s" onclick="go('dash')">${t('dash')}</button><button class="btn l s" onclick="go('results')">${b('പുതുക്കുക','Refresh')}</button></div></div>
+  <div class=grid><div class=stat><b>${draftCount}</b><span>${b('പ്രസിദ്ധീകരിക്കാത്ത ഡ്രാഫ്റ്റുകൾ','Unpublished drafts')}</span></div><div class=stat><b>${qualified}</b><span>${b('യോഗ്യത നേടി','Qualified')}</span></div><div class=stat><b>${notQualified}</b><span>${b('യോഗ്യത നേടിയില്ല','Not Qualified')}</span></div><div class=stat><b>${publishedCount}</b><span>${d.publicEnabled?b('പൊതുവിൽ പ്രസിദ്ധീകരിച്ചത്','Published publicly'):b('പൊതുജനങ്ങൾക്ക് മറച്ചത്','Published but hidden')}</span></div></div>
+  <div class=card><div class=row><span class="tag ${d.publicEnabled?'ok':'wr'}">${esc(publicStatus)}</span><span class=sp></span>${d.publicEnabled?`<button class="btn r s" onclick="hidePublicResults()">${b('ഫലങ്ങൾ പൊതുജനങ്ങളിൽ നിന്ന് മറയ്ക്കുക','Hide results from public')}</button>`:''}</div><p class=mut>${b('ഈ പട്ടികയിലെ ഓരോ അപേക്ഷയും പരിശോധിക്കുക. പ്രസിദ്ധീകരിക്കൽ എല്ലാ ഡ്രാഫ്റ്റുകളും പൊതുജനങ്ങൾക്ക് ലഭ്യമാക്കും.','Review every applicant below. Publishing releases all saved drafts to the public.')}</p><button class="btn g" id=releaseDraftResults ${draftCount||(!d.publicEnabled&&publishedCount)?'':'disabled'} onclick="releaseResultDrafts()">${d.publicEnabled?b('ഡ്രാഫ്റ്റുകൾ പൊതുജനങ്ങൾക്ക് പ്രസിദ്ധീകരിക്കുക','Publish drafts publicly'):b('ഫലങ്ങൾ പൊതുജനങ്ങൾക്ക് പ്രസിദ്ധീകരിക്കുക','Release results publicly')}</button></div>
+  <section class=result-list aria-label="${b('ഫല പ്രസിദ്ധീകരണ അവലോകനം','Result release review')}">${reviewRows.map(r=>`<article class=result-draft><div><strong>${esc(r.name)}</strong><div class=app-number>${esc(r.applicationNo)}</div></div><div class=result-meta><span>${tag(r.resultStatus)}</span><div class=mut>${esc(r.institution)} · ${esc(r.examYear)}</div><small class=mut>${r.alreadyPublished?b('മുമ്പ് പ്രസിദ്ധീകരിച്ചു; ഇപ്പോൾ മറച്ചിരിക്കുന്നു','Previously published; currently hidden'):b('ഡ്രാഫ്റ്റ്','Draft')}</small></div><button type=button class="btn l s" data-open="${esc(r.applicationNo)}">${b('തുറക്കുക','Open')}</button></article>`).join('')||`<div class=card>${b('പ്രസിദ്ധീകരിക്കാത്ത ഫല ഡ്രാഫ്റ്റുകളില്ല','No unpublished result drafts')}</div>`}</section>`;
+  document.querySelectorAll('[data-open]').forEach(button=>button.onclick=()=>showApp(button.dataset.open));
+}
+async function releaseResultDrafts(){
+  const d=await run(()=>api('getResultDrafts'));if(!d)return;
+  const draftCount=d.rows.length,publishedRows=d.publishedRows||[],hiddenCount=d.publicEnabled?0:publishedRows.length;
+  if(!draftCount&&!hiddenCount)return toast(b('പ്രസിദ്ധീകരിക്കാൻ ഫലങ്ങളില്ല','There are no results to release'),1);
+  const qualified=d.rows.filter(r=>r.resultStatus==='Qualified').length,notQualified=d.rows.length-qualified;
+  const publishedQualified=publishedRows.filter(r=>r.resultStatus==='Qualified').length,publishedNotQualified=publishedRows.length-publishedQualified;
+  const releaseQualified=qualified+(d.publicEnabled?0:publishedQualified),releaseNotQualified=notQualified+(d.publicEnabled?0:publishedNotQualified);
+  const releaseCount=draftCount+hiddenCount;
+  const msg=b(`${releaseCount} ഫലങ്ങൾ പൊതുജനങ്ങൾക്ക് ലഭ്യമാകും (${releaseQualified} യോഗ്യത നേടി, ${releaseNotQualified} യോഗ്യത നേടിയില്ല). തുടരട്ടേ?`,
+    `${releaseCount} results will become publicly visible (${releaseQualified} Qualified, ${releaseNotQualified} Not Qualified). Continue?`);
+  if(!await confirmBox(msg))return;
+  await run(async()=>{
+    let updated=0,q=0,nq=0,res;
+    do{res=await api('publishResultDrafts',{});updated+=res.updated;q+=res.qualified;nq+=res.notQualified;if(res.remaining&&res.updated===0)throw new Error('Result release stopped with drafts remaining. Retry after refreshing.')}while(res.remaining);
+    if(!res.publicEnabled)throw new Error('Result drafts were processed but public visibility could not be enabled.');
+    const released=updated+hiddenCount;
+    toast(released?`${released} ${b('ഫലങ്ങൾ പൊതുജനങ്ങൾക്ക് ലഭ്യമാക്കി','results now visible publicly')} · ${q+(d.publicEnabled?0:publishedQualified)} ${b('യോഗ്യത നേടി','Qualified')} · ${nq+(d.publicEnabled?0:publishedNotQualified)} ${b('യോഗ്യത നേടിയില്ല','Not Qualified')}`:b('ഫലങ്ങൾ ഇതിനകം പൊതുജനങ്ങൾക്ക് ലഭ്യമാണ്','Results are already visible publicly'));
+    await go('results');
+  });
+}
+async function hidePublicResults(){
+  if(!await confirmBox(b('ഫലങ്ങൾ പൊതുജനങ്ങൾക്ക് കാണാനാകാത്തവിധം മാറ്റട്ടേ?','Hide all results from the public?')))return;
+  await run(async()=>{await api('updateSettings',{settings:{resultsPublished:'false'}});toast(b('ഫലങ്ങൾ പൊതുജനങ്ങളിൽ നിന്ന് മറച്ചു','Results hidden from public'));await go('results')});
+}
+
+const REPORTS={
+  pendingPayments:{ml:'ഫീസ് ബാക്കിയുള്ളവർ',en:'Payments pending',descriptionMl:'ഫീസ് സ്ഥിരീകരിക്കാത്ത അപേക്ഷകൾ',descriptionEn:'Applications with unverified payments',filters:{paymentStatus:'Pending'}},
+  attendance:{ml:'ഹാജർ രേഖപ്പെടുത്താനുള്ളവർ',en:'Attendance to record',descriptionMl:'ഹാൾ ടിക്കറ്റ് നൽകിയെങ്കിലും ഹാജർ രേഖപ്പെടുത്താത്തവർ',descriptionEn:'Hall ticket issued, attendance not recorded',filters:{queue:'attendance'}},
+  resultsToPrepare:{ml:'ഫലം തയ്യാറാക്കാനുള്ളവർ',en:'Results to prepare',descriptionMl:'പരീക്ഷ എഴുതി, ഫലം രേഖപ്പെടുത്താത്തവർ',descriptionEn:'Exam attended, no result entered yet',filters:{queue:'results'}},
+  resultDrafts:{ml:'ഫല ഡ്രാഫ്റ്റുകൾ',en:'Unpublished result drafts',descriptionMl:'പ്രസിദ്ധീകരിക്കാത്ത യോഗ്യതാ ഫലങ്ങൾ',descriptionEn:'Saved results awaiting public release',filters:{queue:'resultDrafts'}},
+  publishedResults:{ml:'പ്രസിദ്ധീകരിച്ച ഫലങ്ങൾ',en:'Published results',descriptionMl:'ഫലം രേഖപ്പെടുത്തിയ എല്ലാ അപേക്ഷകളും',descriptionEn:'Applications with a published result',filters:{resultPublished:'Yes'}},
+  sanadToDistribute:{ml:'സനദ് വിതരണം ചെയ്യാനുള്ളവർ',en:'Sanad to distribute',descriptionMl:'യോഗ്യത നേടി സനദ് കൈപ്പറ്റാത്തവർ',descriptionEn:'Qualified applicants who have not collected Sanad',filters:{queue:'sanad'}},
+  sanadCollected:{ml:'സനദ് കൈപ്പറ്റിയവർ',en:'Sanad collected',descriptionMl:'സനദ് വിതരണം രേഖപ്പെടുത്തിയ അപേക്ഷകൾ',descriptionEn:'Applications with Sanad collection recorded',filters:{sanadStatus:'Collected'}}
+};
+async function vReports(){
+  const counts=await api('getReportCounts');
+  $('#v').innerHTML=`<div class=dash-section-head><div><h2>${t('reports')}</h2><span class=mut>${b('സാധാരണ ഓഫീസ്സ് റിപ്പോർട്ടുകൾ CSV ആയി ഡൗൺലോഡ് ചെയ്യുക.','Download common office reports as CSV files.')}</span></div></div><div class=report-grid>${Object.keys(REPORTS).map(key=>{const r=REPORTS[key];return `<article class=report-card><b>${b(r.ml,r.en)}</b><span class=mut>${b(r.descriptionMl,r.descriptionEn)}</span><span class=sp></span><div class=row><strong>${counts[key]||0}</strong><button class="btn l s" onclick="exportReport('${key}')">CSV ${b('ഡൗൺലോഡ്','Download')}</button></div></article>`}).join('')}</div>`;
+}
+async function exportReport(key){
+  const report=REPORTS[key];if(!report)throw new Error('Unknown report');
+  await run(async()=>{const d=await api('exportApplications',{filters:report.filters});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d.csv],{type:'text/csv;charset=utf-8'}));a.download=`CDIC-Hifz-${key}-${today()}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);toast(`${d.count} ${b('രേഖകൾ','records')}`)});
+}
+
+function appTimeline(a,payments){
+  const rejected=a.eligibility==='Rejected',notQualified=a.resultStatus==='Not Qualified';
+  const verified=['Approved','Rejected'].includes(a.eligibility);
+  const verifiedPayment=(payments||[]).filter(p=>p.verified==='TRUE').sort((x,y)=>String(y.paidDate).localeCompare(String(x.paidDate)))[0];
+  const steps=[
+    {label:b('അപേക്ഷ ലഭിച്ചു','Application received'),done:!!a.createdAt,detail:a.createdAt?dateDisplay(a.createdAt.slice(0,10)):''},
+    {label:b('ഫീസ് സ്ഥിരീകരണം','Payment verified'),done:a.paymentStatus==='Verified',detail:a.paymentStatus==='Verified'?b('സ്ഥിരീകരിച്ചു','Verified'):b('സ്ഥിരീകരണം ബാക്കി','Awaiting verification'),date:verifiedPayment&&dateDisplay(verifiedPayment.paidDate)},
+    {label:b('അപേക്ഷാ പരിശോധന','Application verification'),done:verified,detail:a.eligibility||b('പരിശോധന ബാക്കി','Awaiting review'),date:a.verifyDate&&dateDisplay(a.verifyDate)},
+    {label:b('ഹാൾ ടിക്കറ്റ്','Hall ticket'),done:a.hallTicket==='Yes',skip:rejected,detail:a.hallTicket==='Yes'?b('നൽകി','Issued'):b('നൽകിയിട്ടില്ല','Not issued')},
+    {label:b('പരീക്ഷ ഹാജർ','Exam attendance'),done:a.examAttended==='Yes',skip:rejected||a.hallTicket!=='Yes',detail:a.examAttended==='Yes'?b('ഹാജരായി','Attended'):a.examAttended==='No'?b('ഹാജരായില്ല / രേഖപ്പെടുത്തിയിട്ടില്ല','Not attended / not recorded'):b('രേഖപ്പെടുത്തിയിട്ടില്ല','Not recorded')},
+    {label:b('ഫലം','Result'),done:a.resultPublished==='Yes',skip:rejected,detail:a.resultStatus?(a.resultPublished==='Yes'?`${b('പ്രസിദ്ധീകരിച്ചു','Published')}: ${stl(a.resultStatus)}`:`${b('ഡ്രാഫ്റ്റ് — പൊതുവിൽ ലഭ്യമല്ല','Draft — not public')}: ${stl(a.resultStatus)}`):b('ഫലം രേഖപ്പെടുത്തിയിട്ടില്ല','No result entered')},
+    {label:b('സനദ് വിതരണം','Sanad collection'),done:a.sanadStatus==='Collected'||a.status==='Sanad Collected',skip:rejected||notQualified,detail:a.sanadStatus==='Collected'||a.status==='Sanad Collected'?b('കൈമാറി','Collected'):a.resultStatus==='Qualified'?b('വിതരണത്തിനായി കാത്തിരിക്കുന്നു','Awaiting collection'):b('ഫലം പ്രസിദ്ധീകരിച്ച ശേഷം ലഭ്യം','Available after a qualified result'),date:a.sanadCollectedDate&&dateDisplay(a.sanadCollectedDate)}
+  ];
+  let active=false;
+  return `<div class=card><h4>${b('അപേക്ഷയുടെ പുരോഗതി','Application progress')}</h4><ol class=timeline>${steps.map((s,i)=>{const state=s.done?'done':s.skip?'skipped':!active?(active=true,'current'):'upcoming';return `<li class="timeline-item ${state}"><span class=timeline-dot>${s.done?'✓':s.skip?'–':i+1}</span><div><b>${esc(s.label)}</b><small>${esc(s.detail)}${s.date?` · ${esc(s.date)}`:''}</small></div></li>`}).join('')}</ol></div>`;
+}
+async function showApp(no){
+  await run(async()=>{const d=await api('getApplication',{applicationNo:no}),a=d.application;
+   const kv=(fs)=>`<dl class=kv>${fs.map(([k,l])=>`<dt>${l}</dt><dd>${esc(a[k])}</dd>`).join('')}</dl>`;
+   const adm=can('SUPER_ADMIN','ADMIN'),ver=can('SUPER_ADMIN','ADMIN','VERIFIER');
+   const timeline=appTimeline(a,d.payments);
+   const yn=(id,v)=>`<select id=${id}><option value="">—</option><option value=Yes ${v==='Yes'?'selected':''}>${b('അതെ','Yes')}</option><option value=No ${v==='No'?'selected':''}>${b('ഇല്ല','No')}</option></select>`;
+   const E=`<div class=card><h4>E. ${b('ഓഫീസ് ആവശ്യത്തിന് മാത്രം','Office use only')}</h4>${ver?`<label>${b('പഠനവിവരങ്ങൾ പരിശോധിച്ചു','Educational details verified')}</label>${yn('e1',a.eduVerified)}<label>${b('ബന്ധപ്പെട്ട സ്ഥാപനത്തിൽനിന്ന് സ്ഥിരീകരിച്ചു','Confirmed by institution')}</label>${yn('e2',a.instConfirmed)}<label>${b('സനദിന് അർഹത','Sanad eligibility')}</label><select id=e3>${[['Under Verification','പരിശോധനയിൽ'],['Approved','അംഗീകരിച്ചു'],['Rejected','നിരസിച്ചു']].map(x=>`<option value="${x[0]}" ${a.eligibility===x[0]?'selected':''}>${b(x[1],x[0])}</option>`).join('')}</select><label>${b('മറ്റ് വിവരങ്ങൾ','Other remarks')}</label><textarea id=e4>${esc(a.remarks)}</textarea><label>${b('പരിശോധിച്ച ഉദ്യോഗസ്ഥന്റെ പേര്','Verifying officer')}</label><input type=text id=e5 value="${esc(a.verifierName||S.user.name)}"><label>${b('ഉദ്യോഗസ്ഥന്റെ ഒപ്പ് / അംഗീകാരം','Officer signature / approval')}</label><input type=text id=e6 value="${esc(a.officerApproval)}"><div class=row><button class="btn g" id=ev>${b('പരിശോധന സേവ് ചെയ്യുക','Save verification')}</button></div>`:kv([['eligibility','Eligibility']])}</div>`;
+   const pay=adm?`<div class=card><h4>${b('ഫീസ്','Payment')}: ${esc(a.paymentStatus)}</h4>${d.payments.map(p=>`<div class=mut>${esc(p.paidDate)} · ₹${esc(p.amount)} · ${esc(p.method)} ${esc(p.reference)} · ${p.verified==='TRUE'?'✔':'…'}</div>`).join('')}<div class=cols><div><label>₹</label><input type=number id=p1 min=0></div><div><label>${b('രീതി','Method')}</label><input type=text id=p2></div><div><label>${b('റഫറൻസ്','Reference')}</label><input type=text id=p3></div><div><label>${b('തീയതി','Date')}</label><input type=date id=p4 value="${today()}"></div></div><label style="display:flex;gap:8px"><input type=checkbox id=p5 style="width:20px;height:20px" checked> ${b('സ്ഥിരീകരിച്ചു','Verified')}</label><div class=row><button class="btn s" id=pb>${b('ഫീസ് രേഖപ്പെടുത്തുക','Record payment')}</button></div></div>
+   <div class=card><h4>${b('സ്റ്റാറ്റസ് / വെരിഫയർ','Status / verifier')}</h4><div class=row><select id=s1 style="flex:1">${Object.keys(ST).map(s=>`<option ${s===a.status?'selected':''} value="${s}">${esc(stl(s))}</option>`).join('')}</select><button class="btn s" id=sb>${b('മാറ്റുക','Update')}</button></div><div class=row><input type=text id=v1 value="${esc(a.assignedVerifier)}" placeholder="verifier username" style="flex:1"><button class="btn s" id=vb>${b('നിയമിക്കുക','Assign')}</button></div></div>`:'';
+   modal(a.applicationNo,`<div class=row>${tag(a.status)}<span class=sp></span><button class="btn l s" id=pr>${b('പ്രിന്റ് അപേക്ഷ','Print application')}</button>${adm?`<button class="btn l s" id=ed>${b('തിരുത്തുക','Edit details')}</button>`:''}</div>${timeline}
+   ${adm&&a.eligibility==='Approved'?`<div class=card><h4>${b('അടുത്ത നടപടി','Next step')}</h4>${a.hallTicket==='Yes'?`<p>${b('ഹാൾ ടിക്കറ്റ് നൽകിയിട്ടുണ്ട്.','Hall ticket has been issued.')}</p><button class="btn g" id=printHallTicket>${b('ഹാൾ ടിക്കറ്റ് പ്രിന്റ് ചെയ്യുക','Print hall ticket')}</button>`:`<p>${b('പരിശോധനയിൽ യോഗ്യനായി അംഗീകരിച്ചു. ഇപ്പോൾ ഹാൾ ടിക്കറ്റ് നൽകാം.','Verification approved. You can now issue the hall ticket.')}</p><button class="btn g" id=issueHallTicket>${b('ഹാൾ ടിക്കറ്റ് നൽകുക','Issue hall ticket')}</button>`}</div>`:''}
+   <div class=card><h4>A. ${b('വ്യക്തിഗത വിവരങ്ങൾ','Personal')}</h4>${kv([['name','Name'],['father','Father'],['mother','Mother'],['dob','DOB'],['place','Place'],['house','House'],['post','Post'],['pin','PIN'],['district','District'],['mobile','Mobile'],['whatsapp','WhatsApp']])}</div>
+   <div class=card><h4>B. ${b('പഠന വിവരങ്ങൾ','Education')}</h4>${kv([['institution','Institution'],['admissionYear','Admission'],['completionYear','Completion'],['examYear','Final exam year'],['teachers','Teachers'],['tharqiyya','Tharqiyya'],['tharqiyyaYear','Tharqiyya year']])}</div>
+   <div class=card><h4>C. ${b('നിലവിലെ വിവരങ്ങളും പരിശോധനയും','Application and verification status')}</h4>${kv([['currentWork','Job/Study'],['currentOrg','Organisation'],['prevApplication','Previous application'],['declAccepted','Declaration accepted'],['declPlace','Decl. place'],['declDate','Decl. date'],['createdAt','Submitted'],['receivedDate','Received'],['eduVerified','Education verified'],['instConfirmed','Institution confirmed'],['eligibility','Eligibility'],['remarks','Remarks'],['verifierName','Verifying officer'],['officerApproval','Officer approval'],['assignedVerifier','Assigned verifier'],['verifyDate','Verification date'],['paymentStatus','Payment'],['hallTicket','Hall ticket'],['examAttended','Exam attended'],['resultStatus','Result'],['resultPublished','Result published'],['sanadStatus','Sanad'],['sanadCollectedDate','Collected on'],['sanadOfficer','Issued by']])}</div>${E}${pay}`);
+   const re=()=>{$('#dlg').close();if(view==='apps')go('apps');else if(view==='dash')go('dash');else if(view==='results')go('results')};
+   $('#pr').onclick=()=>{$('#dlg').close();printApp(a.applicationNo,a,a)};
+   if(ver)$('#ev').onclick=()=>run(async()=>{await api('verifyApplication',{applicationNo:no,eduVerified:$('#e1').value,instConfirmed:$('#e2').value,eligibility:$('#e3').value,remarks:$('#e4').value,verifierName:$('#e5').value,officerApproval:$('#e6').value});toast(b('സേവ് ചെയ്തു','Saved'));if(adm&&$('#e3').value==='Approved'){$('#dlg').close();setTimeout(()=>showApp(no),0)}else re()});
+   if(adm){if(a.eligibility==='Approved'&&a.hallTicket!=='Yes')$('#issueHallTicket').onclick=()=>run(async()=>{await api('publishHallTicket',{applicationNos:[no]});toast(b('ഹാൾ ടിക്കറ്റ് നൽകി','Hall ticket issued'));$('#dlg').close();setTimeout(()=>showApp(no),0)});
+    if(a.hallTicket==='Yes')$('#printHallTicket').onclick=()=>run(async()=>{const s=await api('getSettings');$('#dlg').close();printHall({...a,examDate:s.examDate,venue:s.examVenue,instructions:s.examInstructions},no)});
+    $('#pb').onclick=()=>run(async()=>{await api('recordPayment',{applicationNo:no,amount:$('#p1').value,method:$('#p2').value,reference:$('#p3').value,paidDate:$('#p4').value,verified:$('#p5').checked});toast(b('രേഖപ്പെടുത്തി','Recorded'));re()});
+    $('#sb').onclick=()=>run(async()=>{await api('updateApplicationStatus',{applicationNo:no,status:$('#s1').value});toast(b('പുതുക്കി','Updated'));re()});
+    $('#vb').onclick=()=>run(async()=>{await api('assignVerifier',{applicationNo:no,verifier:$('#v1').value});toast(b('പുതുക്കി','Updated'));re()});
+    $('#ed').onclick=()=>editApp(a)}})}
+function editApp(a){
+  FD={...a};ERRS={};const fs=STEPS.slice(0,3).flatMap(s=>s.f);
+  modal(b('വിവരങ്ങൾ തിരുത്തുക','Edit details'),`<div id=v class=cols>${fs.map(f=>fld(f,a[f[0]])).join('')}</div><div class=row><button class="btn g" id=eb>${t('save')}</button></div>`);
+  document.querySelectorAll('#dlg [name]').forEach(el=>{el.addEventListener('change',()=>{if(el.type==='radio'){if(el.checked)FD[el.name]=el.value}else FD[el.name]=el.value;syncFieldMark(el);if(el.name==='tharqiyya')editApp({...FD})});el.addEventListener('input',()=>{if(el.type!=='radio')FD[el.name]=el.value;syncFieldMark(el)})});
+  $('#eb').onclick=()=>run(async()=>{const form={};fs.forEach(f=>{if(f[3]!=='h')form[f[0]]=FD[f[0]]});await api('updateApplication',{applicationNo:a.applicationNo,form});FD=LS.g('cdic_draft',{});$('#dlg').close();if(view==='apps'||view==='results')await go(view);successPopup(b('അപേക്ഷകന്റെ വിവരങ്ങൾ വിജയകരമായി പുതുക്കി.','Applicant details updated successfully.'))})}
+
+async function vUsers(){
+  const us=await api('listUsers'),sa=can('SUPER_ADMIN');
+  $('#v').innerHTML=`<h2>${t('users')}</h2>${sa?`<button class="btn" onclick="userForm()">+ ${b('പുതിയ ഉപയോക്താവ്','New user')}</button>`:''} <button class="btn l" onclick="pwModal(false)">${b('എന്റെ പാസ്‌വേഡ് മാറ്റുക','Change my password')}</button><div class=tw style="margin-top:10px"><table><tr><th>Username</th><th>Name</th><th>Role</th><th>Active</th><th>Last login</th><th></th></tr>${us.map(u=>`<tr><td>${esc(u.username)}</td><td>${esc(u.displayName)}</td><td>${esc(u.role)}</td><td>${u.active?'✔':'✖'}</td><td>${esc(u.lastLogin)}</td><td>${sa?`<button class="btn l s" onclick='userForm(${JSON.stringify(u)})'>${b('തിരുത്തുക','Edit')}</button>`:''}</td></tr>`).join('')}</table></div>`}
+function userForm(u){
+  const n=!u;u=u||{};const d=modal(n?b('പുതിയ ഉപയോക്താവ്','New user'):u.username,`${n?`<label>Username</label><input type=text id=u1>`:''}<label>${b('പേര്','Display name')}</label><input type=text id=u2 value="${esc(u.displayName)}"><label>Role</label><select id=u3>${['SUPER_ADMIN','ADMIN','VERIFIER','VIEWER'].map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select>${n?'':`<label style="display:flex;gap:8px"><input type=checkbox id=u5 style="width:20px;height:20px" ${u.active?'checked':''}> Active</label>`}<label>${n?'Password':b('പാസ്‌വേഡ് റീസെറ്റ് (ഓപ്ഷണൽ)','Reset password (optional)')}</label><input type=password id=u4 autocomplete=new-password><div class=row><button class="btn g" id=us>${t('save')}</button></div>`);
+  $('#us').onclick=()=>run(async()=>{if(n)await api('createUser',{username:$('#u1').value,displayName:$('#u2').value,role:$('#u3').value,password:$('#u4').value});else await api('updateUser',{username:u.username,displayName:$('#u2').value,role:$('#u3').value,active:$('#u5').checked,password:$('#u4').value||undefined});d.close();toast(b('സേവ് ചെയ്തു','Saved'));go('users')})}
+async function vSettings(){
+  const s=await api('getSettings'),sa=can('SUPER_ADMIN'),ex=['examDate','examVenue','examInstructions'],boolSettings=['applicationOpen','uploadsEnabled'];
+  const L_={year:'Application year',deadline:'Application deadline (YYYY-MM-DD)',fee:'Application fee (₹)',feeNote:'Fee note / payment instructions',verificationDays:'Verification days',applicationOpen:'Applications open (true/false)',uploadsEnabled:'Uploads enabled (reserved)',examDate:'Exam date',examVenue:'Exam venue',examInstructions:'Hall ticket instructions',officeAddress:'Office address'};
+  $('#v').innerHTML=`<h2>${t('settings')}</h2><div class=card><div class=cols>${Object.keys(L_).map(k=>{const ok=sa||ex.includes(k);let input;if(boolSettings.includes(k)){const value=s[k]==='true'||s[k]==='false'?s[k]:'';input=`<select id="s_${k}" ${ok?'':'disabled'}><option value="" ${value===''?'selected':''}>Select true/false</option><option value="true" ${value==='true'?'selected':''}>true</option><option value="false" ${value==='false'?'selected':''}>false</option></select>`}else if(k==='examInstructions'||k==='feeNote'||k==='officeAddress')input=`<textarea id="s_${k}" ${ok?'':'disabled'}>${esc(s[k])}</textarea>`;else input=`<input type=text id="s_${k}" value="${esc(s[k])}" ${ok?'':'disabled'}>`;return `<div><label>${L_[k]}</label>${input}</div>`}).join('')}</div><div class=row><button class="btn g" id=sv>${t('save')}</button></div></div>`;
+  $('#sv').onclick=()=>run(async()=>{const o={};Object.keys(L_).forEach(k=>{if(sa||ex.includes(k))o[k]=$('#s_'+k).value});await api('updateSettings',{settings:o});S.cfg={};toast(b('സേവ് ചെയ്തു','Saved'))})}
+let AU={page:1,q:''};
+async function vAudit(){
+  const d=await api('getAuditLogs',AU);
+  $('#v').innerHTML=`<h2>${t('audit')}</h2><div class=row><input type=text id=aq value="${esc(AU.q)}" placeholder="search" style="max-width:300px"><button class="btn s" id=ab>Search</button></div><div class=tw><table><tr><th>Time</th><th>User</th><th>Action</th><th>Target</th><th>Details</th></tr>${d.rows.map(r=>`<tr><td>${esc(r.timestamp)}</td><td>${esc(r.user)}</td><td>${esc(r.action)}</td><td>${esc(r.target)}</td><td style="white-space:normal;max-width:380px">${esc(r.details)}</td></tr>`).join('')}</table></div><div class=row><button class="btn l s" ${d.page<=1?'disabled':''} onclick="AU.page--;go('audit')">‹</button><span>${d.page}/${d.pages}</span><button class="btn l s" ${d.page>=d.pages?'disabled':''} onclick="AU.page++;go('audit')">›</button></div>`;
+  $('#ab').onclick=()=>{AU.q=$('#aq').value;AU.page=1;go('audit')}}
+
+/* ====== PWA / NETWORK ====== */
+const netUI=()=>{const n=$('#net');n.textContent=navigator.onLine?b('ഓൺലൈൻ','Online'):b('ഓഫ്‌ലൈൻ','Offline');n.classList.toggle('off',!navigator.onLine)};
+addEventListener('online',()=>{netUI();flushQ()});addEventListener('offline',netUI);
+let DP=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();DP=e;const i=$('#inst');i.hidden=false;i.textContent=b('ആപ്പ് ഇൻസ്റ്റാൾ','Install app');i.onclick=async()=>{DP.prompt();await DP.userChoice;DP=null;i.hidden=true}});
+addEventListener('appinstalled',()=>{$('#inst').hidden=true});
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+document.getElementById('dlg').addEventListener('click',e=>{if(e.target.id==='dlg')e.target.close()});
+(function(){
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const hd=document.querySelector('.hd');
+  const main=document.getElementById('main');
+  const counted=new WeakSet();
+
+  addEventListener('scroll',()=>hd.classList.toggle('sc',scrollY>24),{passive:true});
+
+  document.addEventListener('pointerdown',e=>{
+    const target=e.target instanceof Element?e.target:null;
+    const btn=target&&target.closest('.btn');
+    if(!btn||btn.disabled||reduce)return;
+    const rect=btn.getBoundingClientRect(),size=Math.max(rect.width,rect.height),rp=document.createElement('span');
+    rp.className='rp';
+    rp.style.cssText=`width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+    btn.appendChild(rp);
+    setTimeout(()=>rp.remove(),650);
+  });
+
+  function countUp(el){
+    const end=parseInt(el.textContent.replace(/,/g,''),10);
+    if(isNaN(end)||end===0||reduce||counted.has(el))return;
+    counted.add(el);
+    const start=performance.now(),duration=900;
+    (function frame(now){
+      const progress=Math.min(1,(now-start)/duration),ease=1-Math.pow(1-progress,4);
+      el.textContent=Math.round(end*ease);
+      if(progress<1)requestAnimationFrame(frame);
+    })(start);
+  }
+
+  function confetti(){
+    if(reduce||document.querySelector('.confetti-layer'))return;
+    const colors=['#51245a','#77447e','#986a1e','#d2ae66','#3f1d45','#fffdfa'];
+    const layer=document.createElement('div');
+    layer.className='confetti-layer';
+    layer.setAttribute('aria-hidden','true');
+    for(let i=0;i<48;i++){
+      const piece=document.createElement('i');
+      piece.className='cf';
+      piece.style.cssText=`left:${Math.random()*100}%;background:${colors[i%colors.length]};--dx:${(Math.random()-.5)*180}px;--rot:${Math.random()*900-450}deg;animation-delay:${Math.random()*.35}s;animation-duration:${1.8+Math.random()*1.2}s`;
+      layer.appendChild(piece);
+    }
+    document.body.appendChild(layer);
+    setTimeout(()=>layer.remove(),3600);
+  }
+
+  new MutationObserver(records=>{
+    records.forEach(record=>record.addedNodes.forEach(node=>{
+      if(node.nodeType!==1)return;
+      if(node.matches('.big')||node.querySelector('.big'))confetti();
+      const cards=node.matches('.grid > .stat')?[node]:[...node.querySelectorAll('.grid > .stat')];
+      cards.forEach((card,index)=>{
+        card.style.animation=`rise .6s var(--ease) ${index*60}ms both`;
+        const value=card.querySelector('b');
+        if(value)countUp(value);
+      });
+    }));
+  }).observe(main,{childList:true,subtree:true});
+})();
+netUI();go(staff()?'dash':'home');flushQ();
+</script>
+</body>
+</html>
