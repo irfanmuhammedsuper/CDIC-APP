@@ -11,8 +11,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CDIC Portal">
 <meta name="description" content="Official Hifz Sanad application and candidate services portal of the Coordination of Darussalam Islamic Colleges.">
-<link rel="apple-touch-icon" href="logo.jpg">
-<link rel="icon" href="logo.jpg">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg">
+<link rel="icon" href="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg">
 <style>
 :root{--pur:#3f1d45;--pur2:#5a315f;--grn:#b1812a;--red:#b84550;--gold:#986a1e;--bg:#f7f3ed;--card:#fffdfa;--tx:#2a2430;--mut:#756b78;--bd:#e7dfd4;--r:14px}
 *{box-sizing:border-box}
@@ -553,7 +553,7 @@ dialog{
 </head>
 <body>
 <header class="hd">
-  <img src="logo.jpg" alt="Coordination of Darussalam Islamic Colleges emblem">
+  <img src="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg" alt="Coordination of Darussalam Islamic Colleges emblem">
   <div class="ttl"><b>CDIC UNIFIED PORTAL</b><small id="sub"></small></div>
   <div class="sp"></div>
   <span id="net" class="net"></span>
@@ -680,7 +680,7 @@ async function cfg(){try{S.cfg=await api('getPortalSettings')}catch(e){S.cfg=S.c
 /* ====== PUBLIC VIEWS ====== */
 async function vHome(){
   await cfg();const c=S.cfg||{};
-  $('#v').innerHTML=`<div class=hero><img src="logo.jpg" alt="Coordination of Darussalam Islamic Colleges emblem"><div><h2>${b('ഹിഫ്‌ള് സനദ് അപേക്ഷ','Hifz Sanad Application')}</h2><p>${b('അവസാന തീയതി','Last date')}: <b>${esc(dateLabel(c.deadline)||'—')}</b> · ${b('ഫീസ്','Fee')}: <b>${c.fee?'₹'+esc(c.fee):b('പ്രഖ്യാപിച്ചിട്ടില്ല','not announced')}</b></p><div class=row><button class="btn g" onclick="go('apply')">${t('apply')}</button><button class="btn l" onclick="go('track')">${t('track')}</button></div></div></div>
+  $('#v').innerHTML=`<div class=hero><img src="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg" alt="Coordination of Darussalam Islamic Colleges emblem"><div><h2>${b('ഹിഫ്‌ള് സനദ് അപേക്ഷ','Hifz Sanad Application')}</h2><p>${b('അവസാന തീയതി','Last date')}: <b>${esc(dateLabel(c.deadline)||'—')}</b> · ${b('ഫീസ്','Fee')}: <b>${c.fee?'₹'+esc(c.fee):b('പ്രഖ്യാപിച്ചിട്ടില്ല','not announced')}</b></p><div class=row><button class="btn g" onclick="go('apply')">${t('apply')}</button><button class="btn l" onclick="go('track')">${t('track')}</button></div></div></div>
   ${c.applicationOpen==='false'?`<div class=ban>${b('അപേക്ഷകൾ നിലവിൽ സ്വീകരിക്കുന്നില്ല.','Applications are currently closed.')}</div>`:''}
   <div class=card><h3>${b('അപേക്ഷാ നടപടിക്രമം','Application process')}</h3>${PH.map((p,i)=>`<div class=ph><em>${i+1}</em><div><b>${b(p[0],p[1])}</b>${i===0?` <small>${b('അവസാന തീയതി','Deadline')}: ${esc(dateLabel(c.deadline)||'—')}</small>`:''}${i===1?` <small>${esc(c.verificationDays||10)} ${b('ദിവസം','days')}</small>`:''}<small>${b(p[2],p[3])}</small></div></div>`).join('')}
   <p class=mut>${b('ലഭിക്കുന്ന അപ്ലിക്കേഷൻ നമ്പർ ഉപയോഗിച്ച് സ്റ്റാറ്റസ് അറിയാം.','Use your application number to check status at any time.')}</p></div>
@@ -824,7 +824,7 @@ function printApp(no,f,off){
   f={...f,dob:dateDisplay(f.dob),declDate:dateDisplay(f.declDate)};
   const rowsH=STEPS.slice(0,3).map((s,i)=>`<h3>${String.fromCharCode(65+i)}. ${s.ml} / ${s.en}</h3><dl class=kv>${s.f.filter(x=>x[3]!=='h'&&!(x[0]==='tharqiyyaYear'&&f.tharqiyya!=='Yes')).map(x=>`<dt>${x[1]}<br><small>${x[2]}</small></dt><dd>${esc(x[3]==='yn'?(f[x[0]]==='Yes'?'അതെ / Yes':f[x[0]]==='No'?'ഇല്ല / No':''):f[x[0]])}</dd>`).join('')}</dl>`).join('');
   const o={...(off||{}),receivedDate:dateDisplay(off&&off.receivedDate)};
-  $('#print').innerHTML=`<div style="display:flex;align-items:center;gap:12px"><img src="logo.jpg" alt="CDIC emblem" style="height:80px;width:104px;object-fit:contain"><div><b style="font-size:16pt">CDIC — Coordination of Darussalam Islamic Colleges</b><br>ഹിഫ്‌ള് സനദ് അപേക്ഷ / Hifz Sanad Application</div></div><h2>${esc(no)}</h2>${rowsH}
+  $('#print').innerHTML=`<div style="display:flex;align-items:center;gap:12px"><img src="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg" alt="CDIC emblem" style="height:80px;width:104px;object-fit:contain"><div><b style="font-size:16pt">CDIC — Coordination of Darussalam Islamic Colleges</b><br>ഹിഫ്‌ള് സനദ് അപേക്ഷ / Hifz Sanad Application</div></div><h2>${esc(no)}</h2>${rowsH}
   <h3>D. അപേക്ഷകന്റെ സത്യപ്രസ്താവന</h3><p>${esc(DECL[0](f.name))}</p><p>${esc(DECL[1])}</p><p>${esc(DECL[2])}</p><p>സ്ഥലം: ${esc(f.declPlace||'')} &nbsp; തീയതി: ${esc(f.declDate||'')}</p><p style="text-align:right">അപേക്ഷകന്റെ പേര്: ${esc(f.name)}<br><br>ഒപ്പ്: ......................................</p>
   <div class=pb><b>ഓഫീസ് ആവശ്യത്തിന് മാത്രം / Office use only</b><dl class=kv><dt>അപ്ലിക്കേഷൻ നമ്പർ</dt><dd>${esc(no)}</dd><dt>അപേക്ഷ ലഭിച്ച തീയതി</dt><dd>${esc(o.receivedDate||'')}</dd><dt>പഠനവിവരങ്ങൾ പരിശോധിച്ചു</dt><dd>${o.eduVerified?(o.eduVerified==='Yes'?'അതെ':'ഇല്ല'):'അതെ / ഇല്ല'}</dd><dt>ബന്ധപ്പെട്ട സ്ഥാപനത്തിൽനിന്ന് സ്ഥിരീകരിച്ചു</dt><dd>${o.instConfirmed?(o.instConfirmed==='Yes'?'അതെ':'ഇല്ല'):'അതെ / ഇല്ല'}</dd><dt>സനദിന് അർഹത</dt><dd>${esc(o.eligibility||'അംഗീകരിച്ചു / നിരസിച്ചു / പരിശോധനയിൽ')}</dd><dt>മറ്റ് വിവരങ്ങൾ</dt><dd>${esc(o.remarks||'')}</dd><dt>പരിശോധിച്ച ഉദ്യോഗസ്ഥന്റെ പേര്, ഒപ്പ്</dt><dd>${esc(o.verifierName||'')}</dd></dl></div>
   <p style="font-size:10pt">ഓഫീസിൽ എത്തിക്കേണ്ടത്: പ്രിന്റ് കോപ്പി, പഠിച്ച സ്ഥാപനത്തിന്റെ ലെറ്റർ, SSLC സർട്ടിഫിക്കറ്റ്, അനുബന്ധ രേഖകൾ. / Deliver this printout, institution letter, SSLC certificate and supporting documents to the office.</p>`;
@@ -833,7 +833,7 @@ function printHall(h,no){
   const oldTitle=document.title,printTitle=`${String(h.name||no).replace(/[\\/:*?"<>|]/g,'').trim()||no}-Hall-Ticket`;
   const restoreTitle=()=>{document.title=oldTitle;removeEventListener('afterprint',restoreTitle)};
   document.title=printTitle;addEventListener('afterprint',restoreTitle,{once:true});
-  $('#print').innerHTML=`<div style="display:flex;align-items:center;gap:12px"><img src="logo.jpg" alt="CDIC emblem" style="height:80px;width:104px;object-fit:contain"><b style="font-size:16pt">CDIC — ഹാൾ ടിക്കറ്റ് / Hall Ticket</b></div><div class=pb><dl class=kv><dt>Application No</dt><dd>${esc(no)}</dd><dt>പേര് / Name</dt><dd>${esc(h.name)}</dd><dt>പിതാവിന്റെ പേര്</dt><dd>${esc(h.father)}</dd><dt>സ്ഥാപനം</dt><dd>${esc(h.institution)}</dd><dt>ജില്ല</dt><dd>${esc(h.district)}</dd><dt>പരീക്ഷാ തീയതി / Exam date</dt><dd>${esc(dateDisplay(h.examDate)||'—')}</dd><dt>കേന്ദ്രം / Venue</dt><dd>${esc(h.venue||'—')}</dd></dl></div><h3>നിർദ്ദേശങ്ങൾ / Instructions</h3><p style="white-space:pre-wrap">${esc(h.instructions||'')}</p>`;
+  $('#print').innerHTML=`<div style="display:flex;align-items:center;gap:12px"><img src="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg" alt="CDIC emblem" style="height:80px;width:104px;object-fit:contain"><b style="font-size:16pt">CDIC — ഹാൾ ടിക്കറ്റ് / Hall Ticket</b></div><div class=pb><dl class=kv><dt>Application No</dt><dd>${esc(no)}</dd><dt>പേര് / Name</dt><dd>${esc(h.name)}</dd><dt>പിതാവിന്റെ പേര്</dt><dd>${esc(h.father)}</dd><dt>സ്ഥാപനം</dt><dd>${esc(h.institution)}</dd><dt>ജില്ല</dt><dd>${esc(h.district)}</dd><dt>പരീക്ഷാ തീയതി / Exam date</dt><dd>${esc(dateDisplay(h.examDate)||'—')}</dd><dt>കേന്ദ്രം / Venue</dt><dd>${esc(h.venue||'—')}</dd></dl></div><h3>നിർദ്ദേശങ്ങൾ / Instructions</h3><p style="white-space:pre-wrap">${esc(h.instructions||'')}</p>`;
   setTimeout(()=>window.print(),150)
 }
 function downloadHallTicketPdf(h,no){printHall(h,no)}
@@ -849,7 +849,7 @@ async function vResult(){
   $('#v').innerHTML=`<h2>${b('ഫലം അറിയുക','Check result')}</h2>`+lookupForm('r',b('ഫലം നോക്കുക','View result'));
   $('#rb').onclick=()=>run(async()=>{try{const r=await api('getPublishedResult',{applicationNo:$('#rn').value,mobile:$('#rm').value});$('#rr').innerHTML=`<div class=card><div class=mut>${esc(r.applicationNo)}</div><h3>${esc(r.name)}</h3><p>${tag(r.result)}</p></div>`}catch(e){if(e.res&&e.res.error.code==='NOT_PUBLISHED'){$('#rr').innerHTML=`<div class=ban>${b('ഫലം ഇതുവരെ പ്രസിദ്ധീകരിച്ചിട്ടില്ല.','Result has not been published yet.')}</div>`}else throw e}})}
 async function vLogin(){
-  $('#v').innerHTML=`<div class=card style="max-width:420px;margin:20px auto;text-align:center"><img src="logo.jpg" style="height:110px;max-width:100%;object-fit:contain" alt="Coordination of Darussalam Islamic Colleges emblem"><h3>CDIC UNIFIED PORTAL</h3><div style="text-align:left"><label>${b('ഉപയോക്തൃനാമം','Username')}</label><input type=text id=lu autocomplete=username autocapitalize=none><label>${b('പാസ്‌വേഡ്','Password')}</label><input type=password id=lp autocomplete=current-password></div><div class=row><button class="btn" style="width:100%" id=lb>${b('ലോഗിൻ','Log in')}</button></div></div>`;
+  $('#v').innerHTML=`<div class=card style="max-width:420px;margin:20px auto;text-align:center"><img src="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg" style="height:110px;max-width:100%;object-fit:contain" alt="Coordination of Darussalam Islamic Colleges emblem"><h3>CDIC UNIFIED PORTAL</h3><div style="text-align:left"><label>${b('ഉപയോക്തൃനാമം','Username')}</label><input type=text id=lu autocomplete=username autocapitalize=none><label>${b('പാസ്‌വേഡ്','Password')}</label><input type=password id=lp autocomplete=current-password></div><div class=row><button class="btn" style="width:100%" id=lb>${b('ലോഗിൻ','Log in')}</button></div></div>`;
   const go_=()=>run(async()=>{const d=await api('login',{username:$('#lu').value,password:$('#lp').value});setSess(d);if(d.user.mustChange)await pwModal(true);go('dash')});
   $('#lb').onclick=go_;$('#lp').onkeydown=e=>{if(e.key==='Enter')go_()}}
 function pwModal(force){return new Promise(r=>{const d=modal(b('പാസ്‌വേഡ് മാറ്റുക','Change password'),`${force?`<div class=ban>${b('തുടരാൻ പുതിയ പാസ്‌വേഡ് സജ്ജമാക്കുക.','Set a new password to continue.')}</div>`:''}<label>${b('നിലവിലെ പാസ്‌വേഡ്','Current password')}</label><input type=password id=po><label>${b('പുതിയ പാസ്‌വേഡ് (10+ അക്ഷരം, അക്ഷരവും അക്കവും)','New password (10+ chars, letters and numbers)')}</label><input type=password id=pn><div class=row><button class="btn g" id=ps>${t('save')}</button></div>`);
