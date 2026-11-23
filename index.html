@@ -90,7 +90,7 @@ dialog{border:0;border-radius:14px;padding:0;width:min(780px,96vw);max-height:92
 nav .nav-credit{display:none}
 #print{display:none}
 @media(max-width:520px){.hd{gap:8px;padding-left:10px;padding-right:10px}.hd img{width:56px;height:46px}.ttl b{font-size:.9rem}.ttl small{font-size:.7rem}.hero{padding:18px}.hero img{width:84px;height:84px;flex-basis:84px}.card{padding:14px}}
-@media(max-width:859px){nav .nav-credit{position:fixed;right:8px;bottom:calc(62px + env(safe-area-inset-bottom));display:block;min-width:0;min-height:0;padding:4px 8px;border:1px solid var(--bd);border-radius:8px;background:#fff;color:var(--mut);font-size:.72rem;opacity:.85;text-decoration:none}nav .nav-credit:hover{color:var(--pur);text-decoration:underline}}
+@media(max-width:859px){nav .nav-credit{position:fixed;right:8px;bottom:calc(62px + env(safe-area-inset-bottom));display:none;min-width:0;min-height:0;padding:4px 8px;border:1px solid var(--bd);border-radius:8px;background:#fff;color:var(--mut);font-size:.72rem;opacity:.85;text-decoration:none}nav.show-credit .nav-credit{display:block}nav .nav-credit:hover{color:var(--pur);text-decoration:underline}}
 @media(min-width:860px){nav .nav-credit{position:absolute;right:0;bottom:12px;left:0;display:block;padding:12px 20px 4px;color:var(--mut);font-size:.72rem;opacity:.7;text-decoration:none}nav .nav-credit:hover{color:var(--pur);opacity:1;text-decoration:underline}}
 @page{size:A4 portrait;margin:5mm}
 @media print{
@@ -826,6 +826,7 @@ function nav(){
   let it=[];
   if(staff()){it=[['dash',t('dash')],['apps',t('apps')]];if(can('SUPER_ADMIN','ADMIN'))it.push(['results',t('results')],['reports',t('reports')],['settings',t('settings')],['users',t('users')]);if(can('SUPER_ADMIN'))it.push(['audit',t('audit')]);}
   else it=[['home',t('home')],['apply',t('apply')],['track',t('track')],['result',t('result')],['login',t('staff')]];
+  $('#nav').classList.toggle('show-credit',view==='login');
   $('#nav').innerHTML=it.map(i=>i[0]==='hr'?'<hr>':/^x\d/.test(i[0])?`<a class="dis" aria-disabled="true">${esc(i[1])}</a>`:`<a data-nav="${i[0]}" class="${view===i[0]?'on':''}" onclick="go('${i[0]}')">${esc(i[1])}</a>`).join('')+'<a class=nav-credit href="https://imdesignco.blogspot.com/">ImDesign</a>';
   $('#usr').innerHTML=staff()?`<span class=mut style="font-size:.8rem">${esc(S.user.name)} (${esc(S.user.role)})</span> <button class="btn l s" onclick="doLogout()">${t('logout')}</button>`:'';
   $('#sub').textContent=staff()?'Coordination of Darussalam Islamic Colleges':t('portal');
