@@ -89,29 +89,35 @@ dialog{border:0;border-radius:14px;padding:0;width:min(780px,96vw);max-height:92
 .ban{background:#fff7e6;border:1px solid #e6c36a;padding:10px 12px;border-radius:8px;margin-bottom:12px;font-size:.9rem}
 #print{display:none}
 @media(max-width:520px){.hd{gap:8px;padding-left:10px;padding-right:10px}.hd img{width:56px;height:46px}.ttl b{font-size:.9rem}.ttl small{font-size:.7rem}.hero{padding:18px}.hero img{width:84px;height:84px;flex-basis:84px}.card{padding:14px}}
-@page{size:A4 portrait;margin:8mm}
+@page{size:A4 portrait;margin:5mm}
 @media print{
   body{margin:0;padding:0;background:#fff}
   body>*:not(#print){display:none!important}
   #print{display:block!important;width:100%;max-width:100%;margin:0;padding:0;color:#000;font-size:9pt;line-height:1.18;overflow-wrap:anywhere}
   #print *{box-sizing:border-box}
-  #print .print-header img{width:24mm!important;height:20mm!important;max-width:24mm!important;object-fit:contain}
-  #print .print-page{display:block;width:100%;margin:0;padding:0}
-  #print .print-page-one{break-after:page;page-break-after:always}
-  #print .print-header{max-width:100%;gap:3mm!important;padding-bottom:2mm;border-bottom:1.5pt solid #000}
-  #print .print-header b{font-size:11pt!important}
-  #print .print-title{margin:2mm 0;color:#000;text-align:center;font-size:12pt}
+  #print .print-application{zoom:.95}
+  #print .print-header{max-width:100%;padding-bottom:1.5mm;border-bottom:1.5pt solid #bd3342}
+  #print .print-contact{display:grid;grid-template-columns:1fr 18mm 1fr;gap:2mm;align-items:center;font-size:7pt;line-height:1.2}
+  #print .print-contact img{width:17mm!important;height:17mm!important;max-width:17mm!important;object-fit:contain}
+  #print .print-contact-right{text-align:right}
+  #print .print-arabic{text-align:center;font-size:12pt;font-weight:700;line-height:1.2}
+  #print .print-org{text-align:center;font-size:11pt;font-weight:800;line-height:1.2}
+  #print .print-address{text-align:center;font-size:6.5pt;font-weight:700;line-height:1.2}
+  #print .print-title{margin:1.5mm 0;color:#000;text-align:center;font-size:10pt}
   #print .print-number{display:flex;justify-content:space-between;align-items:center;border:1pt solid #000;padding:1.5mm 2mm;font-weight:700}
   #print .print-number strong{font-size:10pt;letter-spacing:.04em}
-  #print h3{margin:1.5mm 0 1mm;padding:1mm 2mm;border:1pt solid #000;background:#eee;font-size:9pt;break-after:avoid-page}
-  #print p{margin:1mm 0;overflow-wrap:anywhere}
-  #print .kv{grid-template-columns:minmax(34mm,38%) minmax(0,1fr);gap:0 2mm;margin:0;font-size:8pt}
-  #print .kv dt,#print .kv dd{min-width:0;padding:.7mm 1mm;border-bottom:.5pt solid #999;overflow-wrap:anywhere;break-inside:avoid}
-  #print .print-section{margin-top:1.5mm}
-  #print .print-photo{float:right;width:26mm;height:35mm;object-fit:cover;border:1pt solid #000;margin:0 0 1mm 2mm}
-  #print .pb{border:1pt solid #000;padding:1.5mm 2mm;margin-top:1.5mm;break-inside:avoid}
+  #print h3{margin:.8mm 0 .5mm;padding:.5mm 1.5mm;border:1pt solid #000;background:#eee;font-size:8.8pt;break-after:avoid-page}
+  #print p{margin:.5mm 0;overflow-wrap:anywhere;font-size:8pt;line-height:1.1}
+  #print .kv{display:grid;grid-template-columns:minmax(20mm,22%) minmax(0,1fr) minmax(20mm,22%) minmax(0,1fr);gap:0 1mm;margin:0;font-size:7.8pt}
+  #print .kv dt,#print .kv dd{min-width:0;padding:.35mm .5mm;border-bottom:.5pt solid #999;overflow-wrap:anywhere;break-inside:avoid}
+  #print .kv small{font-size:6.5pt}
+  #print .print-section{margin-top:.7mm}
+  #print .print-personal{display:grid;grid-template-columns:minmax(0,1fr) 24mm;gap:1.2mm;align-items:start}
+  #print .print-identity{grid-template-columns:minmax(18mm,25%) minmax(0,1fr) minmax(18mm,25%) minmax(0,1fr)}
+  #print .print-photo{display:block;width:24mm;height:32mm;object-fit:cover;border:1pt solid #000}
+  #print .pb{border:1pt solid #000;padding:.8mm 1.2mm;margin-top:.8mm}
   #print .office-use h3{margin:0 0 1mm}
-  #print .print-signature{margin-top:4mm!important;text-align:right}
+  #print .print-signature{margin-top:1mm!important;text-align:right}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
@@ -1039,14 +1045,20 @@ async function flushQ(){const q=LS.g('cdic_q',[]);if(!q.length||!navigator.onLin
 function printApp(no,f,off){
   f={...f,dob:dateDisplay(f.dob),declDate:dateDisplay(f.declDate)};
   const photoMarkup=f.photoData?`<img class=print-photo src="${esc(f.photoData)}" alt="Applicant photo">`:'';
-  const rowsH=STEPS.slice(0,3).map((s,i)=>`<section class=print-section><h3>${String.fromCharCode(65+i)}. ${s.ml} / ${s.en}</h3>${i===0?photoMarkup:''}<dl class=kv>${s.f.filter(x=>x[3]!=='h'&&x[0]!=='photo'&&!(x[0]==='tharqiyyaYear'&&f.tharqiyya!=='Yes')).map(x=>`<dt>${x[1]}<br><small>${x[2]}</small></dt><dd>${esc(x[3]==='yn'?(f[x[0]]==='Yes'?'അതെ / Yes':f[x[0]]==='No'?'ഇല്ല / No':''):f[x[0]])}</dd>`).join('')}</dl></section>`);
+  const renderFields=fields=>fields.map(x=>`<dt>${x[1]}<br><small>${x[2]}</small></dt><dd>${esc(x[3]==='yn'?(f[x[0]]==='Yes'?'അതെ / Yes':f[x[0]]==='No'?'ഇല്ല / No':''):f[x[0]])}</dd>`).join('');
+  const rowsH=STEPS.slice(0,3).map((s,i)=>{
+    const fields=s.f.filter(x=>x[3]!=='h'&&x[0]!=='photo'&&!(x[0]==='tharqiyyaYear'&&f.tharqiyya!=='Yes'));
+    const content=i===0
+      ?`<div class=print-personal><dl class="kv print-identity">${renderFields(fields.slice(0,5))}</dl>${photoMarkup}</div><dl class=kv>${renderFields(fields.slice(5))}</dl>`
+      :`<dl class=kv>${renderFields(fields)}</dl>`;
+    return `<section class=print-section><h3>${String.fromCharCode(65+i)}. ${s.ml} / ${s.en}</h3>${content}</section>`;
+  });
   const o={...(off||{}),receivedDate:dateDisplay(off&&off.receivedDate)};
-  $('#print').innerHTML=`<div class="print-page print-page-one"><div class=print-header style="display:flex;align-items:center;gap:12px"><img src="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg" alt="CDIC emblem" style="height:80px;width:104px;object-fit:contain"><div><b style="font-size:16pt">CDIC — Coordination of Darussalam Islamic Colleges</b><br>Hifz Sanad Application</div></div><h2 class=print-title>ഹിഫ്‌ള് സനദ് അപേക്ഷ / Hifz Sanad Application</h2><div class=print-number><span>Application No. / അപേക്ഷാ നമ്പർ</span><strong>${esc(no)}</strong></div>
+  $('#print').innerHTML=`<div class=print-application><div class=print-header><div class=print-contact><div>Ph. &amp; Fax: 0496 2690391<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;0496 2690491</div><img src="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg" alt="CDIC emblem"><div class=print-contact-right>E-mail: dsanandi@gmail.com<br>Web: www.jamiadarussalam.org</div></div><div class=print-arabic>تنسيق كليات دارالسلام الإسلامية</div><div class=print-org>CO-ORDINATION OF DARUSSALAM ISLAMIC COLLEGES</div><div class=print-address>H.O: JAMIA DARUSSALAM AL ISLAMIYYA - NANDI, P.O. KATALUR-673529, VIA. KOYILANDI, CALICUT DT.</div></div><h2 class=print-title>ഹിഫ്‌ള് സനദ് അപേക്ഷ / Hifz Sanad Application</h2><div class=print-number><span>Application No. / അപേക്ഷാ നമ്പർ</span><strong>${esc(no)}</strong></div>
   <div class="pb office-use"><h3>ഓഫീസ് ആവശ്യത്തിന് മാത്രം / Office use only</h3><dl class=kv><dt>അപേക്ഷ ലഭിച്ച തീയതി</dt><dd>${esc(o.receivedDate||'')}</dd><dt>പഠനവിവരങ്ങൾ പരിശോധിച്ചു</dt><dd>${o.eduVerified?(o.eduVerified==='Yes'?'അതെ / Yes':'ഇല്ല / No'):'അതെ / ഇല്ല'}</dd><dt>ബന്ധപ്പെട്ട സ്ഥാപനത്തിൽനിന്ന് സ്ഥിരീകരിച്ചു</dt><dd>${o.instConfirmed?(o.instConfirmed==='Yes'?'അതെ / Yes':'ഇല്ല / No'):'അതെ / ഇല്ല'}</dd><dt>സനദിന് അർഹത</dt><dd>${esc(o.eligibility||'അംഗീകരിച്ചു / നിരസിച്ചു / പരിശോധനയിൽ')}</dd><dt>മറ്റ് വിവരങ്ങൾ</dt><dd>${esc(o.remarks||'')}</dd><dt>പരിശോധിച്ച ഉദ്യോഗസ്ഥന്റെ പേര്, ഒപ്പ്</dt><dd>${esc(o.verifierName||'')}</dd></dl></div>
-  ${rowsH[0]}</div><div class="print-page print-page-two">
-  ${rowsH[1]}${rowsH[2]}
+  ${rowsH.join('')}
   <section class=print-section><h3>D. അപേക്ഷകന്റെ സത്യപ്രസ്താവന / Applicant Declaration</h3><p>${esc(DECL[0](f.name))}</p><p>${esc(DECL[1])}</p><p>${esc(DECL[2])}</p><p>സ്ഥലം: ${esc(f.declPlace||'')} &nbsp; തീയതി: ${esc(f.declDate||'')}</p><p class=print-signature>അപേക്ഷകന്റെ പേര്: ${esc(f.name)}<br><br>ഒപ്പ്: ......................................</p></section>
-  <p style="font-size:9pt">ഓഫീസിൽ എത്തിക്കേണ്ടത്: പ്രിന്റ് കോപ്പി, പഠിച്ച സ്ഥാപനത്തിന്റെ ലെറ്റർ, SSLC സർട്ടിഫിക്കറ്റ്, അനുബന്ധ രേഖകൾ. / Deliver this printout, institution letter, SSLC certificate and supporting documents to the office.</p></div>`;
+  <p>ഓഫീസിൽ എത്തിക്കേണ്ടത്: പ്രിന്റ് കോപ്പി, പഠിച്ച സ്ഥാപനത്തിന്റെ ലെറ്റർ, SSLC സർട്ടിഫിക്കറ്റ്, അനുബന്ധ രേഖകൾ. / Deliver this printout, institution letter, SSLC certificate and supporting documents to the office.</p></div>`;
   setTimeout(()=>window.print(),150)}
 function printHall(h,no){
   const oldTitle=document.title,printTitle=`${String(h.name||no).replace(/[\\/:*?"<>|]/g,'').trim()||no}-Hall-Ticket`;
@@ -1223,9 +1235,9 @@ async function showApp(no){
   await run(async()=>{const d=await api('getApplication',{applicationNo:no}),a=d.application;
    const kv=(fs)=>`<dl class=kv>${fs.map(([k,l])=>`<dt>${l}</dt><dd>${esc(a[k])}</dd>`).join('')}</dl>`;
    const adm=can('SUPER_ADMIN','ADMIN'),ver=can('SUPER_ADMIN','ADMIN','VERIFIER');
-   let photoMarkup='';
+   let photoMarkup='',photoData='';
    if(adm&&a.photoUrl){
-    try{const photo=await api('getApplicantPhoto',{applicationNo:no});if(photo.dataUrl)photoMarkup=`<div class=applicant-profile><img class=applicant-avatar src="${esc(photo.dataUrl)}" alt="${esc(a.name)}"><div><b>${esc(a.name)}</b><small>${esc(a.applicationNo)}</small></div></div>`;else toast(b('അപേക്ഷകന്റെ ഫോട്ടോ ലഭ്യമല്ല','Applicant photo is unavailable.'),1)}
+    try{const photo=await api('getApplicantPhoto',{applicationNo:no});if(photo.dataUrl){photoData=photo.dataUrl;photoMarkup=`<div class=applicant-profile><img class=applicant-avatar src="${esc(photoData)}" alt="${esc(a.name)}"><div><b>${esc(a.name)}</b><small>${esc(a.applicationNo)}</small></div></div>`}else toast(b('അപേക്ഷകന്റെ ഫോട്ടോ ലഭ്യമല്ല','Applicant photo is unavailable.'),1)}
     catch(e){toast(e.net?b('അപേക്ഷകന്റെ ഫോട്ടോ ലോഡ് ചെയ്യാനായില്ല','Could not load applicant photo'):e.message,1)}
    }
    const timeline=appTimeline(a,d.payments);
@@ -1239,7 +1251,7 @@ async function showApp(no){
    <div class=card><h4>B. ${b('പഠന വിവരങ്ങൾ','Education')}</h4>${kv([['institution','Institution'],['admissionYear','Admission'],['completionYear','Completion'],['examYear','Final exam year'],['teachers','Teachers'],['tharqiyya','Tharqiyya'],['tharqiyyaYear','Tharqiyya year']])}</div>
    <div class=card><h4>C. ${b('നിലവിലെ വിവരങ്ങളും പരിശോധനയും','Application and verification status')}</h4>${kv([['currentType','Current status'],['currentWork','Job/Study'],['currentOrg','Organisation'],['prevApplication','Previous application'],['declAccepted','Declaration accepted'],['declPlace','Decl. place'],['declDate','Decl. date'],['createdAt','Submitted'],['receivedDate','Received'],['eduVerified','Education verified'],['instConfirmed','Institution confirmed'],['eligibility','Eligibility'],['remarks','Remarks'],['verifierName','Verifying officer'],['officerApproval','Officer approval'],['assignedVerifier','Assigned verifier'],['verifyDate','Verification date'],['paymentStatus','Payment'],['hallTicket','Hall ticket'],['examAttended','Exam attended'],['resultStatus','Result'],['resultPublished','Result published'],['sanadStatus','Sanad'],['sanadCollectedDate','Collected on'],['sanadOfficer','Issued by']])}</div>${E}${pay}`);
    const re=()=>{$('#dlg').close();if(view==='apps')go('apps');else if(view==='dash')go('dash');else if(view==='results')go('results')};
-   $('#pr').onclick=()=>{$('#dlg').close();printApp(a.applicationNo,a,a)};
+   $('#pr').onclick=()=>{$('#dlg').close();printApp(a.applicationNo,{...a,photoData},a)};
    if(ver)$('#ev').onclick=()=>run(async()=>{await api('verifyApplication',{applicationNo:no,eduVerified:$('#e1').value,instConfirmed:$('#e2').value,eligibility:$('#e3').value,remarks:$('#e4').value,verifierName:$('#e5').value,officerApproval:$('#e6').value});toast(b('സേവ് ചെയ്തു','Saved'));if(adm&&$('#e3').value==='Approved'){$('#dlg').close();setTimeout(()=>showApp(no),0)}else re()});
    if(adm){if(a.eligibility==='Approved'&&a.hallTicket!=='Yes')$('#issueHallTicket').onclick=()=>run(async()=>{await api('publishHallTicket',{applicationNos:[no]});toast(b('ഹാൾ ടിക്കറ്റ് നൽകി','Hall ticket issued'));$('#dlg').close();setTimeout(()=>showApp(no),0)});
     if(a.hallTicket==='Yes')$('#printHallTicket').onclick=()=>run(async()=>{const s=await api('getSettings');$('#dlg').close();printHall({...a,examDate:s.examDate,venue:s.examVenue,instructions:s.examInstructions},no)});
