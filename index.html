@@ -17,10 +17,10 @@
 :root{--pur:#3f1d45;--pur2:#5a315f;--grn:#b1812a;--red:#b84550;--gold:#986a1e;--bg:#f7f3ed;--card:#fffdfa;--tx:#2a2430;--mut:#756b78;--bd:#e7dfd4;--r:14px}
 *{box-sizing:border-box}
 html,body{margin:0}
-body{font-family:system-ui,"Noto Sans Malayalam","Nirmala UI","Manjari",sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;font-size:16px;padding-bottom:64px}
+body{font-family:system-ui,"Noto Sans Malayalam","Nirmala UI","Manjari",sans-serif;background:var(--bg);color:var(--tx);line-height:1.6;font-size:16px;padding-top:79px;padding-bottom:64px}
 button,input,select,textarea{font:inherit;color:inherit}
 :focus-visible{outline:3px solid var(--grn);outline-offset:2px}
-.hd{position:sticky;top:0;z-index:20;background:#fff;border-bottom:3px solid var(--grn);box-shadow:0 3px 14px #17204412;display:flex;align-items:center;gap:12px;padding:8px 18px;padding-top:calc(8px + env(safe-area-inset-top))}
+.hd{position:fixed;top:0;left:0;right:0;z-index:20;background:#fff;border-bottom:3px solid var(--grn);box-shadow:0 3px 14px #17204412;display:flex;align-items:center;gap:12px;padding:8px 18px;padding-top:calc(8px + env(safe-area-inset-top))}
 .hd img{height:54px;width:70px;object-fit:contain;border-radius:7px}
 .ttl b{display:block;color:var(--pur);font-size:1.05rem;line-height:1.2;letter-spacing:.035em}.ttl small{color:var(--mut);font-size:.78rem}
 .sp{flex:1}
@@ -48,8 +48,16 @@ h2{margin:.2em 0 .6em;color:var(--pur);letter-spacing:-.02em}h3{color:var(--pur)
 .ph{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:10px 0;border-bottom:1px dashed var(--bd)}.ph:last-child{border:0}.ph em{font-style:normal;background:var(--pur);color:#fff;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-weight:700}
 .ph small{color:var(--mut);display:block}
 label{display:block;font-weight:600;font-size:.9rem;margin:10px 0 3px}
-input[type=text],input[type=tel],input[type=date],input[type=password],input[type=number],select,textarea{width:100%;min-height:46px;padding:10px 12px;border:1px solid #c9bfcd;border-radius:8px;background:#fff}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=password],input[type=number],select,textarea{width:100%;min-height:46px;padding:10px 12px;border:1px solid #c9bfcd;border-radius:8px;background:#fff}
 textarea{min-height:90px}
+.photo-editor{display:grid;gap:8px;max-width:380px}
+.photo-tools{display:grid;gap:8px}
+.photo-editor input[type=file]{width:100%;padding:8px;border:1px solid var(--bd);border-radius:8px;background:#fff}
+.photo-canvas{display:block;width:min(100%,240px);height:auto;aspect-ratio:3/4;border:1px solid var(--bd);border-radius:8px;background:#eee;touch-action:none;cursor:grab}
+.photo-canvas:active{cursor:grabbing}
+.photo-zoom{display:flex;align-items:center;gap:10px}
+.photo-zoom input{flex:1}
+.photo-note{font-size:.82rem;color:var(--mut)}
 .rad{display:flex;gap:18px;flex-wrap:wrap}.rad label{display:flex;gap:6px;align-items:center;font-weight:500;margin:4px 0}.rad input{width:20px;height:20px}
 .fld.bad input,.fld.bad select,.fld.bad textarea{border-color:var(--red);background:#fff5f5}.err{color:var(--red);font-size:.82rem;margin-top:2px}
 .fld>label{display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -68,6 +76,9 @@ table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{padding:8px 10p
 .mut{color:var(--mut)}
 .big{font-size:1.5rem;font-weight:800;color:var(--pur);letter-spacing:.5px;word-break:break-all}
 .kv{display:grid;grid-template-columns:minmax(120px,40%) 1fr;gap:4px 10px;font-size:.92rem}.kv dt{color:var(--mut)}.kv dd{margin:0;word-break:break-word}
+.applicant-profile{display:flex;align-items:center;gap:14px;margin:0 0 12px}
+.applicant-avatar{width:76px;height:76px;flex:0 0 76px;object-fit:cover;border:3px solid var(--bd);border-radius:50%;background:#f7f3ed}
+.applicant-profile b,.applicant-profile small{display:block}.applicant-profile b{color:var(--pur);font-size:1.05rem}.applicant-profile small{color:var(--mut)}
 dialog{border:0;border-radius:14px;padding:0;width:min(780px,96vw);max-height:92vh;box-shadow:0 20px 60px #0005}dialog::backdrop{background:#0007}
 .dh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--pur);color:#fff;position:sticky;top:0;z-index:2}.dh button{background:none;border:0;color:#fff;font-size:1.5rem;cursor:pointer}.db{padding:16px}
 #toast{position:fixed;top:78px;right:12px;z-index:60;display:flex;flex-direction:column;gap:8px;max-width:92vw}
@@ -77,21 +88,29 @@ dialog{border:0;border-radius:14px;padding:0;width:min(780px,96vw);max-height:92
 .ban{background:#fff7e6;border:1px solid #e6c36a;padding:10px 12px;border-radius:8px;margin-bottom:12px;font-size:.9rem}
 #print{display:none}
 @media(max-width:520px){.hd{gap:8px;padding-left:10px;padding-right:10px}.hd img{width:56px;height:46px}.ttl b{font-size:.9rem}.ttl small{font-size:.7rem}.hero{padding:18px}.hero img{width:84px;height:84px;flex-basis:84px}.card{padding:14px}}
-@page{size:A4 portrait;margin:10mm}
+@page{size:A4 portrait;margin:8mm}
 @media print{
   body{margin:0;padding:0;background:#fff}
   body>*:not(#print){display:none!important}
-  #print{display:block!important;width:100%;max-width:100%;margin:0;padding:0;color:#000;font-size:10pt;line-height:1.35;overflow-wrap:anywhere}
+  #print{display:block!important;width:100%;max-width:100%;margin:0;padding:0;color:#000;font-size:9pt;line-height:1.18;overflow-wrap:anywhere}
   #print *{box-sizing:border-box}
-  #print img{width:24mm!important;height:20mm!important;max-width:24mm!important;object-fit:contain}
-  #print>div:first-child{max-width:100%;gap:4mm!important}
-  #print>div:first-child b{font-size:12pt!important}
-  #print h2{margin:4mm 0;color:#000;text-align:center;font-size:15pt}
-  #print h3{margin:4mm 0 2mm;font-size:11pt;break-after:avoid-page}
-  #print p{margin:2mm 0;overflow-wrap:anywhere}
-  #print .kv{grid-template-columns:minmax(35mm,38%) minmax(0,1fr);gap:1mm 3mm;margin:0;font-size:9pt}
-  #print .kv dt,#print .kv dd{min-width:0;overflow-wrap:anywhere;break-inside:avoid}
-  #print .pb{border:1px solid #000;padding:3mm;margin-top:3mm;break-inside:avoid}
+  #print .print-header img{width:24mm!important;height:20mm!important;max-width:24mm!important;object-fit:contain}
+  #print .print-page{display:block;width:100%;margin:0;padding:0}
+  #print .print-page-one{break-after:page;page-break-after:always}
+  #print .print-header{max-width:100%;gap:3mm!important;padding-bottom:2mm;border-bottom:1.5pt solid #000}
+  #print .print-header b{font-size:11pt!important}
+  #print .print-title{margin:2mm 0;color:#000;text-align:center;font-size:12pt}
+  #print .print-number{display:flex;justify-content:space-between;align-items:center;border:1pt solid #000;padding:1.5mm 2mm;font-weight:700}
+  #print .print-number strong{font-size:10pt;letter-spacing:.04em}
+  #print h3{margin:1.5mm 0 1mm;padding:1mm 2mm;border:1pt solid #000;background:#eee;font-size:9pt;break-after:avoid-page}
+  #print p{margin:1mm 0;overflow-wrap:anywhere}
+  #print .kv{grid-template-columns:minmax(34mm,38%) minmax(0,1fr);gap:0 2mm;margin:0;font-size:8pt}
+  #print .kv dt,#print .kv dd{min-width:0;padding:.7mm 1mm;border-bottom:.5pt solid #999;overflow-wrap:anywhere;break-inside:avoid}
+  #print .print-section{margin-top:1.5mm}
+  #print .print-photo{float:right;width:26mm;height:35mm;object-fit:cover;border:1pt solid #000;margin:0 0 1mm 2mm}
+  #print .pb{border:1pt solid #000;padding:1.5mm 2mm;margin-top:1.5mm;break-inside:avoid}
+  #print .office-use h3{margin:0 0 1mm}
+  #print .print-signature{margin-top:4mm!important;text-align:right}
 }
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
@@ -283,7 +302,7 @@ h2{font-size:clamp(1.45rem,2vw,2rem)}
   box-shadow:0 7px 14px rgba(152,106,30,.20);
 }
 label{color:var(--pur);margin:12px 0 5px}
-input[type=text],input[type=tel],input[type=date],input[type=password],input[type=number],select,textarea{
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=password],input[type=number],select,textarea{
   min-height:48px;
   border:1px solid #ccd6cf;
   border-radius:12px;
@@ -452,7 +471,11 @@ dialog{
 @keyframes dialogIn{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:none}}
 
 @media(min-width:860px){
+  .layout{padding-left:230px}
   nav{
+    position:fixed;
+    left:0;
+    right:auto;
     top:79px;
     height:calc(100vh - 79px);
     border-right:1px solid var(--bd);
@@ -491,7 +514,7 @@ dialog{
   nav a[data-nav="audit"]::before{content:"⌁"}
 }
 @media(max-width:520px){
-  body{padding-bottom:72px}
+  body{padding-top:68px;padding-bottom:72px}
   .hd{height:68px;padding:7px 10px}
   .hd img{width:48px;height:48px}
   .ttl{flex:1;min-width:0}
@@ -733,9 +756,9 @@ const dateLabel=v=>dateDisplay(v)||String(v||'');
 /* ====== DATA ====== */
 const DIST=[['Kasaragod','കാസർഗോഡ്'],['Kannur','കണ്ണൂർ'],['Wayanad','വയനാട്'],['Kozhikode','കോഴിക്കോട്'],['Malappuram','മലപ്പുറം'],['Palakkad','പാലക്കാട്'],['Thrissur','തൃശ്ശൂർ'],['Ernakulam','എറണാകുളം'],['Idukki','ഇടുക്കി'],['Kottayam','കോട്ടയം'],['Alappuzha','ആലപ്പുഴ'],['Pathanamthitta','പത്തനംതിട്ട'],['Kollam','കൊല്ലം'],['Thiruvananthapuram','തിരുവനന്തപുരം'],['Outside Kerala','കേരളത്തിന് പുറത്ത്']];
 const STEPS=[
- {ml:'വ്യക്തിഗത വിവരങ്ങൾ',en:'Personal Information',f:[['name','അപേക്ഷകന്റെ പൂർണ്ണനാമം',"Applicant's Full Name",'text'],['father','പിതാവിന്റെ പേര്',"Father's Name",'text'],['mother','മാതാവിന്റെ പേര്',"Mother's Name",'text'],['dob','ജനനത്തീയതി','Date of Birth','date'],['_a','പൂർണ്ണ വിലാസം','Full Address','h'],['place','സ്ഥലം','Place','text'],['house','വീട്ടുപേര്','House Name','text'],['post','പോസ്റ്റ്','Post Office','text'],['pin','പിൻകോഡ്','PIN Code','pin'],['district','ജില്ല','District','district'],['mobile','മൊബൈൽ നമ്പർ','Mobile Number','tel'],['whatsapp','വാട്സ്ആപ്പ് നമ്പർ','WhatsApp Number','tel']]},
+ {ml:'വ്യക്തിഗത വിവരങ്ങൾ',en:'Personal Information',f:[['name','അപേക്ഷകന്റെ പൂർണ്ണനാമം',"Applicant's Full Name",'text'],['father','പിതാവിന്റെ പേര്',"Father's Name",'text'],['mother','മാതാവിന്റെ പേര്',"Mother's Name",'text'],['dob','ജനനത്തീയതി','Date of Birth','date'],['email','ഇമെയിൽ വിലാസം','Email address','email'],['photo','ഫോട്ടോ','Applicant photo (passport portrait)','photo'],['_a','പൂർണ്ണ വിലാസം','Full Address','h'],['place','സ്ഥലം','Place','text'],['house','വീട്ടുപേര്','House Name','text'],['post','പോസ്റ്റ്','Post Office','text'],['pin','പിൻകോഡ്','PIN Code','pin'],['district','ജില്ല','District','district'],['mobile','മൊബൈൽ നമ്പർ','Mobile Number','tel'],['whatsapp','വാട്സ്ആപ്പ് നമ്പർ','WhatsApp Number','tel']]},
  {ml:'പഠന വിവരങ്ങൾ',en:'Educational Information',f:[['institution','പഠനം പൂർത്തീകരിച്ച സ്ഥാപനം','Institution where Hifz was completed','text'],['admissionYear','പ്രവേശന വർഷം','Admission Year','year'],['completionYear','പഠനം പൂർത്തീകരിച്ച വർഷം','Completion Year','year'],['examYear','ഹിഫ്‌ള് ഫൈനൽ / പബ്ലിക് പരീക്ഷയിൽ പങ്കെടുത്ത വർഷം','Year of Hifz Final / Public Examination','year'],['teachers','പഠനകാലത്തെ പ്രധാന അധ്യാപകരുടെ പേര്','Principal teachers during Hifz studies','textarea'],['tharqiyya','ഹിഫ്‌ള് പഠനശേഷം തർഖിയയിൽ പഠിച്ചിട്ടുണ്ടോ?','Studied in Tharqiyya after Hifz?','yn'],['tharqiyyaYear','ഉണ്ടെങ്കിൽ ഏതു വർഷം?','If yes, which year?','year']]},
- {ml:'നിലവിലെ വിവരങ്ങൾ',en:'Current Information',f:[['currentWork','നിലവിൽ ചെയ്യുന്ന ജോലി / പഠനം','Current job / study','text'],['currentOrg','നിലവിൽ പ്രവർത്തിക്കുന്ന സ്ഥാപനം (ഉണ്ടെങ്കിൽ)','Current institution / organisation (if any)','text'],['prevApplication','സനദ് സംബന്ധമായി മുമ്പ് ഏതെങ്കിലും അപേക്ഷ നൽകിയിട്ടുണ്ടോ?','Previously applied regarding Sanad?','yn']]},
+ {ml:'നിലവിലെ വിവരങ്ങൾ',en:'Current Information',f:[['currentType','നിലവിൽ ചെയ്യുന്നത്','Current status','currentType'],['currentWork','ജോലി / പഠനനില','Job title / Study level','currentWork'],['currentOrg','നിലവിൽ പ്രവർത്തിക്കുന്ന സ്ഥാപനം (ഉണ്ടെങ്കിൽ)','Current institution / organisation (if any)','text'],['prevApplication','സനദ് സംബന്ധമായി മുമ്പ് ഏതെങ്കിലും അപേക്ഷ നൽകിയിട്ടുണ്ടോ?','Previously applied regarding Sanad?','yn']]},
  {ml:'അപേക്ഷകന്റെ സത്യപ്രസ്താവന',en:'Applicant Declaration',decl:1}];
 const DECL=[n=>`${n||'………………………………'} എന്ന ഞാൻ ഈ അപേക്ഷയിൽ നൽകിയിട്ടുള്ള മുഴുവൻ വിവരങ്ങളും സത്യവും വസ്തുനിഷ്ഠവുമാണെന്ന് ബോധ്യപ്പെടുത്തുന്നു.`,
  'സമസ്ത കേരള ജംഇയ്യത്തുൽ ഉലമയുടെ ആശയ ആദർശങ്ങൾ അംഗീകരിക്കുന്നവനും ഉപദേശനിർദ്ദേശങ്ങൾ അനുസരിക്കുന്നവനും ജാമിഅ ദാറുസ്സലാമിന്റെ കീഴിൽ നിലനിൽക്കുന്ന വ്യവസ്ഥകൾ നിബന്ധനകൾ അംഗീകരിക്കുകയും സനദ് ലഭിക്കുന്നതിനുള്ള പരിശോധനാ നടപടികളോട് പൂർണമായും സഹകരിക്കുകയും ചെയ്യുമെന്നും പ്രസ്തുത സംവിധാനങ്ങളുടെ ആശയാദർശങ്ങൾക്കും നിലപാടുകൾക്കും വിരുദ്ധമായ പ്രവർത്തനങ്ങളിൽ ഏർപ്പെടുകയില്ലെന്നും ഇതിനാൽ സാക്ഷ്യപ്പെടുത്തുന്നു.',
@@ -763,7 +786,7 @@ const ST={
 'Rejected':['നിരസിച്ചു','Rejected','അപേക്ഷ നിരസിച്ചു. വിശദവിവരങ്ങൾക്ക് ഓഫീസുമായി ബന്ധപ്പെടുക.','no']};
 const stl=s=>ST[s]?b(ST[s][0],ST[s][1]):s;
 const tag=s=>`<span class="tag ${(ST[s]||[])[3]||''}">${esc(stl(s))}</span>`;
-const ERR={REQUIRED:['ഈ വിവരം നൽകേണ്ടതാണ്','This field is required'],MOBILE:['ശരിയായ 10 അക്ക മൊബൈൽ നമ്പർ നൽകുക','Enter a valid 10-digit mobile number'],PIN:['6 അക്ക പിൻകോഡ് നൽകുക','Enter a 6-digit PIN code'],DATE:['ശരിയായ തീയതി നൽകുക','Enter a valid date'],YEAR:['ശരിയായ വർഷം നൽകുക (ഉദാ. 2015)','Enter a valid year (e.g. 2015)'],YEAR_ORDER:['വർഷം പ്രവേശന വർഷത്തിന് ശേഷമായിരിക്കണം','Year must not be before admission year'],DECL:['സത്യപ്രസ്താവന അംഗീകരിക്കേണ്ടതാണ്','You must accept the declaration']};
+const ERR={REQUIRED:['ഈ വിവരം നൽകേണ്ടതാണ്','This field is required'],EMAIL:['ശരിയായ ഇമെയിൽ വിലാസം നൽകുക','Enter a valid email address'],MOBILE:['ശരിയായ 10 അക്ക മൊബൈൽ നമ്പർ നൽകുക','Enter a valid 10-digit mobile number'],PIN:['6 അക്ക പിൻകോഡ് നൽകുക','Enter a 6-digit PIN code'],DATE:['ശരിയായ തീയതി നൽകുക','Enter a valid date'],YEAR:['ശരിയായ വർഷം നൽകുക (ഉദാ. 2015)','Enter a valid year (e.g. 2015)'],YEAR_ORDER:['വർഷം പ്രവേശന വർഷത്തിന് ശേഷമായിരിക്കണം','Year must not be before admission year'],DECL:['സത്യപ്രസ്താവന അംഗീകരിക്കേണ്ടതാണ്','You must accept the declaration']};
 const N={ml:{portal:'ഹിഫ്‌ള് സനദ് അപേക്ഷാ പോർട്ടൽ',home:'ഹോം',apply:'അപേക്ഷിക്കുക',track:'സ്റ്റാറ്റസ്',result:'ഫലം',results:'ഫലങ്ങൾ',reports:'റിപ്പോർട്ടുകൾ',staff:'ലോഗിൻ',logout:'ലോഗൗട്ട്',dash:'ഡാഷ്ബോർഡ്',apps:'അപേക്ഷകൾ',users:'ഉപയോക്താക്കൾ',settings:'ക്രമീകരണങ്ങൾ',audit:'ഓഡിറ്റ് ലോഗ്',soon:'ഉടൻ വരുന്നു',next:'അടുത്തത്',prev:'തിരികെ',submit:'അപേക്ഷ സമർപ്പിക്കുക',draft:'ഡ്രാഫ്റ്റ് സൂക്ഷിച്ചു',save:'സേവ് ചെയ്യുക',cancel:'റദ്ദാക്കുക',review:'പരിശോധിക്കുക'},
  en:{portal:'Hifz Sanad Application Portal',home:'Home',apply:'Apply',track:'Track',result:'Result',results:'Results',reports:'Reports',staff:'Login',logout:'Logout',dash:'Dashboard',apps:'Applications',users:'Users',settings:'Settings',audit:'Audit log',soon:'Coming soon',next:'Next',prev:'Back',submit:'Submit application',draft:'Draft saved',save:'Save',cancel:'Cancel',review:'Review'}};
 const t=k=>N[L][k];
@@ -780,6 +803,8 @@ async function api(action,data,rid){
   let r;try{r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,token:S.token,requestId:rid||uid(),data:data||{}})});}catch(x){const e=new Error('network');e.net=1;throw e}
   let j;try{j=await r.json()}catch(x){const e=new Error('Bad server response');e.net=1;throw e}
   if(!j.success){if(j.error&&j.error.code==='AUTH_REQUIRED'&&S.token){clearSess();go('login')}const e=new Error(j.message);e.res=j;throw e}
+  const result=j.data||{},warnings=[...(result.notificationWarning?[result.notificationWarning]:[]),...(result.notificationWarnings||[])];
+  if(warnings.length)toast(warnings.length===1?w:`${warnings.length} applicant email notifications could not be sent.`,1);
   return j.data}
 function setSess(d){S.token=d.token;S.user=d.user;sessionStorage.setItem('tk',d.token);sessionStorage.setItem('us',JSON.stringify(d.user))}
 function clearSess(){S.token='';S.user=null;sessionStorage.removeItem('tk');sessionStorage.removeItem('us')}
@@ -817,20 +842,79 @@ async function vHome(){
 /* --- Application form --- */
 let FD=LS.g('cdic_draft',{}),step=0,ERRS={};
 const saveDraft=()=>LS.s('cdic_draft',FD);
+let PHOTO={image:null,x:0,y:0,zoom:1,drag:null,sourceUrl:'',restoring:''};
 function fld(f,v){
   const [k,ml,en,ty]=f,lb=b(ml,en);
   if(ty==='h')return `<h4 class=sub style="grid-column:1/-1">${lb}</h4>`;
   if(k==='tharqiyyaYear'&&FD.tharqiyya!=='Yes')return '';
+  if(k==='currentWork'&&!FD.currentType)return '';
   if(ty==='date')v=normalizeDate(v)||v;
   const filled=v!==undefined&&v!==null&&String(v).trim()!=='';
   let i;
   if(ty==='yn')i=`<div class=rad>${['Yes','No'].map(o=>`<label><input type=radio name="${k}" value="${o}" ${v===o?'checked':''}> ${o==='Yes'?b('അതെ','Yes'):b('ഇല്ല','No')}</label>`).join('')}</div>`;
   else if(ty==='district')i=`<select name="${k}"><option value="">${b('തിരഞ്ഞെടുക്കുക','Select')}</option>${DIST.map(d=>`<option value="${d[0]}" ${v===d[0]?'selected':''}>${b(d[1],d[0])}</option>`).join('')}</select>`;
+  else if(ty==='currentType')i=`<select name="${k}"><option value="">${b('തിരഞ്ഞെടുക്കുക','Select')}</option><option value="Job" ${v==='Job'?'selected':''}>${b('ജോലി','Job')}</option><option value="Study" ${v==='Study'?'selected':''}>${b('പഠനം','Study')}</option></select>`;
+  else if(k==='currentWork'&&FD.currentType==='Study')i=`<select name="${k}"><option value="">${b('തിരഞ്ഞെടുക്കുക','Select')}</option>${[['SSLC','SSLC'],['Plus Two','Plus Two'],['UG','UG'],['PG','PG']].map(([value,label])=>`<option value="${value}" ${v===value?'selected':''}>${label}</option>`).join('')}</select>`;
+  else if(ty==='photo')i=`<div class=photo-editor><input type=file id=photoFile accept="image/*"><div class=photo-tools id=photoTools hidden><canvas id=photoCanvas class=photo-canvas width=480 height=640 role=img aria-label="${b('ഫോട്ടോ ക്രോപ്പ് ചെയ്യുക; വലിച്ചുനീക്കി ക്രമീകരിക്കുക','Crop photo; drag to reposition')}" tabindex=0></canvas><div class=photo-zoom><span>${b('സൂം','Zoom')}</span><input id=photoZoom type=range min=1 max=3 step=0.05 value="${PHOTO.zoom}"></div><div class=row><button type=button class="btn l s" id=clearPhoto>${b('ഫോട്ടോ നീക്കുക','Clear photo')}</button><span class=photo-note>${b('3:4 പോർട്രെയിറ്റ് · വലിച്ചുനീക്കി ക്രോപ്പ് ക്രമീകരിക്കുക','3:4 portrait · drag to reposition crop')}</span></div></div></div>`;
+  else if(ty==='email')i=`<input type=email name="${k}" maxlength=254 autocomplete=email value="${esc(v)}">`;
   else if(ty==='textarea')i=`<textarea name="${k}">${esc(v)}</textarea>`;
   else if(ty==='dateText')i=`<input type=text name="${k}" inputmode=numeric maxlength=10 placeholder="DD/MM/YYYY" value="${esc(dateDisplay(v))}">`;
   else{const a={text:'type=text',date:`type=date max="${today()}"`,tel:'type=tel inputmode=tel maxlength=15 autocomplete=tel',pin:'type=text inputmode=numeric maxlength=6',year:'type=text inputmode=numeric maxlength=4'}[ty];i=`<input ${a} name="${k}" value="${esc(v)}">`}
   const e=ERRS[k]?`<div class=err>${esc(b(ERR[ERRS[k]][0],ERR[ERRS[k]][1]))}</div>`:'';
-  return `<div class="fld ${e?'bad':''}"><label>${lb}${filled?`<span class=field-ok aria-label="${b('പൂർത്തിയായി','Completed')}">✓</span>`:''}</label>${i}${e}</div>`;
+  return `<div id="${k==='photo'?'photo-field':''}" class="fld ${e?'bad':''}"><label>${lb}${filled?`<span class=field-ok aria-label="${b('പൂർത്തിയായി','Completed')}">✓</span>`:''}</label>${i}${e}</div>`;
+}
+function syncPhotoMark(){
+  const field=$('#photo-field'),label=field&&field.querySelector('label');
+  if(!field||!label)return;
+  const mark=field.querySelector('.field-ok');
+  if(FD.photoData&&!mark){const badge=document.createElement('span');badge.className='field-ok';badge.setAttribute('aria-label',b('പൂർത്തിയായി','Completed'));badge.textContent='✓';label.appendChild(badge)}
+  else if(!FD.photoData&&mark)mark.remove();
+}
+function resetPhotoEditor(){
+  if(PHOTO.sourceUrl)URL.revokeObjectURL(PHOTO.sourceUrl);
+  PHOTO={image:null,x:0,y:0,zoom:1,drag:null,sourceUrl:'',restoring:'',loadToken:null};
+}
+function drawPhotoCrop(commit){
+  const canvas=$('#photoCanvas');if(!canvas)return;
+  const tools=$('#photoTools');if(tools)tools.hidden=!PHOTO.image;
+  const ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
+  ctx.fillStyle='#eee';ctx.fillRect(0,0,w,h);
+  if(!PHOTO.image){ctx.fillStyle='#756b78';ctx.font='16px system-ui';ctx.textAlign='center';ctx.fillText(b('ഫോട്ടോ തിരഞ്ഞെടുക്കുക','Choose a photo'),w/2,h/2);syncPhotoMark();return}
+  const image=PHOTO.image,scale=Math.max(w/image.naturalWidth,h/image.naturalHeight)*PHOTO.zoom;
+  const dw=image.naturalWidth*scale,dh=image.naturalHeight*scale;
+  PHOTO.x=Math.max(w-dw,Math.min(0,PHOTO.x));PHOTO.y=Math.max(h-dh,Math.min(0,PHOTO.y));
+  ctx.drawImage(image,(w-dw)/2+PHOTO.x,(h-dh)/2+PHOTO.y,dw,dh);
+  if(commit){
+    const data=canvas.toDataURL('image/jpeg',.78);
+    if(data.length>550000){toast(b('ഫോട്ടോ വളരെ വലുതാണ്; ചെറിയ ചിത്രം തിരഞ്ഞെടുക്കുക.','Photo is too large; choose a smaller image.'),1);return}
+    FD.photoData=data;saveDraft();ERRS.photo='';const field=$('#photo-field');if(field){field.classList.remove('bad');field.querySelector('.err')?.remove()}syncPhotoMark();
+  }
+}
+function initPhotoEditor(){
+  const canvas=$('#photoCanvas');if(!canvas)return;
+  if(!PHOTO.image&&FD.photoData&&PHOTO.restoring!==FD.photoData){
+    PHOTO.restoring=FD.photoData;const image=new Image();
+    image.onload=()=>{PHOTO.image=image;PHOTO.x=0;PHOTO.y=0;PHOTO.zoom=1;const zoom=$('#photoZoom');if(zoom)zoom.value='1';drawPhotoCrop(false);syncPhotoMark()};
+    image.onerror=()=>{PHOTO.restoring='';toast(b('സൂക്ഷിച്ച ഫോട്ടോ തുറക്കാനായില്ല. വീണ്ടും അപ്‌ലോഡ് ചെയ്യുക.','Saved photo could not be opened. Please upload it again.'),1)};
+    image.src=FD.photoData;
+  }
+  drawPhotoCrop(!!PHOTO.image&&!FD.photoData);syncPhotoMark();
+  const input=$('#photoFile'),zoom=$('#photoZoom');
+  input.onchange=()=>{
+    const file=input.files&&input.files[0];if(!file)return;
+    if(file.size>12*1024*1024){toast(b('12 MB-ൽ താഴെയുള്ള ഫോട്ടോ തിരഞ്ഞെടുക്കുക.','Choose a photo under 12 MB.'),1);input.value='';return}
+    const url=URL.createObjectURL(file),image=new Image(),token={};PHOTO.loadToken=token;
+    image.onload=()=>{if(PHOTO.loadToken!==token){URL.revokeObjectURL(url);return}if(PHOTO.sourceUrl)URL.revokeObjectURL(PHOTO.sourceUrl);PHOTO.sourceUrl=url;PHOTO.image=image;PHOTO.x=0;PHOTO.y=0;PHOTO.zoom=1;FD.photoData='';saveDraft();zoom.value='1';drawPhotoCrop(true)};
+    image.onerror=()=>{URL.revokeObjectURL(url);toast(b('ഈ ഫോട്ടോ ഫോർമാറ്റ് ബ്രൗസറിൽ തുറക്കാനായില്ല. JPEG അല്ലെങ്കിൽ PNG ആയി മാറ്റി ശ്രമിക്കുക.','This photo format could not be opened by the browser. Try a JPEG or PNG copy.'),1)};
+    image.src=url;
+  };
+  zoom.oninput=()=>{PHOTO.zoom=Number(zoom.value);drawPhotoCrop(false)};
+  zoom.onchange=()=>drawPhotoCrop(true);
+  canvas.onpointerdown=e=>{if(!PHOTO.image)return;PHOTO.drag={id:e.pointerId,x:e.clientX,y:e.clientY,ox:PHOTO.x,oy:PHOTO.y};canvas.setPointerCapture(e.pointerId)};
+  canvas.onpointermove=e=>{if(!PHOTO.drag||PHOTO.drag.id!==e.pointerId)return;const rect=canvas.getBoundingClientRect();PHOTO.x=PHOTO.drag.ox+(e.clientX-PHOTO.drag.x)*canvas.width/rect.width;PHOTO.y=PHOTO.drag.oy+(e.clientY-PHOTO.drag.y)*canvas.height/rect.height;drawPhotoCrop(false)};
+  const finishDrag=e=>{if(PHOTO.drag&&PHOTO.drag.id===e.pointerId){PHOTO.drag=null;drawPhotoCrop(true)}};
+  canvas.onpointerup=finishDrag;canvas.onpointercancel=finishDrag;
+  $('#clearPhoto').onclick=()=>{resetPhotoEditor();FD.photoData='';saveDraft();input.value='';zoom.value='1';ERRS.photo='REQUIRED';drawPhotoCrop(false);syncPhotoMark()};
 }
 function fieldHasValue(field){
   const radios=[...field.querySelectorAll('input[type=radio]')];
@@ -851,7 +935,11 @@ function syncFieldMark(el){
 }
 function vErr(f){
   const e={},cy=new Date().getFullYear(),R=k=>{if(!String(f[k]||'').trim())e[k]='REQUIRED'};
-  ['name','father','mother','place','house','post','district','institution','teachers','currentWork'].forEach(R);
+  ['name','father','mother','place','house','post','district','institution','teachers','currentType','currentWork','email'].forEach(R);
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(f.email||'')))e.email='EMAIL';
+  if(!f.photoData)e.photo='REQUIRED';
+  if(f.currentType&&!['Job','Study'].includes(f.currentType))e.currentType='REQUIRED';
+  if(f.currentType==='Study'&&!['SSLC','Plus Two','UG','PG'].includes(f.currentWork))e.currentWork='REQUIRED';
   const vd=s=>!!normalizeDate(s);
   f.dob=normalizeDate(f.dob)||f.dob;
   f.declDate=normalizeDate(f.declDate)||f.declDate;
@@ -881,9 +969,10 @@ function bind(){
             :el.type==='date'
               ?(normalizeDate(el.value)||el.value)
               :el.value;
+      if(el.name==='currentType')FD.currentWork='';
       saveDraft();
       syncFieldMark(el);
-      if(el.name==='tharqiyya')vApply();
+      if(el.name==='tharqiyya'||el.name==='currentType')vApply();
     };
     const events=el.type==='radio'||el.type==='checkbox'||el.tagName==='SELECT'
       ?['change']
@@ -896,6 +985,7 @@ function bind(){
 async function vApply(){
   if(!S.cfg.year)await cfg();
   if(S.cfg.applicationOpen==='false'){$('#v').innerHTML=`<div class=ban>${b('അപേക്ഷകൾ നിലവിൽ സ്വീകരിക്കുന്നില്ല.','Applications are currently closed.')}</div>`;return}
+  if(!FD.currentType&&FD.currentWork)FD.currentType=['SSLC','Plus Two','UG','PG'].includes(FD.currentWork)?'Study':'Job';
   if(!FD.declDate)FD.declDate=today();
   if(FD.dob)FD.dob=normalizeDate(FD.dob)||FD.dob;
   if(FD.declDate)FD.declDate=normalizeDate(FD.declDate)||FD.declDate;
@@ -906,11 +996,11 @@ async function vApply(){
     body=`<h3>${String.fromCharCode(65+step)}. ${b(s.ml,s.en)}</h3>`+(s.decl?`<div class=decl><p>${esc(DECL[0](FD.name))}</p><p>${esc(DECL[1])}</p><p>${esc(DECL[2])}</p></div>
       <div class="fld ${ERRS.declAccepted?'bad':''}"><label style="display:flex;gap:8px;align-items:flex-start"><input type=checkbox name=declAccepted style="width:22px;height:22px" ${FD.declAccepted===true?'checked':''}> ${b('മുകളിലെ സത്യപ്രസ്താവന ഞാൻ വായിച്ച് അംഗീകരിക്കുന്നു.','I have read and accept the declaration above.')}${FD.declAccepted===true?`<span class=field-ok aria-label="${b('പൂർത്തിയായി','Completed')}">✓</span>`:''}</label>${ERRS.declAccepted?`<div class=err>${esc(b(ERR.DECL[0],ERR.DECL[1]))}</div>`:''}</div>
       <div class=cols>${fld(['declPlace','സ്ഥലം','Place','text'],FD.declPlace)}${fld(['declDate','തീയതി','Date','date'],FD.declDate)}</div><p class=mut>${b('അപേക്ഷകന്റെ പേര്','Applicant name')}: <b>${esc(FD.name||'')}</b> · ${b('ഒപ്പ്: പ്രിന്റ് എടുത്ത ശേഷം ഒപ്പിടുക.','Signature: sign the printed copy.')}</p>`
-      :`<div class=cols>${s.f.map(f=>fld(f,FD[f[0]])).join('')}</div>`)}
-  else{body=`<h3>${t('review')}</h3>`+STEPS.slice(0,3).map(s=>`<div class=card><b>${b(s.ml,s.en)}</b><dl class=kv>${s.f.filter(f=>f[3]!=='h'&&!(f[0]==='tharqiyyaYear'&&FD.tharqiyya!=='Yes')).map(f=>`<dt>${b(f[1],f[2])}</dt><dd>${esc(f[3]==='yn'?(FD[f[0]]==='Yes'?b('അതെ','Yes'):FD[f[0]]?b('ഇല്ല','No'):''):f[3]==='district'?(DIST.find(d=>d[0]===FD[f[0]])||[,FD[f[0]]])[L==='ml'?1:0]:f[0]==='dob'?dateDisplay(FD[f[0]]):FD[f[0]])}</dd>`).join('')}</dl></div>`).join('')}
+      :`<div class=cols>${s.f.map(f=>fld(f,f[0]==='photo'?FD.photoData:FD[f[0]])).join('')}</div>`)}
+  else{body=`<h3>${t('review')}</h3>`+STEPS.slice(0,3).map(s=>`<div class=card><b>${b(s.ml,s.en)}</b><dl class=kv>${s.f.filter(f=>f[3]!=='h'&&!(f[0]==='tharqiyyaYear'&&FD.tharqiyya!=='Yes')).map(f=>`<dt>${b(f[1],f[2])}</dt><dd>${esc(f[3]==='yn'?(FD[f[0]]==='Yes'?b('അതെ','Yes'):FD[f[0]]?b('ഇല്ല','No'):''):f[0]==='photo'?(FD.photoData?b('അപ്‌ലോഡ് ചെയ്തു','Uploaded'):''):f[3]==='district'?(DIST.find(d=>d[0]===FD[f[0]])||[,FD[f[0]]])[L==='ml'?1:0]:f[0]==='dob'?dateDisplay(FD[f[0]]):FD[f[0]])}</dd>`).join('')}</dl></div>`).join('')}
   $('#v').innerHTML=`${qb}<h2>${b('ഹിഫ്‌ള് സനദ് അപേക്ഷ','Hifz Sanad application')}</h2>${bar}<div class=card>${body}</div>
    <div class=row>${step>0?`<button class="btn l" onclick="stp(-1)">${t('prev')}</button>`:''}<button class="btn l" onclick="saveDraft();toast(t('draft'))">${b('ഡ്രാഫ്റ്റ് സൂക്ഷിക്കുക','Save draft')}</button><span class=sp></span>${step<4?`<button class="btn" onclick="stp(1)">${t('next')}</button>`:`<button class="btn g" onclick="submitApp()">${t('submit')}</button>`}</div>`;
-  bind()}
+  bind();initPhotoEditor()}
 function stp(d){
   document.querySelectorAll('#v [name]').forEach(el=>{
     if(el.type==='checkbox')FD[el.name]=el.checked;
@@ -937,8 +1027,8 @@ async function submitApp(){
   const e=vErr(FD);if(Object.keys(e).length){ERRS=e;for(let i=0;i<4;i++)if(stepKeys(i).some(k=>e[k])){step=i;break}vApply();toast(b('ചില വിവരങ്ങൾ ശരിയല്ല','Some fields need correction'),1);return}
   if(!await confirmBox(b('അപേക്ഷ സമർപ്പിക്കട്ടെ? സമർപ്പിച്ച ശേഷം മാറ്റം വരുത്താൻ കഴിയില്ല.','Submit the application? You cannot edit it after submission.')))return;
   FD._rid=FD._rid||uid();saveDraft();  const form={...FD,dob:normalizeDate(FD.dob),declDate:normalizeDate(FD.declDate)};delete form._rid;
-  await run(async()=>{try{const r=await api('submitApplication',{form},FD._rid);LS.d('cdic_draft');done(r.applicationNo,form);FD={};step=0}
-   catch(x){if(x.net){const q=LS.g('cdic_q',[]);q.push({rid:FD._rid,form});LS.s('cdic_q',q);LS.d('cdic_draft');FD={};step=0;toast(b('ഓഫ്‌ലൈൻ ആണ്; ഇന്റർനെറ്റ് വരുമ്പോൾ സ്വയം സമർപ്പിക്കും.','Offline: will be submitted automatically when online.'));go('home')}
+  await run(async()=>{try{const r=await api('submitApplication',{form},FD._rid);LS.d('cdic_draft');done(r.applicationNo,form);FD={};resetPhotoEditor();step=0}
+   catch(x){if(x.net){const q=LS.g('cdic_q',[]);q.push({rid:FD._rid,form});LS.s('cdic_q',q);LS.d('cdic_draft');FD={};resetPhotoEditor();step=0;toast(b('ഓഫ്‌ലൈൻ ആണ്; ഇന്റർനെറ്റ് വരുമ്പോൾ സ്വയം സമർപ്പിക്കും.','Offline: will be submitted automatically when online.'));go('home')}
    else{if(x.res&&x.res.error&&x.res.error.details){ERRS=x.res.error.details;for(let i=0;i<4;i++)if(stepKeys(i).some(k=>ERRS[k])){step=i;break}vApply()}throw x}}})}
 function done(no,form){LS.s('cdic_last',{no,form});$('#v').innerHTML=`<div class=card style="text-align:center"><span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><h2>${b('അപേക്ഷ ലഭിച്ചു','Application received')}</h2><p>${b('നിങ്ങളുടെ അപേക്ഷാ നമ്പർ','Your application number')}</p><div class=big>${esc(no)}</div><p class=mut>${b('ഈ നമ്പറും രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പറും ഉപയോഗിച്ച് സ്റ്റാറ്റസ് പരിശോധിക്കാം.','Use this number with your registered mobile number to track status.')}</p><div class=row style="justify-content:center"><button class="btn g" onclick='printApp(${JSON.stringify(no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ് / ഡൗൺലോഡ്','Print / Download')}</button><button class="btn l" onclick="go('track')">${t('track')}</button></div></div>
  <div class=card><h3>${b('ഇനി ചെയ്യേണ്ടത്','Next steps')}</h3><p>${b(PH[0][2],PH[0][3])}</p><p>${b('ഫീസ്','Fee')}: <b>${S.cfg.fee?'₹'+esc(S.cfg.fee):b('ഓഫീസിൽ നിന്ന് അറിയിക്കും','will be announced by the office')}</b> · ${b('അവസാന തീയതി','Deadline')}: <b>${esc(dateLabel(S.cfg.deadline)||'—')}</b></p></div>`;window.scrollTo(0,0)}
@@ -947,12 +1037,15 @@ async function flushQ(){const q=LS.g('cdic_q',[]);if(!q.length||!navigator.onLin
 /* --- Print --- */
 function printApp(no,f,off){
   f={...f,dob:dateDisplay(f.dob),declDate:dateDisplay(f.declDate)};
-  const rowsH=STEPS.slice(0,3).map((s,i)=>`<h3>${String.fromCharCode(65+i)}. ${s.ml} / ${s.en}</h3><dl class=kv>${s.f.filter(x=>x[3]!=='h'&&!(x[0]==='tharqiyyaYear'&&f.tharqiyya!=='Yes')).map(x=>`<dt>${x[1]}<br><small>${x[2]}</small></dt><dd>${esc(x[3]==='yn'?(f[x[0]]==='Yes'?'അതെ / Yes':f[x[0]]==='No'?'ഇല്ല / No':''):f[x[0]])}</dd>`).join('')}</dl>`).join('');
+  const photoMarkup=f.photoData?`<img class=print-photo src="${esc(f.photoData)}" alt="Applicant photo">`:'';
+  const rowsH=STEPS.slice(0,3).map((s,i)=>`<section class=print-section><h3>${String.fromCharCode(65+i)}. ${s.ml} / ${s.en}</h3>${i===0?photoMarkup:''}<dl class=kv>${s.f.filter(x=>x[3]!=='h'&&x[0]!=='photo'&&!(x[0]==='tharqiyyaYear'&&f.tharqiyya!=='Yes')).map(x=>`<dt>${x[1]}<br><small>${x[2]}</small></dt><dd>${esc(x[3]==='yn'?(f[x[0]]==='Yes'?'അതെ / Yes':f[x[0]]==='No'?'ഇല്ല / No':''):f[x[0]])}</dd>`).join('')}</dl></section>`);
   const o={...(off||{}),receivedDate:dateDisplay(off&&off.receivedDate)};
-  $('#print').innerHTML=`<div style="display:flex;align-items:center;gap:12px"><img src="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg" alt="CDIC emblem" style="height:80px;width:104px;object-fit:contain"><div><b style="font-size:16pt">CDIC — Coordination of Darussalam Islamic Colleges</b><br>ഹിഫ്‌ള് സനദ് അപേക്ഷ / Hifz Sanad Application</div></div><h2>${esc(no)}</h2>${rowsH}
-  <h3>D. അപേക്ഷകന്റെ സത്യപ്രസ്താവന</h3><p>${esc(DECL[0](f.name))}</p><p>${esc(DECL[1])}</p><p>${esc(DECL[2])}</p><p>സ്ഥലം: ${esc(f.declPlace||'')} &nbsp; തീയതി: ${esc(f.declDate||'')}</p><p style="text-align:right">അപേക്ഷകന്റെ പേര്: ${esc(f.name)}<br><br>ഒപ്പ്: ......................................</p>
-  <div class=pb><b>ഓഫീസ് ആവശ്യത്തിന് മാത്രം / Office use only</b><dl class=kv><dt>അപ്ലിക്കേഷൻ നമ്പർ</dt><dd>${esc(no)}</dd><dt>അപേക്ഷ ലഭിച്ച തീയതി</dt><dd>${esc(o.receivedDate||'')}</dd><dt>പഠനവിവരങ്ങൾ പരിശോധിച്ചു</dt><dd>${o.eduVerified?(o.eduVerified==='Yes'?'അതെ':'ഇല്ല'):'അതെ / ഇല്ല'}</dd><dt>ബന്ധപ്പെട്ട സ്ഥാപനത്തിൽനിന്ന് സ്ഥിരീകരിച്ചു</dt><dd>${o.instConfirmed?(o.instConfirmed==='Yes'?'അതെ':'ഇല്ല'):'അതെ / ഇല്ല'}</dd><dt>സനദിന് അർഹത</dt><dd>${esc(o.eligibility||'അംഗീകരിച്ചു / നിരസിച്ചു / പരിശോധനയിൽ')}</dd><dt>മറ്റ് വിവരങ്ങൾ</dt><dd>${esc(o.remarks||'')}</dd><dt>പരിശോധിച്ച ഉദ്യോഗസ്ഥന്റെ പേര്, ഒപ്പ്</dt><dd>${esc(o.verifierName||'')}</dd></dl></div>
-  <p style="font-size:10pt">ഓഫീസിൽ എത്തിക്കേണ്ടത്: പ്രിന്റ് കോപ്പി, പഠിച്ച സ്ഥാപനത്തിന്റെ ലെറ്റർ, SSLC സർട്ടിഫിക്കറ്റ്, അനുബന്ധ രേഖകൾ. / Deliver this printout, institution letter, SSLC certificate and supporting documents to the office.</p>`;
+  $('#print').innerHTML=`<div class="print-page print-page-one"><div class=print-header style="display:flex;align-items:center;gap:12px"><img src="https://i.postimg.cc/90QVXGwP/CO-ORDINATION-EMBLUM-FINAL.jpg" alt="CDIC emblem" style="height:80px;width:104px;object-fit:contain"><div><b style="font-size:16pt">CDIC — Coordination of Darussalam Islamic Colleges</b><br>Hifz Sanad Application</div></div><h2 class=print-title>ഹിഫ്‌ള് സനദ് അപേക്ഷ / Hifz Sanad Application</h2><div class=print-number><span>Application No. / അപേക്ഷാ നമ്പർ</span><strong>${esc(no)}</strong></div>
+  <div class="pb office-use"><h3>ഓഫീസ് ആവശ്യത്തിന് മാത്രം / Office use only</h3><dl class=kv><dt>അപേക്ഷ ലഭിച്ച തീയതി</dt><dd>${esc(o.receivedDate||'')}</dd><dt>പഠനവിവരങ്ങൾ പരിശോധിച്ചു</dt><dd>${o.eduVerified?(o.eduVerified==='Yes'?'അതെ / Yes':'ഇല്ല / No'):'അതെ / ഇല്ല'}</dd><dt>ബന്ധപ്പെട്ട സ്ഥാപനത്തിൽനിന്ന് സ്ഥിരീകരിച്ചു</dt><dd>${o.instConfirmed?(o.instConfirmed==='Yes'?'അതെ / Yes':'ഇല്ല / No'):'അതെ / ഇല്ല'}</dd><dt>സനദിന് അർഹത</dt><dd>${esc(o.eligibility||'അംഗീകരിച്ചു / നിരസിച്ചു / പരിശോധനയിൽ')}</dd><dt>മറ്റ് വിവരങ്ങൾ</dt><dd>${esc(o.remarks||'')}</dd><dt>പരിശോധിച്ച ഉദ്യോഗസ്ഥന്റെ പേര്, ഒപ്പ്</dt><dd>${esc(o.verifierName||'')}</dd></dl></div>
+  ${rowsH[0]}</div><div class="print-page print-page-two">
+  ${rowsH[1]}${rowsH[2]}
+  <section class=print-section><h3>D. അപേക്ഷകന്റെ സത്യപ്രസ്താവന / Applicant Declaration</h3><p>${esc(DECL[0](f.name))}</p><p>${esc(DECL[1])}</p><p>${esc(DECL[2])}</p><p>സ്ഥലം: ${esc(f.declPlace||'')} &nbsp; തീയതി: ${esc(f.declDate||'')}</p><p class=print-signature>അപേക്ഷകന്റെ പേര്: ${esc(f.name)}<br><br>ഒപ്പ്: ......................................</p></section>
+  <p style="font-size:9pt">ഓഫീസിൽ എത്തിക്കേണ്ടത്: പ്രിന്റ് കോപ്പി, പഠിച്ച സ്ഥാപനത്തിന്റെ ലെറ്റർ, SSLC സർട്ടിഫിക്കറ്റ്, അനുബന്ധ രേഖകൾ. / Deliver this printout, institution letter, SSLC certificate and supporting documents to the office.</p></div>`;
   setTimeout(()=>window.print(),150)}
 function printHall(h,no){
   const oldTitle=document.title,printTitle=`${String(h.name||no).replace(/[\\/:*?"<>|]/g,'').trim()||no}-Hall-Ticket`;
@@ -963,7 +1056,7 @@ function printHall(h,no){
 }
 function downloadHallTicketPdf(h,no){printHall(h,no)}
 /* --- Track / Result --- */
-function lookupForm(id,btn){return `<div class=card style="max-width:520px"><label>${b('അപേക്ഷാ നമ്പർ','Application number')}</label><input type=text id=${id}n placeholder="CDIC-HIFZ-2026-00001" autocapitalize=characters><label>${b('രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പർ','Registered mobile number')}</label><input type=tel id=${id}m inputmode=tel><div class=row><button class="btn g" id=${id}b>${btn}</button></div></div><div id=${id}r></div>`}
+function lookupForm(id,btn){return `<div class=card style="max-width:520px"><label>${b('അപേക്ഷാ നമ്പർ','Application number')}</label><input type=text id=${id}n placeholder="CDIC-2026-1" autocapitalize=characters><label>${b('രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പർ','Registered mobile number')}</label><input type=tel id=${id}m inputmode=tel><div class=row><button class="btn g" id=${id}b>${btn}</button></div></div><div id=${id}r></div>`}
 async function vTrack(){
   $('#v').innerHTML=`<h2>${b('അപേക്ഷയുടെ സ്റ്റാറ്റസ്','Application status')}</h2>`+lookupForm('t',b('സ്റ്റാറ്റസ് നോക്കുക','Check status'));
   $('#tb').onclick=()=>run(async()=>{const r=await api('trackApplication',{applicationNo:$('#tn').value,mobile:$('#tm').value});const s=ST[r.status]||[];
@@ -1129,6 +1222,11 @@ async function showApp(no){
   await run(async()=>{const d=await api('getApplication',{applicationNo:no}),a=d.application;
    const kv=(fs)=>`<dl class=kv>${fs.map(([k,l])=>`<dt>${l}</dt><dd>${esc(a[k])}</dd>`).join('')}</dl>`;
    const adm=can('SUPER_ADMIN','ADMIN'),ver=can('SUPER_ADMIN','ADMIN','VERIFIER');
+   let photoMarkup='';
+   if(adm&&a.photoUrl){
+    try{const photo=await api('getApplicantPhoto',{applicationNo:no});if(photo.dataUrl)photoMarkup=`<div class=applicant-profile><img class=applicant-avatar src="${esc(photo.dataUrl)}" alt="${esc(a.name)}"><div><b>${esc(a.name)}</b><small>${esc(a.applicationNo)}</small></div></div>`;else toast(b('അപേക്ഷകന്റെ ഫോട്ടോ ലഭ്യമല്ല','Applicant photo is unavailable.'),1)}
+    catch(e){toast(e.net?b('അപേക്ഷകന്റെ ഫോട്ടോ ലോഡ് ചെയ്യാനായില്ല','Could not load applicant photo'):e.message,1)}
+   }
    const timeline=appTimeline(a,d.payments);
    const yn=(id,v)=>`<select id=${id}><option value="">—</option><option value=Yes ${v==='Yes'?'selected':''}>${b('അതെ','Yes')}</option><option value=No ${v==='No'?'selected':''}>${b('ഇല്ല','No')}</option></select>`;
    const E=`<div class=card><h4>E. ${b('ഓഫീസ് ആവശ്യത്തിന് മാത്രം','Office use only')}</h4>${ver?`<label>${b('പഠനവിവരങ്ങൾ പരിശോധിച്ചു','Educational details verified')}</label>${yn('e1',a.eduVerified)}<label>${b('ബന്ധപ്പെട്ട സ്ഥാപനത്തിൽനിന്ന് സ്ഥിരീകരിച്ചു','Confirmed by institution')}</label>${yn('e2',a.instConfirmed)}<label>${b('സനദിന് അർഹത','Sanad eligibility')}</label><select id=e3>${[['Under Verification','പരിശോധനയിൽ'],['Approved','അംഗീകരിച്ചു'],['Rejected','നിരസിച്ചു']].map(x=>`<option value="${x[0]}" ${a.eligibility===x[0]?'selected':''}>${b(x[1],x[0])}</option>`).join('')}</select><label>${b('മറ്റ് വിവരങ്ങൾ','Other remarks')}</label><textarea id=e4>${esc(a.remarks)}</textarea><label>${b('പരിശോധിച്ച ഉദ്യോഗസ്ഥന്റെ പേര്','Verifying officer')}</label><input type=text id=e5 value="${esc(a.verifierName||S.user.name)}"><label>${b('ഉദ്യോഗസ്ഥന്റെ ഒപ്പ് / അംഗീകാരം','Officer signature / approval')}</label><input type=text id=e6 value="${esc(a.officerApproval)}"><div class=row><button class="btn g" id=ev>${b('പരിശോധന സേവ് ചെയ്യുക','Save verification')}</button></div>`:kv([['eligibility','Eligibility']])}</div>`;
@@ -1136,9 +1234,9 @@ async function showApp(no){
    <div class=card><h4>${b('സ്റ്റാറ്റസ് / വെരിഫയർ','Status / verifier')}</h4><div class=row><select id=s1 style="flex:1">${Object.keys(ST).map(s=>`<option ${s===a.status?'selected':''} value="${s}">${esc(stl(s))}</option>`).join('')}</select><button class="btn s" id=sb>${b('മാറ്റുക','Update')}</button></div><div class=row><input type=text id=v1 value="${esc(a.assignedVerifier)}" placeholder="verifier username" style="flex:1"><button class="btn s" id=vb>${b('നിയമിക്കുക','Assign')}</button></div></div>`:'';
    modal(a.applicationNo,`<div class=row>${tag(a.status)}<span class=sp></span><button class="btn l s" id=pr>${b('പ്രിന്റ് അപേക്ഷ','Print application')}</button>${adm?`<button class="btn l s" id=ed>${b('തിരുത്തുക','Edit details')}</button><button class="btn r s" id=deleteApp>${b('അപേക്ഷ നീക്കുക','Delete application')}</button>`:''}</div>${timeline}
    ${adm&&a.eligibility==='Approved'?`<div class=card><h4>${b('അടുത്ത നടപടി','Next step')}</h4>${a.hallTicket==='Yes'?`<p>${b('ഹാൾ ടിക്കറ്റ് നൽകിയിട്ടുണ്ട്.','Hall ticket has been issued.')}</p><button class="btn g" id=printHallTicket>${b('ഹാൾ ടിക്കറ്റ് പ്രിന്റ് ചെയ്യുക','Print hall ticket')}</button>`:`<p>${b('പരിശോധനയിൽ യോഗ്യനായി അംഗീകരിച്ചു. ഇപ്പോൾ ഹാൾ ടിക്കറ്റ് നൽകാം.','Verification approved. You can now issue the hall ticket.')}</p><button class="btn g" id=issueHallTicket>${b('ഹാൾ ടിക്കറ്റ് നൽകുക','Issue hall ticket')}</button>`}</div>`:''}
-   <div class=card><h4>A. ${b('വ്യക്തിഗത വിവരങ്ങൾ','Personal')}</h4>${kv([['name','Name'],['father','Father'],['mother','Mother'],['dob','DOB'],['place','Place'],['house','House'],['post','Post'],['pin','PIN'],['district','District'],['mobile','Mobile'],['whatsapp','WhatsApp']])}</div>
+   <div class=card><h4>A. ${b('വ്യക്തിഗത വിവരങ്ങൾ','Personal')}</h4>${photoMarkup}${kv([['name','Name'],['father','Father'],['mother','Mother'],['dob','DOB'],['email','Email'],['place','Place'],['house','House'],['post','Post'],['pin','PIN'],['district','District'],['mobile','Mobile'],['whatsapp','WhatsApp']])}</div>
    <div class=card><h4>B. ${b('പഠന വിവരങ്ങൾ','Education')}</h4>${kv([['institution','Institution'],['admissionYear','Admission'],['completionYear','Completion'],['examYear','Final exam year'],['teachers','Teachers'],['tharqiyya','Tharqiyya'],['tharqiyyaYear','Tharqiyya year']])}</div>
-   <div class=card><h4>C. ${b('നിലവിലെ വിവരങ്ങളും പരിശോധനയും','Application and verification status')}</h4>${kv([['currentWork','Job/Study'],['currentOrg','Organisation'],['prevApplication','Previous application'],['declAccepted','Declaration accepted'],['declPlace','Decl. place'],['declDate','Decl. date'],['createdAt','Submitted'],['receivedDate','Received'],['eduVerified','Education verified'],['instConfirmed','Institution confirmed'],['eligibility','Eligibility'],['remarks','Remarks'],['verifierName','Verifying officer'],['officerApproval','Officer approval'],['assignedVerifier','Assigned verifier'],['verifyDate','Verification date'],['paymentStatus','Payment'],['hallTicket','Hall ticket'],['examAttended','Exam attended'],['resultStatus','Result'],['resultPublished','Result published'],['sanadStatus','Sanad'],['sanadCollectedDate','Collected on'],['sanadOfficer','Issued by']])}</div>${E}${pay}`);
+   <div class=card><h4>C. ${b('നിലവിലെ വിവരങ്ങളും പരിശോധനയും','Application and verification status')}</h4>${kv([['currentType','Current status'],['currentWork','Job/Study'],['currentOrg','Organisation'],['prevApplication','Previous application'],['declAccepted','Declaration accepted'],['declPlace','Decl. place'],['declDate','Decl. date'],['createdAt','Submitted'],['receivedDate','Received'],['eduVerified','Education verified'],['instConfirmed','Institution confirmed'],['eligibility','Eligibility'],['remarks','Remarks'],['verifierName','Verifying officer'],['officerApproval','Officer approval'],['assignedVerifier','Assigned verifier'],['verifyDate','Verification date'],['paymentStatus','Payment'],['hallTicket','Hall ticket'],['examAttended','Exam attended'],['resultStatus','Result'],['resultPublished','Result published'],['sanadStatus','Sanad'],['sanadCollectedDate','Collected on'],['sanadOfficer','Issued by']])}</div>${E}${pay}`);
    const re=()=>{$('#dlg').close();if(view==='apps')go('apps');else if(view==='dash')go('dash');else if(view==='results')go('results')};
    $('#pr').onclick=()=>{$('#dlg').close();printApp(a.applicationNo,a,a)};
    if(ver)$('#ev').onclick=()=>run(async()=>{await api('verifyApplication',{applicationNo:no,eduVerified:$('#e1').value,instConfirmed:$('#e2').value,eligibility:$('#e3').value,remarks:$('#e4').value,verifierName:$('#e5').value,officerApproval:$('#e6').value});toast(b('സേവ് ചെയ്തു','Saved'));if(adm&&$('#e3').value==='Approved'){$('#dlg').close();setTimeout(()=>showApp(no),0)}else re()});
@@ -1157,9 +1255,9 @@ async function showApp(no){
       });
     }}})}
 function editApp(a){
-  FD={...a};ERRS={};const fs=STEPS.slice(0,3).flatMap(s=>s.f);
-  modal(b('വിവരങ്ങൾ തിരുത്തുക','Edit details'),`<div id=v class=cols>${fs.map(f=>fld(f,a[f[0]])).join('')}</div><div class=row><button class="btn g" id=eb>${t('save')}</button></div>`);
-  document.querySelectorAll('#dlg [name]').forEach(el=>{el.addEventListener('change',()=>{if(el.type==='radio'){if(el.checked)FD[el.name]=el.value}else FD[el.name]=el.value;syncFieldMark(el);if(el.name==='tharqiyya')editApp({...FD})});el.addEventListener('input',()=>{if(el.type!=='radio')FD[el.name]=el.value;syncFieldMark(el)})});
+  FD={...a};if(!FD.currentType&&FD.currentWork)FD.currentType=['SSLC','Plus Two','UG','PG'].includes(FD.currentWork)?'Study':'Job';ERRS={};const fs=STEPS.slice(0,3).flatMap(s=>s.f).filter(f=>f[0]!=='photo');
+  modal(b('വിവരങ്ങൾ തിരുത്തുക','Edit details'),`<div id=v class=cols>${fs.map(f=>fld(f,FD[f[0]])).join('')}</div><div class=row><button class="btn g" id=eb>${t('save')}</button></div>`);
+  document.querySelectorAll('#dlg [name]').forEach(el=>{el.addEventListener('change',()=>{if(el.type==='radio'){if(el.checked)FD[el.name]=el.value}else FD[el.name]=el.value;if(el.name==='currentType')FD.currentWork='';syncFieldMark(el);if(el.name==='tharqiyya'||el.name==='currentType')editApp({...FD})});el.addEventListener('input',()=>{if(el.type!=='radio')FD[el.name]=el.value;syncFieldMark(el)})});
   $('#eb').onclick=()=>run(async()=>{const form={};fs.forEach(f=>{if(f[3]!=='h')form[f[0]]=FD[f[0]]});await api('updateApplication',{applicationNo:a.applicationNo,form});FD=LS.g('cdic_draft',{});$('#dlg').close();if(view==='apps'||view==='results')await go(view);successPopup(b('അപേക്ഷകന്റെ വിവരങ്ങൾ വിജയകരമായി പുതുക്കി.','Applicant details updated successfully.'))})}
 
 async function vUsers(){
