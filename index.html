@@ -8,6 +8,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="theme-color" content="#3f1d45">
+<link rel="manifest" href="manifest.webmanifest">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="CDIC Portal">
 <meta name="description" content="Official Hifz Sanad application and candidate services portal of the Coordination of Darussalam Islamic Colleges.">
@@ -738,7 +739,10 @@ const LS={g(k,d){try{return JSON.parse(localStorage.getItem(k))??d}catch(e){retu
 let L=LS.g('cdic_lang','en'),S={token:sessionStorage.getItem('tk')||'',user:JSON.parse(sessionStorage.getItem('us')||'null'),cfg:{}},view='home';
 document.documentElement.lang=L;
 const b=(ml,en)=>L==='ml'?ml:en;
-const today=()=>new Date().toISOString().slice(0,10);
+const today=()=>{
+  const d=new Date();
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+};
 const normalizeDate=v=>{
   const s=String(v||'').trim();
   let y,m,d;
@@ -767,7 +771,7 @@ const dateLabel=v=>dateDisplay(v)||String(v||'');
 const DIST=[['Kasaragod','കാസർഗോഡ്'],['Kannur','കണ്ണൂർ'],['Wayanad','വയനാട്'],['Kozhikode','കോഴിക്കോട്'],['Malappuram','മലപ്പുറം'],['Palakkad','പാലക്കാട്'],['Thrissur','തൃശ്ശൂർ'],['Ernakulam','എറണാകുളം'],['Idukki','ഇടുക്കി'],['Kottayam','കോട്ടയം'],['Alappuzha','ആലപ്പുഴ'],['Pathanamthitta','പത്തനംതിട്ട'],['Kollam','കൊല്ലം'],['Thiruvananthapuram','തിരുവനന്തപുരം'],['Outside Kerala','കേരളത്തിന് പുറത്ത്']];
 const STEPS=[
  {ml:'വ്യക്തിഗത വിവരങ്ങൾ',en:'Personal Information',f:[['name','അപേക്ഷകന്റെ പൂർണ്ണനാമം',"Applicant's Full Name",'text'],['father','പിതാവിന്റെ പേര്',"Father's Name",'text'],['mother','മാതാവിന്റെ പേര്',"Mother's Name",'text'],['dob','ജനനത്തീയതി','Date of Birth','date'],['email','ഇമെയിൽ വിലാസം','Email address','email'],['photo','ഫോട്ടോ','Applicant photo (passport portrait)','photo'],['_a','പൂർണ്ണ വിലാസം','Full Address','h'],['place','സ്ഥലം','Place','text'],['house','വീട്ടുപേര്','House Name','text'],['post','പോസ്റ്റ്','Post Office','text'],['pin','പിൻകോഡ്','PIN Code','pin'],['district','ജില്ല','District','district'],['mobile','മൊബൈൽ നമ്പർ','Mobile Number','tel'],['whatsapp','വാട്സ്ആപ്പ് നമ്പർ','WhatsApp Number','tel']]},
- {ml:'പഠന വിവരങ്ങൾ',en:'Educational Information',f:[['institution','പഠനം പൂർത്തീകരിച്ച സ്ഥാപനം','Institution where Hifz was completed','text'],['admissionYear','പ്രവേശന വർഷം','Admission Year','year'],['completionYear','പഠനം പൂർത്തീകരിച്ച വർഷം','Completion Year','year'],['examYear','ഹിഫ്‌ള് ഫൈനൽ / പബ്ലിക് പരീക്ഷയിൽ പങ്കെടുത്ത വർഷം','Year of Hifz Final / Public Examination','year'],['teachers','പഠനകാലത്തെ പ്രധാന അധ്യാപകരുടെ പേര്','Principal teachers during Hifz studies','textarea'],['tharqiyya','ഹിഫ്‌ള് പഠനശേഷം തർഖിയയിൽ പഠിച്ചിട്ടുണ്ടോ?','Studied in Tharqiyya after Hifz?','yn'],['tharqiyyaYear','ഉണ്ടെങ്കിൽ ഏതു വർഷം?','If yes, which year?','year']]},
+ {ml:'പഠന വിവരങ്ങൾ',en:'Educational Information',f:[['institution','ഹിഫ്‌ള് പൂർത്തീകരിച്ച കോളേജ്','College where Hifz was completed','institution'],['admissionYear','പ്രവേശന വർഷം','Admission Year','year'],['completionYear','പഠനം പൂർത്തീകരിച്ച വർഷം','Completion Year','year'],['examYear','ഹിഫ്‌ള് ഫൈനൽ / പബ്ലിക് പരീക്ഷയിൽ പങ്കെടുത്ത വർഷം','Year of Hifz Final / Public Examination','year'],['teachers','പഠനകാലത്തെ പ്രധാന അധ്യാപകരുടെ പേര്','Principal teachers during Hifz studies','textarea'],['tharqiyya','ഹിഫ്‌ള് പഠനശേഷം തർഖിയയിൽ പഠിച്ചിട്ടുണ്ടോ?','Studied in Tharqiyya after Hifz?','yn'],['tharqiyyaYear','ഉണ്ടെങ്കിൽ ഏതു വർഷം?','If yes, which year?','year']]},
  {ml:'നിലവിലെ വിവരങ്ങൾ',en:'Current Information',f:[['currentType','നിലവിൽ ചെയ്യുന്നത്','Current status','currentType'],['currentWork','ജോലി / പഠനനില','Job title / Study level','currentWork'],['currentOrg','നിലവിൽ പ്രവർത്തിക്കുന്ന സ്ഥാപനം (ഉണ്ടെങ്കിൽ)','Current institution / organisation (if any)','text'],['prevApplication','സനദ് സംബന്ധമായി മുമ്പ് ഏതെങ്കിലും അപേക്ഷ നൽകിയിട്ടുണ്ടോ?','Previously applied regarding Sanad?','yn']]},
  {ml:'അപേക്ഷകന്റെ സത്യപ്രസ്താവന',en:'Applicant Declaration',decl:1}];
 const DECL=[n=>`${n||'………………………………'} എന്ന ഞാൻ ഈ അപേക്ഷയിൽ നൽകിയിട്ടുള്ള മുഴുവൻ വിവരങ്ങളും സത്യവും വസ്തുനിഷ്ഠവുമാണെന്ന് ബോധ്യപ്പെടുത്തുന്നു.`,
@@ -796,7 +800,7 @@ const ST={
 'Rejected':['നിരസിച്ചു','Rejected','അപേക്ഷ നിരസിച്ചു. വിശദവിവരങ്ങൾക്ക് ഓഫീസുമായി ബന്ധപ്പെടുക.','no']};
 const stl=s=>ST[s]?b(ST[s][0],ST[s][1]):s;
 const tag=s=>`<span class="tag ${(ST[s]||[])[3]||''}">${esc(stl(s))}</span>`;
-const ERR={REQUIRED:['ഈ വിവരം നൽകേണ്ടതാണ്','This field is required'],EMAIL:['ശരിയായ ഇമെയിൽ വിലാസം നൽകുക','Enter a valid email address'],MOBILE:['ശരിയായ 10 അക്ക മൊബൈൽ നമ്പർ നൽകുക','Enter a valid 10-digit mobile number'],PIN:['6 അക്ക പിൻകോഡ് നൽകുക','Enter a 6-digit PIN code'],DATE:['ശരിയായ തീയതി നൽകുക','Enter a valid date'],YEAR:['ശരിയായ വർഷം നൽകുക (ഉദാ. 2015)','Enter a valid year (e.g. 2015)'],YEAR_ORDER:['വർഷം പ്രവേശന വർഷത്തിന് ശേഷമായിരിക്കണം','Year must not be before admission year'],DECL:['സത്യപ്രസ്താവന അംഗീകരിക്കേണ്ടതാണ്','You must accept the declaration']};
+const ERR={REQUIRED:['ഈ വിവരം നൽകേണ്ടതാണ്','This field is required'],INSTITUTION:['പട്ടികയിൽ നിന്ന് സ്ഥാപനം തിരഞ്ഞെടുക്കുക','Select an institution from the list'],EMAIL:['ശരിയായ ഇമെയിൽ വിലാസം നൽകുക','Enter a valid email address'],MOBILE:['ശരിയായ 10 അക്ക മൊബൈൽ നമ്പർ നൽകുക','Enter a valid 10-digit mobile number'],PIN:['6 അക്ക പിൻകോഡ് നൽകുക','Enter a 6-digit PIN code'],DATE:['ശരിയായ തീയതി നൽകുക','Enter a valid date'],YEAR:['ശരിയായ വർഷം നൽകുക (ഉദാ. 2015)','Enter a valid year (e.g. 2015)'],YEAR_ORDER:['വർഷം പ്രവേശന വർഷത്തിന് ശേഷമായിരിക്കണം','Year must not be before admission year'],DECL:['സത്യപ്രസ്താവന അംഗീകരിക്കേണ്ടതാണ്','You must accept the declaration']};
 const N={ml:{portal:'ഹിഫ്‌ള് സനദ് അപേക്ഷാ പോർട്ടൽ',home:'ഹോം',apply:'അപേക്ഷിക്കുക',track:'സ്റ്റാറ്റസ്',result:'ഫലം',results:'ഫലങ്ങൾ',reports:'റിപ്പോർട്ടുകൾ',staff:'ലോഗിൻ',logout:'ലോഗൗട്ട്',dash:'ഡാഷ്ബോർഡ്',apps:'അപേക്ഷകൾ',users:'ഉപയോക്താക്കൾ',settings:'ക്രമീകരണങ്ങൾ',audit:'ഓഡിറ്റ് ലോഗ്',soon:'ഉടൻ വരുന്നു',next:'അടുത്തത്',prev:'തിരികെ',submit:'അപേക്ഷ സമർപ്പിക്കുക',draft:'ഡ്രാഫ്റ്റ് സൂക്ഷിച്ചു',save:'സേവ് ചെയ്യുക',cancel:'റദ്ദാക്കുക',review:'പരിശോധിക്കുക'},
  en:{portal:'Hifz Sanad Application Portal',home:'Home',apply:'Apply',track:'Track',result:'Result',results:'Results',reports:'Reports',staff:'Login',logout:'Logout',dash:'Dashboard',apps:'Applications',users:'Users',settings:'Settings',audit:'Audit log',soon:'Coming soon',next:'Next',prev:'Back',submit:'Submit application',draft:'Draft saved',save:'Save',cancel:'Cancel',review:'Review'}};
 const t=k=>N[L][k];
@@ -851,10 +855,16 @@ async function vHome(){
 }
 
 /* --- Application form --- */
-let FD=LS.g('cdic_draft',{}),step=0,ERRS={};
+let FD=LS.g('cdic_draft',{}),step=0,ERRS={},INSTITUTIONS=[],INSTITUTIONS_LOADED=false;
 const saveDraft=()=>LS.s('cdic_draft',FD);
 let PHOTO={image:null,x:0,y:0,zoom:1,drag:null,sourceUrl:'',restoring:''};
-function fld(f,v){
+async function loadInstitutions(force){
+  if(INSTITUTIONS_LOADED&&!force)return;
+  const data=await api('getAffiliatedColleges');
+  INSTITUTIONS=data.rows;
+  INSTITUTIONS_LOADED=true;
+}
+function fld(f,v,allowLegacyInstitution){
   const [k,ml,en,ty]=f,lb=b(ml,en);
   if(ty==='h')return `<h4 class=sub style="grid-column:1/-1">${lb}</h4>`;
   if(k==='tharqiyyaYear'&&FD.tharqiyya!=='Yes')return '';
@@ -864,6 +874,7 @@ function fld(f,v){
   let i;
   if(ty==='yn')i=`<div class=rad>${['Yes','No'].map(o=>`<label><input type=radio name="${k}" value="${o}" ${v===o?'checked':''}> ${o==='Yes'?b('അതെ','Yes'):b('ഇല്ല','No')}</label>`).join('')}</div>`;
   else if(ty==='district')i=`<select name="${k}"><option value="">${b('തിരഞ്ഞെടുക്കുക','Select')}</option>${DIST.map(d=>`<option value="${d[0]}" ${v===d[0]?'selected':''}>${b(d[1],d[0])}</option>`).join('')}</select>`;
+  else if(ty==='institution'){const names=INSTITUTIONS.slice();if(allowLegacyInstitution&&v&&!names.includes(v))names.unshift(v);i=`<select name="${k}" required><option value="">${b('സ്ഥാപനം തിരഞ്ഞെടുക്കുക','Select an institution')}</option>${names.map(name=>`<option value="${esc(name)}" ${v===name?'selected':''}>${esc(name)}</option>`).join('')}</select>${names.length?'':`<small class=mut>${b('സ്ഥാപനങ്ങൾ പട്ടികയിൽ ഇല്ലെങ്കിൽ ഓഫീസുമായി ബന്ധപ്പെടുക.','If your institution is not listed, contact the office.')}</small>`}`}
   else if(ty==='currentType')i=`<select name="${k}"><option value="">${b('തിരഞ്ഞെടുക്കുക','Select')}</option><option value="Job" ${v==='Job'?'selected':''}>${b('ജോലി','Job')}</option><option value="Study" ${v==='Study'?'selected':''}>${b('പഠനം','Study')}</option></select>`;
   else if(k==='currentWork'&&FD.currentType==='Study')i=`<select name="${k}"><option value="">${b('തിരഞ്ഞെടുക്കുക','Select')}</option>${[['SSLC','SSLC'],['Plus Two','Plus Two'],['UG','UG'],['PG','PG']].map(([value,label])=>`<option value="${value}" ${v===value?'selected':''}>${label}</option>`).join('')}</select>`;
   else if(ty==='photo')i=`<div class=photo-editor><input type=file id=photoFile accept="image/*"><div class=photo-tools id=photoTools hidden><canvas id=photoCanvas class=photo-canvas width=480 height=640 role=img aria-label="${b('ഫോട്ടോ ക്രോപ്പ് ചെയ്യുക; വലിച്ചുനീക്കി ക്രമീകരിക്കുക','Crop photo; drag to reposition')}" tabindex=0></canvas><div class=photo-zoom><span>${b('സൂം','Zoom')}</span><input id=photoZoom type=range min=1 max=3 step=0.05 value="${PHOTO.zoom}"></div><div class=row><button type=button class="btn l s" id=clearPhoto>${b('ഫോട്ടോ നീക്കുക','Clear photo')}</button><span class=photo-note>${b('3:4 പോർട്രെയിറ്റ് · വലിച്ചുനീക്കി ക്രോപ്പ് ക്രമീകരിക്കുക','3:4 portrait · drag to reposition crop')}</span></div></div></div>`;
@@ -947,6 +958,7 @@ function syncFieldMark(el){
 function vErr(f){
   const e={},cy=new Date().getFullYear(),R=k=>{if(!String(f[k]||'').trim())e[k]='REQUIRED'};
   ['name','father','mother','place','house','post','district','institution','teachers','currentType','currentWork','email'].forEach(R);
+  if(INSTITUTIONS_LOADED&&!INSTITUTIONS.includes(f.institution))e.institution='INSTITUTION';
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(f.email||'')))e.email='EMAIL';
   if(!f.photoData)e.photo='REQUIRED';
   if(f.currentType&&!['Job','Study'].includes(f.currentType))e.currentType='REQUIRED';
@@ -995,6 +1007,7 @@ function bind(){
 }
 async function vApply(){
   if(!S.cfg.year)await cfg();
+  if(!INSTITUTIONS_LOADED)await loadInstitutions();
   if(S.cfg.applicationOpen==='false'){$('#v').innerHTML=`<div class=ban>${b('അപേക്ഷകൾ നിലവിൽ സ്വീകരിക്കുന്നില്ല.','Applications are currently closed.')}</div>`;return}
   if(!FD.currentType&&FD.currentWork)FD.currentType=['SSLC','Plus Two','UG','PG'].includes(FD.currentWork)?'Study':'Job';
   if(!FD.declDate)FD.declDate=today();
@@ -1039,11 +1052,34 @@ async function submitApp(){
   if(!await confirmBox(b('അപേക്ഷ സമർപ്പിക്കട്ടെ? സമർപ്പിച്ച ശേഷം മാറ്റം വരുത്താൻ കഴിയില്ല.','Submit the application? You cannot edit it after submission.')))return;
   FD._rid=FD._rid||uid();saveDraft();  const form={...FD,dob:normalizeDate(FD.dob),declDate:normalizeDate(FD.declDate)};delete form._rid;
   await run(async()=>{try{const r=await api('submitApplication',{form},FD._rid);LS.d('cdic_draft');done(r.applicationNo,form);FD={};resetPhotoEditor();step=0}
-   catch(x){if(x.net){const q=LS.g('cdic_q',[]);q.push({rid:FD._rid,form});LS.s('cdic_q',q);LS.d('cdic_draft');FD={};resetPhotoEditor();step=0;toast(b('ഓഫ്‌ലൈൻ ആണ്; ഇന്റർനെറ്റ് വരുമ്പോൾ സ്വയം സമർപ്പിക്കും.','Offline: will be submitted automatically when online.'));go('home')}
+   catch(x){if(x.net){const q=LS.g('cdic_q',[]);if(!q.some(it=>it.rid===FD._rid))q.push({rid:FD._rid,form});LS.s('cdic_q',q);LS.d('cdic_draft');FD={};resetPhotoEditor();step=0;toast(b('ഓഫ്‌ലൈൻ ആണ്; ഇന്റർനെറ്റ് വരുമ്പോൾ സ്വയം സമർപ്പിക്കും.','Offline: will be submitted automatically when online.'));go('home')}
    else{if(x.res&&x.res.error&&x.res.error.details){ERRS=x.res.error.details;for(let i=0;i<4;i++)if(stepKeys(i).some(k=>ERRS[k])){step=i;break}vApply()}throw x}}})}
 function done(no,form){LS.s('cdic_last',{no,form});$('#v').innerHTML=`<div class=card style="text-align:center"><span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><h2>${b('അപേക്ഷ ലഭിച്ചു','Application received')}</h2><p>${b('നിങ്ങളുടെ അപേക്ഷാ നമ്പർ','Your application number')}</p><div class=big>${esc(no)}</div><p class=mut>${b('ഈ നമ്പറും രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പറും ഉപയോഗിച്ച് സ്റ്റാറ്റസ് പരിശോധിക്കാം.','Use this number with your registered mobile number to track status.')}</p><div class=row style="justify-content:center"><button class="btn g" onclick='printApp(${JSON.stringify(no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ് / ഡൗൺലോഡ്','Print / Download')}</button><button class="btn l" onclick="go('track')">${t('track')}</button></div></div>
  <div class=card><h3>${b('ഇനി ചെയ്യേണ്ടത്','Next steps')}</h3><p>${b(PH[0][2],PH[0][3])}</p><p>${b('ഫീസ്','Fee')}: <b>${S.cfg.fee?'₹'+esc(S.cfg.fee):b('ഓഫീസിൽ നിന്ന് അറിയിക്കും','will be announced by the office')}</b> · ${b('അവസാന തീയതി','Deadline')}: <b>${esc(dateLabel(S.cfg.deadline)||'—')}</b></p></div>`;window.scrollTo(0,0)}
-async function flushQ(){const q=LS.g('cdic_q',[]);if(!q.length||!navigator.onLine||API_URL.indexOf('YOUR_')===0)return;const keep=[];for(const it of q){try{const r=await api('submitApplication',{form:it.form},it.rid);LS.s('cdic_last',{no:r.applicationNo,form:it.form});toast((b('ഓഫ്‌ലൈൻ അപേക്ഷ സമർപ്പിച്ചു: ','Offline application sent: '))+r.applicationNo);}catch(x){if(x.net)keep.push(it);else toast(x.message,1)}}LS.s('cdic_q',keep);const l=LS.g('cdic_last');if(l&&keep.length<q.length)modal(b('അപേക്ഷ ലഭിച്ചു','Application received'),`<span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><div class=big>${esc(l.no)}</div><button class="btn g" onclick='printApp(${JSON.stringify(l.no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ്','Print')}</button>`)}
+async function flushQ(){
+  const q=LS.g('cdic_q',[]);
+  if(!q.length||!navigator.onLine||API_URL.indexOf('YOUR_')===0)return;
+  const keep=[];
+  let sent=0;
+  for(const it of q){
+    try{
+      const r=await api('submitApplication',{form:it.form},it.rid);
+      LS.s('cdic_last',{no:r.applicationNo,form:it.form});
+      sent++;
+      toast((b('ഓഫ്‌ലൈൻ അപേക്ഷ സമർപ്പിച്ചു: ','Offline application sent: '))+r.applicationNo);
+    }catch(x){
+      if(x.net){
+        keep.push(it);
+      }else{
+        keep.push({...it,lastError:x.message||b('സർവറിൽ സ്ഥിരീകരിക്കാൻ കഴിഞ്ഞില്ല','Could not be confirmed by the server')});
+        toast(x.message||b('ഓഫ്‌ലൈൻ അപേക്ഷ പുനഃപരിശോധിക്കേണ്ടതുണ്ട്','Offline application needs review'),1);
+      }
+    }
+  }
+  LS.s('cdic_q',keep);
+  const l=LS.g('cdic_last');
+  if(l&&sent)modal(b('അപേക്ഷ ലഭിച്ചു','Application received'),`<span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><div class=big>${esc(l.no)}</div><button class="btn g" onclick='printApp(${JSON.stringify(l.no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ്','Print')}</button>`);
+}
 
 /* --- Print --- */
 function printApp(no,f,off){
@@ -1220,23 +1256,26 @@ async function exportReport(key){
 }
 
 function appTimeline(a,payments){
-  const rejected=a.eligibility==='Rejected',notQualified=a.resultStatus==='Not Qualified';
+  const rejected=a.eligibility==='Rejected'||a.status==='Rejected';
   const verified=['Approved','Rejected'].includes(a.eligibility);
+  const attended=a.examAttended==='Yes'||a.status==='Examination Attended';
+  const resultStatus=a.resultStatus||(['Qualified','Not Qualified'].includes(a.status)?a.status:'');
+  const published=a.resultPublished==='Yes'||a.status==='Result Published';
   const verifiedPayment=(payments||[]).filter(p=>p.verified==='TRUE').sort((x,y)=>String(y.paidDate).localeCompare(String(x.paidDate)))[0];
   const steps=[
     {label:b('അപേക്ഷ ലഭിച്ചു','Application received'),done:!!a.createdAt,detail:a.createdAt?dateDisplay(a.createdAt.slice(0,10)):''},
     {label:b('ഫീസ് സ്ഥിരീകരണം','Payment verified'),done:a.paymentStatus==='Verified',detail:a.paymentStatus==='Verified'?b('സ്ഥിരീകരിച്ചു','Verified'):b('സ്ഥിരീകരണം ബാക്കി','Awaiting verification'),date:verifiedPayment&&dateDisplay(verifiedPayment.paidDate)},
     {label:b('അപേക്ഷാ പരിശോധന','Application verification'),done:verified,detail:a.eligibility||b('പരിശോധന ബാക്കി','Awaiting review'),date:a.verifyDate&&dateDisplay(a.verifyDate)},
     {label:b('ഹാൾ ടിക്കറ്റ്','Hall ticket'),done:a.hallTicket==='Yes',skip:rejected,detail:a.hallTicket==='Yes'?b('നൽകി','Issued'):b('നൽകിയിട്ടില്ല','Not issued')},
-    {label:b('പരീക്ഷ ഹാജർ','Exam attendance'),done:a.examAttended==='Yes',skip:rejected||a.hallTicket!=='Yes',detail:a.examAttended==='Yes'?b('ഹാജരായി','Attended'):a.examAttended==='No'?b('ഹാജരായില്ല / രേഖപ്പെടുത്തിയിട്ടില്ല','Not attended / not recorded'):b('രേഖപ്പെടുത്തിയിട്ടില്ല','Not recorded')},
-    {label:b('ഫലം','Result'),done:a.resultPublished==='Yes',skip:rejected,detail:a.resultStatus?(a.resultPublished==='Yes'?`${b('പ്രസിദ്ധീകരിച്ചു','Published')}: ${stl(a.resultStatus)}`:`${b('ഡ്രാഫ്റ്റ് — പൊതുവിൽ ലഭ്യമല്ല','Draft — not public')}: ${stl(a.resultStatus)}`):b('ഫലം രേഖപ്പെടുത്തിയിട്ടില്ല','No result entered')},
-    {label:b('സനദ് വിതരണം','Sanad collection'),done:a.sanadStatus==='Collected'||a.status==='Sanad Collected',skip:rejected||notQualified,detail:a.sanadStatus==='Collected'||a.status==='Sanad Collected'?b('കൈമാറി','Collected'):a.resultStatus==='Qualified'?b('വിതരണത്തിനായി കാത്തിരിക്കുന്നു','Awaiting collection'):b('ഫലം പ്രസിദ്ധീകരിച്ച ശേഷം ലഭ്യം','Available after a qualified result'),date:a.sanadCollectedDate&&dateDisplay(a.sanadCollectedDate)}
+    {label:b('പരീക്ഷ ഹാജർ','Exam attendance'),done:attended,skip:rejected||a.hallTicket!=='Yes',detail:attended?b('ഹാജരായി','Attended'):a.examAttended==='No'?b('ഹാജരായില്ല / രേഖപ്പെടുത്തിയിട്ടില്ല','Not attended / not recorded'):b('രേഖപ്പെടുത്തിയിട്ടില്ല','Not recorded')},
+    {label:b('ഫലം','Result'),done:published,skip:rejected,detail:resultStatus?(published?`${b('പ്രസിദ്ധീകരിച്ചു','Published')}: ${stl(resultStatus)}`:`${b('ഡ്രാഫ്റ്റ് — പൊതുവിൽ ലഭ്യമല്ല','Draft — not public')}: ${stl(resultStatus)}`):published?b('പ്രസിദ്ധീകരിച്ചു','Published'):b('ഫലം രേഖപ്പെടുത്തിയിട്ടില്ല','No result entered')},
+    {label:b('സനദ് വിതരണം','Sanad collection'),done:a.sanadStatus==='Collected'||a.status==='Sanad Collected',skip:rejected||resultStatus==='Not Qualified',detail:a.sanadStatus==='Collected'||a.status==='Sanad Collected'?b('കൈമാറി','Collected'):resultStatus==='Qualified'?b('വിതരണത്തിനായി കാത്തിരിക്കുന്നു','Awaiting collection'):b('ഫലം പ്രസിദ്ധീകരിച്ച ശേഷം ലഭ്യം','Available after a qualified result'),date:a.sanadCollectedDate&&dateDisplay(a.sanadCollectedDate)}
   ];
   let active=false;
   return `<div class=card><h4>${b('അപേക്ഷയുടെ പുരോഗതി','Application progress')}</h4><ol class=timeline>${steps.map((s,i)=>{const state=s.done?'done':s.skip?'skipped':!active?(active=true,'current'):'upcoming';return `<li class="timeline-item ${state}"><span class=timeline-dot>${s.done?'✓':s.skip?'–':i+1}</span><div><b>${esc(s.label)}</b><small>${esc(s.detail)}${s.date?` · ${esc(s.date)}`:''}</small></div></li>`}).join('')}</ol></div>`;
 }
 async function showApp(no){
-  await run(async()=>{const d=await api('getApplication',{applicationNo:no}),a=d.application;
+  await run(async()=>{await loadInstitutions();const d=await api('getApplication',{applicationNo:no}),a=d.application;
    const kv=(fs)=>`<dl class=kv>${fs.map(([k,l])=>`<dt>${l}</dt><dd>${esc(a[k])}</dd>`).join('')}</dl>`;
    const adm=can('SUPER_ADMIN','ADMIN'),ver=can('SUPER_ADMIN','ADMIN','VERIFIER');
    let photoMarkup='',photoData='';
@@ -1271,10 +1310,27 @@ async function showApp(no){
         else toast(b('അപേക്ഷ കണ്ടെത്തിയില്ല','Application not found'),1);
       });
     }}})}
-function editApp(a){
+async function editApp(a){
+  await loadInstitutions();
   FD={...a};if(!FD.currentType&&FD.currentWork)FD.currentType=['SSLC','Plus Two','UG','PG'].includes(FD.currentWork)?'Study':'Job';ERRS={};const fs=STEPS.slice(0,3).flatMap(s=>s.f).filter(f=>f[0]!=='photo');
-  modal(b('വിവരങ്ങൾ തിരുത്തുക','Edit details'),`<div id=v class=cols>${fs.map(f=>fld(f,FD[f[0]])).join('')}</div><div class=row><button class="btn g" id=eb>${t('save')}</button></div>`);
-  document.querySelectorAll('#dlg [name]').forEach(el=>{el.addEventListener('change',()=>{if(el.type==='radio'){if(el.checked)FD[el.name]=el.value}else FD[el.name]=el.value;if(el.name==='currentType')FD.currentWork='';syncFieldMark(el);if(el.name==='tharqiyya'||el.name==='currentType')editApp({...FD})});el.addEventListener('input',()=>{if(el.type!=='radio')FD[el.name]=el.value;syncFieldMark(el)})});
+  modal(b('വിവരങ്ങൾ തിരുത്തുക','Edit details'),`<div id=v class=cols>${fs.map(f=>fld(f,FD[f[0]],true)).join('')}</div><div class=row><button class="btn g" id=eb>${t('save')}</button></div>`);
+  document.querySelectorAll('#dlg [name]').forEach(el=>{
+    el.addEventListener('change',()=>{
+      if(el.type==='radio'){if(el.checked)FD[el.name]=el.value}else FD[el.name]=el.value;
+      if(el.name==='currentType'){
+        FD.currentWork='';
+        const field=[...document.querySelectorAll('#dlg .fld')].find(x=>x.querySelector('[name="currentWork"]'));
+        if(field){
+          const f=STEPS[2].f.find(x=>x[0]==='currentWork');
+          field.outerHTML=fld(f,FD.currentWork,true);
+          const replacement=$('#dlg [name="currentWork"]');
+          if(replacement)replacement.addEventListener('change',()=>{FD.currentWork=replacement.value});
+        }
+      }
+      syncFieldMark(el);
+    });
+    el.addEventListener('input',()=>{if(el.type!=='radio')FD[el.name]=el.value;syncFieldMark(el)});
+  });
   $('#eb').onclick=()=>run(async()=>{const form={};fs.forEach(f=>{if(f[3]!=='h')form[f[0]]=FD[f[0]]});await api('updateApplication',{applicationNo:a.applicationNo,form});FD=LS.g('cdic_draft',{});$('#dlg').close();if(view==='apps'||view==='results')await go(view);successPopup(b('അപേക്ഷകന്റെ വിവരങ്ങൾ വിജയകരമായി പുതുക്കി.','Applicant details updated successfully.'))})}
 
 async function vUsers(){
@@ -1285,8 +1341,13 @@ function userForm(u){
   $('#us').onclick=()=>run(async()=>{if(n)await api('createUser',{username:$('#u1').value,displayName:$('#u2').value,role:$('#u3').value,password:$('#u4').value});else await api('updateUser',{username:u.username,displayName:$('#u2').value,role:$('#u3').value,active:$('#u5').checked,password:$('#u4').value||undefined});d.close();toast(b('സേവ് ചെയ്തു','Saved'));go('users')})}
 async function vSettings(){
   const s=await api('getSettings'),sa=can('SUPER_ADMIN'),ex=['examDate','examVenue','examInstructions'],boolSettings=['applicationOpen','uploadsEnabled'];
+  await loadInstitutions(true);
   const L_={year:'Application year',deadline:'Application deadline (YYYY-MM-DD)',fee:'Application fee (₹)',feeNote:'Fee note / payment instructions',verificationDays:'Verification days',applicationOpen:'Applications open (true/false)',uploadsEnabled:'Uploads enabled (reserved)',examDate:'Exam date',examVenue:'Exam venue',examInstructions:'Hall ticket instructions',officeAddress:'Office address'};
-  $('#v').innerHTML=`<h2>${t('settings')}</h2><div class=card><div class=cols>${Object.keys(L_).map(k=>{const ok=sa||ex.includes(k);let input;if(boolSettings.includes(k)){const value=s[k]==='true'||s[k]==='false'?s[k]:'';input=`<select id="s_${k}" ${ok?'':'disabled'}><option value="" ${value===''?'selected':''}>Select true/false</option><option value="true" ${value==='true'?'selected':''}>true</option><option value="false" ${value==='false'?'selected':''}>false</option></select>`}else if(k==='examInstructions'||k==='feeNote'||k==='officeAddress')input=`<textarea id="s_${k}" ${ok?'':'disabled'}>${esc(s[k])}</textarea>`;else input=`<input type=text id="s_${k}" value="${esc(s[k])}" ${ok?'':'disabled'}>`;return `<div><label>${L_[k]}</label>${input}</div>`}).join('')}</div><div class=row><button class="btn g" id=sv>${t('save')}</button></div></div>`;
+  $('#v').innerHTML=`<h2>${t('settings')}</h2><div class=card><h3>${b('അഫിലിയേറ്റഡ് ഹിഫ്‌ള് കോളേജുകളുടെ പട്ടിക','Affiliated Hifz colleges')}</h3><p class=mut>${b('അപേക്ഷകർ ഈ പട്ടികയിൽ നിന്ന് ഹിഫ്‌ള് പൂർത്തിയാക്കിയ കോളേജ് തിരഞ്ഞെടുക്കും.','Applicants select their Hifz college from this list.')}</p><div class=row><input type=text id=newInstitution maxlength=160 placeholder="${b('കോളേജിന്റെ പേര്','College name')}" style="flex:1;min-width:180px"><button class="btn g" id=addInstitution>${b('കോളേജ് ചേർക്കുക','Add college')}</button></div><ul id=institutionList></ul></div><div class=card><div class=cols>${Object.keys(L_).map(k=>{const ok=sa||ex.includes(k);let input;if(boolSettings.includes(k)){const value=s[k]==='true'||s[k]==='false'?s[k]:'';input=`<select id="s_${k}" ${ok?'':'disabled'}><option value="" ${value===''?'selected':''}>Select true/false</option><option value="true" ${value==='true'?'selected':''}>true</option><option value="false" ${value==='false'?'selected':''}>false</option></select>`}else if(k==='examInstructions'||k==='feeNote'||k==='officeAddress')input=`<textarea id="s_${k}" ${ok?'':'disabled'}>${esc(s[k])}</textarea>`;else input=`<input type=text id="s_${k}" value="${esc(s[k])}" ${ok?'':'disabled'}>`;return `<div><label>${L_[k]}</label>${input}</div>`}).join('')}</div><div class=row><button class="btn g" id=sv>${t('save')}</button></div></div>`;
+  const renderInstitutionList=()=>{$('#institutionList').innerHTML=INSTITUTIONS.map(name=>`<li>${esc(name)}</li>`).join('')||`<li class=mut>${b('സ്ഥാപനങ്ങൾ ചേർത്തിട്ടില്ല','No institutions added yet')}</li>`};
+  renderInstitutionList();
+  $('#addInstitution').onclick=()=>{const input=$('#newInstitution'),name=input.value.trim();if(!name)return toast(b('കോളേജിന്റെ പേര് നൽകുക','Enter a college name'),1);run(async()=>{await api('addAffiliatedCollege',{name});await loadInstitutions(true);input.value='';renderInstitutionList();toast(b('കോളേജ് ചേർത്തു','College added'))})};
+  $('#newInstitution').onkeydown=e=>{if(e.key==='Enter')$('#addInstitution').click()};
   $('#sv').onclick=()=>run(async()=>{const o={};Object.keys(L_).forEach(k=>{if(sa||ex.includes(k))o[k]=$('#s_'+k).value});await api('updateSettings',{settings:o});S.cfg={};toast(b('സേവ് ചെയ്തു','Saved'))})}
 let AU={page:1,q:''};
 async function vAudit(){
@@ -1300,7 +1361,7 @@ addEventListener('online',()=>{netUI();flushQ()});addEventListener('offline',net
 let DP=null;
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();DP=e;const i=$('#inst');i.hidden=false;i.textContent=b('ആപ്പ് ഇൻസ്റ്റാൾ','Install app');i.onclick=async()=>{DP.prompt();await DP.userChoice;DP=null;i.hidden=true}});
 addEventListener('appinstalled',()=>{$('#inst').hidden=true});
-if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 document.getElementById('dlg').addEventListener('click',e=>{if(e.target.id==='dlg')e.target.close()});
 (function(){
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
