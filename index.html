@@ -84,11 +84,20 @@ table{width:100%;border-collapse:collapse;font-size:.88rem}th,td{padding:8px 10p
 dialog{border:0;border-radius:14px;padding:0;width:min(780px,96vw);max-height:92vh;box-shadow:0 20px 60px #0005}dialog::backdrop{background:#0007}
 dialog.popup-dialog{z-index:1000;width:min(520px,94vw)}
 dialog.popup-dialog::backdrop{background:#0009}
+.popup-success{display:flex;align-items:center;gap:12px;text-align:left}
+.popup-success .success-check{width:48px;height:48px;margin:0;flex:0 0 48px;font-size:1.7rem}
+.popup-success p{margin:0;font-weight:700;color:var(--tx)}
+.popup-success-actions{display:flex;justify-content:flex-end;margin-top:14px}
 .dh{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--pur);color:#fff;position:sticky;top:0;z-index:2}.dh button{background:none;border:0;color:#fff;font-size:1.5rem;cursor:pointer}.db{padding:16px}
 #toast{position:fixed;top:78px;right:12px;z-index:100000;display:flex;flex-direction:column;gap:8px;max-width:92vw}
 #toast div{background:#145a14;color:#fff;padding:10px 14px;border-radius:8px;box-shadow:0 4px 14px #0004;animation:in .2s}#toast .e{background:#8a0b0b}
 @keyframes in{from{opacity:0;transform:translateY(-6px)}}
-#ld{position:fixed;inset:0;background:#fff8;z-index:70;display:none;place-items:center}#ld.on{display:grid}#ld i{width:44px;height:44px;border:5px solid var(--bd);border-top-color:var(--pur);border-radius:50%;animation:sp 1s linear infinite}@keyframes sp{to{transform:rotate(360deg)}}
+@keyframes sp{to{transform:rotate(360deg)}}
+#loading{position:fixed;inset:auto auto auto 50%;top:calc(env(safe-area-inset-top) + 90px);margin:0;transform:translateX(-50%);display:flex;align-items:center;gap:12px;max-width:calc(100vw - 24px);padding:10px 14px;border:1px solid var(--bd);border-radius:12px;background:var(--card);box-shadow:0 4px 16px #0002;color:var(--tx)}
+#loading:not(:popover-open){display:none}
+#loading:popover-open{display:flex}
+.loading-spinner{width:26px;height:26px;flex:0 0 26px;border:3px solid var(--bd);border-top-color:var(--grn);border-radius:50%;animation:sp .8s linear infinite}
+@media(prefers-reduced-motion:reduce){.loading-spinner{animation:none;border-right-color:var(--grn)}}
 .ban{background:#fff7e6;border:1px solid #e6c36a;padding:10px 12px;border-radius:8px;margin-bottom:12px;font-size:.9rem}
 nav .nav-credit{display:none}
 #print{display:none}
@@ -385,7 +394,6 @@ dialog{
   animation:toastIn .28s cubic-bezier(.2,.8,.2,1) both;
 }
 #toast .e{background:linear-gradient(135deg,#a52d38,#d84a55)}
-#ld i{border-width:4px;border-color:rgba(63,29,69,.12);border-top-color:var(--grn)}
 #v{animation:fadeUp .38s ease both}
 .admin-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin:4px 0 22px;padding:22px 24px;border:1px solid rgba(255,255,255,.16);border-radius:22px;background:radial-gradient(circle at 88% 12%,rgba(210,174,102,.24),transparent 16rem),linear-gradient(120deg,#35183c,#5a315f 72%,#76572e);color:#fff;box-shadow:0 16px 34px rgba(63,29,69,.16)}
 .admin-head h2{margin:0;color:#fff}
@@ -724,7 +732,7 @@ nav::-webkit-scrollbar{display:none}
 </header>
 <div class="layout"><nav id="nav"></nav><main id="main"></main></div>
 <div id="toast" role="status" aria-live="polite"></div>
-<div id="ld"><i></i></div>
+<div id="loading" popover=manual role="status" aria-live="polite"><i class=loading-spinner aria-hidden=true></i><span id=loadingText></span></div>
 <dialog id="dlg"></dialog>
 <dialog id="popupDlg" class="popup-dialog"></dialog>
 <div id="print"></div>
@@ -810,7 +818,6 @@ const t=k=>N[L][k];
 
 /* ====== UI UTIL ====== */
 function toast(m,e){const d=document.createElement('div');if(e)d.className='e';d.textContent=e?m:`✓ ${m}`;$('#toast').appendChild(d);setTimeout(()=>d.remove(),e?6000:3500)}
-const load=on=>$('#ld').classList.toggle('on',!!on);
 function modal(title,html){const d=$('#dlg');d.innerHTML=`<div class="dh"><b>${esc(title)}</b><button aria-label="Close" onclick="$('#dlg').close()">×</button></div><div class="db">${html}</div>`;if(!d.open)d.showModal();return d}
 function popupModal(title,html){
   const d=$('#popupDlg');
@@ -818,20 +825,54 @@ function popupModal(title,html){
   if(!d.open)d.showModal();
   return d;
 }
-function successPopup(message){
-  const d=popupModal(b('വിജയം','Success'),`<div style="text-align:center"><span class=success-check role=img aria-label="${b('വിജയകരമായി പൂർത്തിയായി','Completed successfully')}">✓</span><p>${esc(message)}</p><button class="btn g" id=successClose>${b('ശരി','OK')}</button></div>`);
-  $('#successClose').onclick=()=>d.close();
+function successPopup(message,timeout=1800){
+  const d=popupModal(b('വിജയം','Success'),`<div class=popup-success><span class=success-check role=img aria-label="${b('വിജയകരമായി പൂർത്തിയായി','Completed successfully')}">✓</span><p>${esc(message)}</p></div><div class=popup-success-actions><button class="btn g s" id=successClose>${b('ശരി','OK')}</button></div>`);
+  let timer=null;
+  const close=()=>{if(timer)clearTimeout(timer);if(d.open)d.close()};
+  $('#successClose').onclick=close;
+  d.onclose=()=>clearTimeout(timer);
+  timer=setTimeout(close,timeout);
+  return d;
 }
 function confirmBox(msg){return new Promise(r=>{const d=popupModal(b('സ്ഥിരീകരണം','Confirm'),`<p>${esc(msg)}</p><div class=row><button class="btn g" id=cy>${b('അതെ, തുടരുക','Yes, continue')}</button><button class="btn l" id=cn>${t('cancel')}</button></div>`);$('#cy').onclick=()=>{d.close();r(true)};$('#cn').onclick=()=>{d.close();r(false)};d.onclose=()=>r(false)})}
-async function run(fn){load(1);try{return await fn()}catch(e){toast(e.net?b('ഇന്റർനെറ്റ്/സെർവർ ബന്ധം ലഭ്യമല്ല','Network or server unavailable'):e.message,1)}finally{load(0)}}
+let activeLoads=0,loadingTimer;
+function beginLoading(){
+  if(++activeLoads!==1)return;
+  loadingTimer=setTimeout(()=>{
+    if(!activeLoads)return;
+    $('#loadingText').textContent=b('ലോഡ് ചെയ്യുന്നു…','Loading…');
+    const loading=$('#loading');
+    loading.setAttribute('aria-label',b('ലോഡ് ചെയ്യുന്നു','Loading'));
+    if(!loading.matches(':popover-open'))loading.showPopover();
+    $('#main').setAttribute('aria-busy','true');
+  },120);
+}
+function endLoading(){
+  if(--activeLoads>0)return;
+  clearTimeout(loadingTimer);
+  loadingTimer=null;
+  const loading=$('#loading');
+  if(loading.matches(':popover-open'))loading.hidePopover();
+  $('#main').removeAttribute('aria-busy');
+}
+async function run(fn){
+  beginLoading();
+  try{return await fn()}
+  catch(e){toast(e.net?b('ഇന്റർനെറ്റ്/സെർവർ ബന്ധം ലഭ്യമല്ല','Network or server unavailable'):e.message,1)}
+  finally{endLoading()}
+}
 async function api(action,data,rid){
-  if(API_URL.indexOf('YOUR_')===0){const e=new Error('API_URL not configured in CDIC.HTML');throw e}
-  let r;try{r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,token:S.token,requestId:rid||uid(),data:data||{}})});}catch(x){const e=new Error('network');e.net=1;throw e}
-  let j;try{j=await r.json()}catch(x){const e=new Error('Bad server response');e.net=1;throw e}
-  if(!j.success){if(j.error&&j.error.code==='AUTH_REQUIRED'&&S.token){clearSess();go('login')}const e=new Error(j.message);e.res=j;throw e}
-  const result=j.data||{},warnings=[...(result.notificationWarning?[result.notificationWarning]:[]),...(result.notificationWarnings||[])];
-  if(warnings.length)toast(warnings.length===1?w:`${warnings.length} applicant email notifications could not be sent.`,1);
-  return j.data}
+  beginLoading();
+  try{
+    if(API_URL.indexOf('YOUR_')===0){const e=new Error('API_URL not configured in CDIC.HTML');throw e}
+    let r;try{r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,token:S.token,requestId:rid||uid(),data:data||{}})});}catch(x){const e=new Error('network');e.net=1;throw e}
+    let j;try{j=await r.json()}catch(x){const e=new Error('Bad server response');e.net=1;throw e}
+    if(!j.success){if(j.error&&j.error.code==='AUTH_REQUIRED'&&S.token){clearSess();go('login')}const e=new Error(j.message);e.res=j;throw e}
+    const result=j.data||{},warnings=[...(result.notificationWarning?[result.notificationWarning]:[]),...(result.notificationWarnings||[])];
+    if(warnings.length)toast(warnings.length===1?w:`${warnings.length} applicant email notifications could not be sent.`,1);
+    return j.data;
+  }finally{endLoading()}
+}
 function setSess(d){S.token=d.token;S.user=d.user;sessionStorage.setItem('tk',d.token);sessionStorage.setItem('us',JSON.stringify(d.user))}
 function clearSess(){S.token='';S.user=null;sessionStorage.removeItem('tk');sessionStorage.removeItem('us')}
 const staff=()=>!!S.user;
@@ -851,7 +892,7 @@ function nav(){
 const V={home:vHome,apply:vApply,track:vTrack,result:vResult,login:vLogin,dash:vDash,apps:vApps,results:vResults,reports:vReports,users:vUsers,settings:vSettings,audit:vAudit};
 function go(v){if(['dash','apps','users','settings','audit','results','reports'].includes(v)&&!staff())v='login';if(['results','reports'].includes(v)&&!can('SUPER_ADMIN','ADMIN'))v='apps';view=v;nav();window.scrollTo(0,0);return run(async()=>{const m=$('#main');m.innerHTML=`<div class=crumb>CDIC › ${staff()?'':'Hifz Sanad › '}${esc((N[L][v]||v))}</div><div id=v></div>`;await V[v]()})}
 $('#lang').onclick=()=>{L=L==='ml'?'en':'ml';LS.s('cdic_lang',L);document.documentElement.lang=L;go(view)};
-async function doLogout(){try{await api('logout')}catch(e){}clearSess();go('home')}
+async function doLogout(){await run(async()=>{try{await api('logout')}catch(e){}clearSess();go('home')})}
 async function cfg(){try{S.cfg=await api('getPortalSettings')}catch(e){S.cfg=S.cfg||{}}}
 
 /* ====== PUBLIC VIEWS ====== */
@@ -1066,7 +1107,7 @@ async function submitApp(){
   await run(async()=>{try{const r=await api('submitApplication',{form},FD._rid);LS.d('cdic_draft');done(r.applicationNo,form);FD={};resetPhotoEditor();step=0}
    catch(x){if(x.net){const q=LS.g('cdic_q',[]);if(!q.some(it=>it.rid===FD._rid))q.push({rid:FD._rid,form});LS.s('cdic_q',q);LS.d('cdic_draft');FD={};resetPhotoEditor();step=0;toast(b('ഓഫ്‌ലൈൻ ആണ്; ഇന്റർനെറ്റ് വരുമ്പോൾ സ്വയം സമർപ്പിക്കും.','Offline: will be submitted automatically when online.'));go('home')}
    else{if(x.res&&x.res.error&&x.res.error.details){ERRS=x.res.error.details;for(let i=0;i<4;i++)if(stepKeys(i).some(k=>ERRS[k])){step=i;break}vApply()}throw x}}})}
-function done(no,form){LS.s('cdic_last',{no,form});$('#v').innerHTML=`<div class=card style="text-align:center"><span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><h2>${b('അപേക്ഷ ലഭിച്ചു','Application received')}</h2><p>${b('നിങ്ങളുടെ അപേക്ഷാ നമ്പർ','Your application number')}</p><div class=big>${esc(no)}</div><p class=mut>${b('ഈ നമ്പറും രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പറും ഉപയോഗിച്ച് സ്റ്റാറ്റസ് പരിശോധിക്കാം.','Use this number with your registered mobile number to track status.')}</p><div class=row style="justify-content:center"><button class="btn g" onclick='printApp(${JSON.stringify(no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ് / ഡൗൺലോഡ്','Print / Download')}</button><button class="btn l" onclick="go('track')">${t('track')}</button></div></div>
+function done(no,form){LS.s('cdic_last',{no,form});$('#v').innerHTML=`<div class=card style="text-align:center"><span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><h2>${b('അപേക്ഷ ലഭിച്ചു','Application received')}</h2><p>${b('നിങ്ങളുടെ അപേക്ഷാ നമ്പർ','Your application number')}</p><div class=big>${esc(no)}</div><p class=mut>${b('ഈ നമ്പറും രജിസ്റ്റർ ചെയ്ത മൊബൈൽ നമ്പറും ഉപയോഗിച്ച് സ്റ്റാറ്റസ് പരിശോധിക്കാം.','Use this number with your registered mobile number to track status.')}</p><div class=row style="justify-content:center"><button class="btn l" onclick='printApp(${JSON.stringify(no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ് / ഡൗൺലോഡ്','Print / Download')}</button><button class="btn l" onclick="go('track')">${t('track')}</button></div></div>
  <div class=card><h3>${b('ഇനി ചെയ്യേണ്ടത്','Next steps')}</h3><p>${b(PH[0][2],PH[0][3])}</p><p>${b('ഫീസ്','Fee')}: <b>${S.cfg.fee?'₹'+esc(S.cfg.fee):b('ഓഫീസിൽ നിന്ന് അറിയിക്കും','will be announced by the office')}</b> · ${b('അവസാന തീയതി','Deadline')}: <b>${esc(dateLabel(S.cfg.deadline)||'—')}</b></p></div>`;window.scrollTo(0,0)}
 async function flushQ(){
   const q=LS.g('cdic_q',[]);
@@ -1090,7 +1131,7 @@ async function flushQ(){
   }
   LS.s('cdic_q',keep);
   const l=LS.g('cdic_last');
-  if(l&&sent)popupModal(b('അപേക്ഷ ലഭിച്ചു','Application received'),`<span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><div class=big>${esc(l.no)}</div><button class="btn g" onclick='printApp(${JSON.stringify(l.no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ്','Print')}</button>`);
+  if(l&&sent)popupModal(b('അപേക്ഷ ലഭിച്ചു','Application received'),`<span class=success-check role=img aria-label="${b('വിജയകരമായി സമർപ്പിച്ചു','Submitted successfully')}">✓</span><div class=big>${esc(l.no)}</div><div class=row><button class="btn l" onclick='printApp(${JSON.stringify(l.no)},LS.g("cdic_last").form)'>${b('പ്രിന്റ്','Print')}</button></div>`);
 }
 
 /* --- Print --- */
@@ -1111,7 +1152,10 @@ function printApp(no,f,off){
   ${rowsH.join('')}
   <section class=print-section><h3>D. അപേക്ഷകന്റെ സത്യപ്രസ്താവന / Applicant Declaration</h3><p>${esc(DECL[0](f.name))}</p><p>${esc(DECL[1])}</p><p>${esc(DECL[2])}</p><p>സ്ഥലം: ${esc(f.declPlace||'')} &nbsp; തീയതി: ${esc(f.declDate||'')}</p><p class=print-signature>അപേക്ഷകന്റെ പേര്: ${esc(f.name)}<br><br>ഒപ്പ്: ......................................</p></section>
   <p>ഓഫീസിൽ എത്തിക്കേണ്ടത്: പ്രിന്റ് കോപ്പി, പഠിച്ച സ്ഥാപനത്തിന്റെ ലെറ്റർ, SSLC സർട്ടിഫിക്കറ്റ്, അനുബന്ധ രേഖകൾ. / Deliver this printout, institution letter, SSLC certificate and supporting documents to the office.</p></div>`;
-  setTimeout(()=>window.print(),150)}
+  if($('#dlg').open)$('#dlg').close();
+  if($('#popupDlg').open)$('#popupDlg').close();
+  setTimeout(()=>window.print(),150)
+}
 function printHall(h,no){
   const oldTitle=document.title,printTitle=`${String(h.name||no).replace(/[\\/:*?"<>|]/g,'').trim()||no}-Hall-Ticket`;
   const restoreTitle=()=>{document.title=oldTitle;removeEventListener('afterprint',restoreTitle)};
@@ -1136,7 +1180,7 @@ async function vLogin(){
   const go_=()=>run(async()=>{const d=await api('login',{username:$('#lu').value,password:$('#lp').value});setSess(d);if(d.user.mustChange)await pwModal(true);go('dash')});
   $('#lb').onclick=go_;$('#lp').onkeydown=e=>{if(e.key==='Enter')go_()}}
 function pwModal(force){return new Promise(r=>{const d=popupModal(b('പാസ്‌വേഡ് മാറ്റുക','Change password'),`${force?`<div class=ban>${b('തുടരാൻ പുതിയ പാസ്‌വേഡ് സജ്ജമാക്കുക.','Set a new password to continue.')}</div>`:''}<label>${b('നിലവിലെ പാസ്‌വേഡ്','Current password')}</label><input type=password id=po><label>${b('പുതിയ പാസ്‌വേഡ് (10+ അക്ഷരം, അക്ഷരവും അക്കവും)','New password (10+ chars, letters and numbers)')}</label><input type=password id=pn><div class=row><button class="btn g" id=ps>${t('save')}</button></div>`);
-  $('#ps').onclick=()=>run(async()=>{await api('changePassword',{oldPassword:$('#po').value,newPassword:$('#pn').value});S.user.mustChange=false;sessionStorage.setItem('us',JSON.stringify(S.user));toast(b('പാസ്‌വേഡ് മാറ്റി','Password changed'));d.close();r()});d.onclose=()=>{if(!force||!S.user.mustChange)r();else pwModal(true)}})}
+  $('#ps').onclick=()=>run(async()=>{await api('changePassword',{oldPassword:$('#po').value,newPassword:$('#pn').value});S.user.mustChange=false;sessionStorage.setItem('us',JSON.stringify(S.user));d.close();r();successPopup(b('പാസ്‌വേഡ് മാറ്റി','Password changed'))});d.onclose=()=>{if(!force||!S.user.mustChange)r();else pwModal(true)}})}
 
 /* ====== STAFF VIEWS ====== */
 async function vDash(){
@@ -1193,7 +1237,7 @@ function resultDraftPreview(preview){
 async function draftResult(n,result){
   const preview=await run(()=>api('previewResultDraft',{applicationNos:n,result}));if(!preview)return;
   if(!await resultDraftPreview(preview))return;
-  await run(async()=>{const r=await api('saveResultDraft',{applicationNos:preview.eligible.map(x=>x.applicationNo),result});toast(`${r.updated} ${b('ഫലങ്ങളുടെ ഡ്രാഫ്റ്റ് സേവ് ചെയ്തു','result drafts saved')}${r.skipped.length?` · ${r.skipped.length} ${b('മാറ്റം വന്നതിനാൽ ഒഴിവാക്കി','skipped because records changed')}`:''}`);SEL.clear();await go('apps')});
+  await run(async()=>{const r=await api('saveResultDraft',{applicationNos:preview.eligible.map(x=>x.applicationNo),result});SEL.clear();await go('apps');successPopup(`${r.updated} ${b('ഫലങ്ങളുടെ ഡ്രാഫ്റ്റ് സേവ് ചെയ്തു','result drafts saved')}${r.skipped.length?` · ${r.skipped.length} ${b('മാറ്റം വന്നതിനാൽ ഒഴിവാക്കി','skipped because records changed')}`:''}`)});
 }
 async function bulk(){
   const a=$('#ba').value,n=[...SEL];if(!a)return;if(!n.length)return toast(b('അപേക്ഷകൾ തിരഞ്ഞെടുക്കുക','Select applications first'),1);
@@ -1212,7 +1256,7 @@ async function bulk(){
   }else{
     if(!await confirmBox(b(`${n.length} അപേക്ഷകളിൽ നടപ്പാക്കട്ടെ?`,`Apply to ${n.length} application(s)?`)))return;
   }
-  await run(async()=>{const r=await api(call[0],call[1]);toast(a==='delete'?`${r.deleted} ${b('അപേക്ഷകൾ നീക്കി','applications deleted')}${r.skipped.length?` · ${r.skipped.length} ${b('കണ്ടെത്തിയില്ല','not found')}`:''}`:`${r.updated} ${b('പുതുക്കി','updated')}${r.skipped.length?` · ${r.skipped.length} ${b('ഒഴിവാക്കി (നിബന്ധന പാലിക്കുന്നില്ല)','skipped (preconditions not met)')}`:''}`);SEL.clear();go('apps')})}
+  await run(async()=>{const r=await api(call[0],call[1]);SEL.clear();await go('apps');successPopup(a==='delete'?`${r.deleted} ${b('അപേക്ഷകൾ നീക്കി','applications deleted')}${r.skipped.length?` · ${r.skipped.length} ${b('കണ്ടെത്തിയില്ല','not found')}`:''}`:`${r.updated} ${b('പുതുക്കി','updated')}${r.skipped.length?` · ${r.skipped.length} ${b('ഒഴിവാക്കി (നിബന്ധന പാലിക്കുന്നില്ല)','skipped (preconditions not met)')}`:''}`)})}
 
 async function vResults(){
   const d=await api('getResultDrafts'),draftCount=d.rows.length,publishedCount=d.publishedRows.length,qualified=d.rows.filter(r=>r.resultStatus==='Qualified').length,notQualified=d.rows.length-qualified;
@@ -1240,13 +1284,13 @@ async function releaseResultDrafts(){
     do{res=await api('publishResultDrafts',{});updated+=res.updated;q+=res.qualified;nq+=res.notQualified;if(res.remaining&&res.updated===0)throw new Error('Result release stopped with drafts remaining. Retry after refreshing.')}while(res.remaining);
     if(!res.publicEnabled)throw new Error('Result drafts were processed but public visibility could not be enabled.');
     const released=updated+hiddenCount;
-    toast(released?`${released} ${b('ഫലങ്ങൾ പൊതുജനങ്ങൾക്ക് ലഭ്യമാക്കി','results now visible publicly')} · ${q+(d.publicEnabled?0:publishedQualified)} ${b('യോഗ്യത നേടി','Qualified')} · ${nq+(d.publicEnabled?0:publishedNotQualified)} ${b('യോഗ്യത നേടിയില്ല','Not Qualified')}`:b('ഫലങ്ങൾ ഇതിനകം പൊതുജനങ്ങൾക്ക് ലഭ്യമാണ്','Results are already visible publicly'));
+    successPopup(released?`${released} ${b('ഫലങ്ങൾ പൊതുജനങ്ങൾക്ക് ലഭ്യമാക്കി','results now visible publicly')} · ${q+(d.publicEnabled?0:publishedQualified)} ${b('യോഗ്യത നേടി','Qualified')} · ${nq+(d.publicEnabled?0:publishedNotQualified)} ${b('യോഗ്യത നേടിയില്ല','Not Qualified')}`:b('ഫലങ്ങൾ ഇതിനകം പൊതുജനങ്ങൾക്ക് ലഭ്യമാണ്','Results are already visible publicly'));
     await go('results');
   });
 }
 async function hidePublicResults(){
   if(!await confirmBox(b('ഫലങ്ങൾ പൊതുജനങ്ങൾക്ക് കാണാനാകാത്തവിധം മാറ്റട്ടേ?','Hide all results from the public?')))return;
-  await run(async()=>{await api('updateSettings',{settings:{resultsPublished:'false'}});toast(b('ഫലങ്ങൾ പൊതുജനങ്ങളിൽ നിന്ന് മറച്ചു','Results hidden from public'));await go('results')});
+  await run(async()=>{await api('updateSettings',{settings:{resultsPublished:'false'}});await go('results');successPopup(b('ഫലങ്ങൾ പൊതുജനങ്ങളിൽ നിന്ന് മറച്ചു','Results hidden from public'))});
 }
 
 const REPORTS={
@@ -1264,7 +1308,7 @@ async function vReports(){
 }
 async function exportReport(key){
   const report=REPORTS[key];if(!report)throw new Error('Unknown report');
-  await run(async()=>{const d=await api('exportApplications',{filters:report.filters});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d.csv],{type:'text/csv;charset=utf-8'}));a.download=`CDIC-Hifz-${key}-${today()}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);toast(`${d.count} ${b('രേഖകൾ','records')}`)});
+  await run(async()=>{const d=await api('exportApplications',{filters:report.filters});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([d.csv],{type:'text/csv;charset=utf-8'}));a.download=`CDIC-Hifz-${key}-${today()}.csv`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000);successPopup(`${d.count} ${b('രേഖകൾ','records')}`)});
 }
 
 function appTimeline(a,payments){
@@ -1287,39 +1331,69 @@ function appTimeline(a,payments){
   return `<div class=card><h4>${b('അപേക്ഷയുടെ പുരോഗതി','Application progress')}</h4><ol class=timeline>${steps.map((s,i)=>{const state=s.done?'done':s.skip?'skipped':!active?(active=true,'current'):'upcoming';return `<li class="timeline-item ${state}"><span class=timeline-dot>${s.done?'✓':s.skip?'–':i+1}</span><div><b>${esc(s.label)}</b><small>${esc(s.detail)}${s.date?` · ${esc(s.date)}`:''}</small></div></li>`}).join('')}</ol></div>`;
 }
 async function showApp(no){
-  await run(async()=>{await loadInstitutions();const d=await api('getApplication',{applicationNo:no}),a=d.application;
+  await run(async()=>{const d=await api('getApplication',{applicationNo:no}),a=d.application;
    const kv=(fs)=>`<dl class=kv>${fs.map(([k,l])=>`<dt>${l}</dt><dd>${esc(a[k])}</dd>`).join('')}</dl>`;
    const adm=can('SUPER_ADMIN','ADMIN'),ver=can('SUPER_ADMIN','ADMIN','VERIFIER');
-   let photoMarkup='',photoData='';
-   if(adm&&a.photoUrl){
-    try{const photo=await api('getApplicantPhoto',{applicationNo:no});if(photo.dataUrl){photoData=photo.dataUrl;photoMarkup=`<div class=applicant-profile><img class=applicant-avatar src="${esc(photoData)}" alt="${esc(a.name)}"><div><b>${esc(a.name)}</b><small>${esc(a.applicationNo)}</small></div></div>`}else toast(b('അപേക്ഷകന്റെ ഫോട്ടോ ലഭ്യമല്ല','Applicant photo is unavailable.'),1)}
-    catch(e){toast(e.net?b('അപേക്ഷകന്റെ ഫോട്ടോ ലോഡ് ചെയ്യാനായില്ല','Could not load applicant photo'):e.message,1)}
-   }
+   let photoData='';
+   const photoMarkup=adm&&a.photoUrl?'<div class=applicant-profile id=appPhoto></div>':'';
    const timeline=appTimeline(a,d.payments);
    const yn=(id,v)=>`<select id=${id}><option value="">—</option><option value=Yes ${v==='Yes'?'selected':''}>${b('അതെ','Yes')}</option><option value=No ${v==='No'?'selected':''}>${b('ഇല്ല','No')}</option></select>`;
    const E=`<div class=card><h4>E. ${b('ഓഫീസ് ആവശ്യത്തിന് മാത്രം','Office use only')}</h4>${ver?`<label>${b('പഠനവിവരങ്ങൾ പരിശോധിച്ചു','Educational details verified')}</label>${yn('e1',a.eduVerified)}<label>${b('ബന്ധപ്പെട്ട സ്ഥാപനത്തിൽനിന്ന് സ്ഥിരീകരിച്ചു','Confirmed by institution')}</label>${yn('e2',a.instConfirmed)}<label>${b('സനദിന് അർഹത','Sanad eligibility')}</label><select id=e3>${[['Under Verification','പരിശോധനയിൽ'],['Approved','അംഗീകരിച്ചു'],['Rejected','നിരസിച്ചു']].map(x=>`<option value="${x[0]}" ${a.eligibility===x[0]?'selected':''}>${b(x[1],x[0])}</option>`).join('')}</select><label>${b('മറ്റ് വിവരങ്ങൾ','Other remarks')}</label><textarea id=e4>${esc(a.remarks)}</textarea><label>${b('പരിശോധിച്ച ഉദ്യോഗസ്ഥന്റെ പേര്','Verifying officer')}</label><input type=text id=e5 value="${esc(a.verifierName||S.user.name)}"><label>${b('ഉദ്യോഗസ്ഥന്റെ ഒപ്പ് / അംഗീകാരം','Officer signature / approval')}</label><input type=text id=e6 value="${esc(a.officerApproval)}"><div class=row><button class="btn g" id=ev>${b('പരിശോധന സേവ് ചെയ്യുക','Save verification')}</button></div>`:kv([['eligibility','Eligibility']])}</div>`;
    const pay=adm?`<div class=card><h4>${b('ഫീസ്','Payment')}: ${esc(a.paymentStatus)}</h4>${d.payments.map(p=>`<div class=mut>${esc(p.paidDate)} · ₹${esc(p.amount)} · ${esc(p.method)} ${esc(p.reference)} · ${p.verified==='TRUE'?'✔':'…'}</div>`).join('')}<div class=cols><div><label>₹</label><input type=number id=p1 min=0></div><div><label>${b('രീതി','Method')}</label><input type=text id=p2></div><div><label>${b('റഫറൻസ്','Reference')}</label><input type=text id=p3></div><div><label>${b('തീയതി','Date')}</label><input type=date id=p4 value="${today()}"></div></div><label style="display:flex;gap:8px"><input type=checkbox id=p5 style="width:20px;height:20px" checked> ${b('സ്ഥിരീകരിച്ചു','Verified')}</label><div class=row><button class="btn s" id=pb>${b('ഫീസ് രേഖപ്പെടുത്തുക','Record payment')}</button></div></div>
    <div class=card><h4>${b('സ്റ്റാറ്റസ് / വെരിഫയർ','Status / verifier')}</h4><div class=row><select id=s1 style="flex:1">${Object.keys(ST).map(s=>`<option ${s===a.status?'selected':''} value="${s}">${esc(stl(s))}</option>`).join('')}</select><button class="btn s" id=sb>${b('മാറ്റുക','Update')}</button></div><div class=row><input type=text id=v1 value="${esc(a.assignedVerifier)}" placeholder="verifier username" style="flex:1"><button class="btn s" id=vb>${b('നിയമിക്കുക','Assign')}</button></div></div>`:'';
-   modal(a.applicationNo,`<div class=row>${tag(a.status)}<span class=sp></span><button class="btn l s" id=pr>${b('പ്രിന്റ് അപേക്ഷ','Print application')}</button>${adm?`<button class="btn l s" id=ed>${b('തിരുത്തുക','Edit details')}</button><button class="btn r s" id=deleteApp>${b('അപേക്ഷ നീക്കുക','Delete application')}</button>`:''}</div>${timeline}
+   modal(a.applicationNo,`<div class=row>${tag(a.status)}<span class=sp></span><button class="btn l s" id=pr>${b('പ്രിന്റ്','Print')}</button>${adm?`<button class="btn l s" id=ed>${b('തിരുത്തുക','Edit details')}</button><button class="btn r s" id=deleteApp>${b('അപേക്ഷ നീക്കുക','Delete application')}</button>`:''}</div>${timeline}
    ${adm&&a.eligibility==='Approved'?`<div class=card><h4>${b('അടുത്ത നടപടി','Next step')}</h4>${a.hallTicket==='Yes'?`<p>${b('ഹാൾ ടിക്കറ്റ് നൽകിയിട്ടുണ്ട്.','Hall ticket has been issued.')}</p><button class="btn g" id=printHallTicket>${b('ഹാൾ ടിക്കറ്റ് പ്രിന്റ് ചെയ്യുക','Print hall ticket')}</button>`:`<p>${b('പരിശോധനയിൽ യോഗ്യനായി അംഗീകരിച്ചു. ഇപ്പോൾ ഹാൾ ടിക്കറ്റ് നൽകാം.','Verification approved. You can now issue the hall ticket.')}</p><button class="btn g" id=issueHallTicket>${b('ഹാൾ ടിക്കറ്റ് നൽകുക','Issue hall ticket')}</button>`}</div>`:''}
    <div class=card><h4>A. ${b('വ്യക്തിഗത വിവരങ്ങൾ','Personal')}</h4>${photoMarkup}${kv([['name','Name'],['father','Father'],['mother','Mother'],['dob','DOB'],['email','Email'],['place','Place'],['house','House'],['post','Post'],['pin','PIN'],['district','District'],['mobile','Mobile'],['whatsapp','WhatsApp']])}</div>
    <div class=card><h4>B. ${b('പഠന വിവരങ്ങൾ','Education')}</h4>${kv([['institution','Institution'],['admissionYear','Admission'],['completionYear','Completion'],['examYear','Final exam year'],['teachers','Teachers'],['tharqiyya','Tharqiyya'],['tharqiyyaYear','Tharqiyya year']])}</div>
    <div class=card><h4>C. ${b('നിലവിലെ വിവരങ്ങളും പരിശോധനയും','Application and verification status')}</h4>${kv([['currentType','Current status'],['currentWork','Job/Study'],['currentOrg','Organisation'],['prevApplication','Previous application'],['declAccepted','Declaration accepted'],['declPlace','Decl. place'],['declDate','Decl. date'],['createdAt','Submitted'],['receivedDate','Received'],['eduVerified','Education verified'],['instConfirmed','Institution confirmed'],['eligibility','Eligibility'],['remarks','Remarks'],['verifierName','Verifying officer'],['officerApproval','Officer approval'],['assignedVerifier','Assigned verifier'],['verifyDate','Verification date'],['paymentStatus','Payment'],['hallTicket','Hall ticket'],['examAttended','Exam attended'],['resultStatus','Result'],['resultPublished','Result published'],['sanadStatus','Sanad'],['sanadCollectedDate','Collected on'],['sanadOfficer','Issued by']])}</div>${E}${pay}`);
+   if(adm&&a.photoUrl){
+     api('getApplicantPhoto',{applicationNo:no}).then(photo=>{
+       const current=$('#dlg');
+       const profile=$('#appPhoto');
+       if(!photo.dataUrl||!current.open||current.querySelector('.dh b')?.textContent!==String(no)||!profile)return;
+       photoData=photo.dataUrl;
+       profile.innerHTML=`<img class=applicant-avatar src="${esc(photoData)}" alt="${esc(a.name)}"><div><b>${esc(a.name)}</b><small>${esc(a.applicationNo)}</small></div>`;
+     }).catch(e=>{
+       const current=$('#dlg');
+       if(current.open&&current.querySelector('.dh b')?.textContent===String(no))
+         toast(e.net?b('അപേക്ഷകന്റെ ഫോട്ടോ ലോഡ് ചെയ്യാനായില്ല','Could not load applicant photo'):e.message,1);
+     });
+   }
    const refreshApp=()=>showApp(no);
    const re=()=>refreshApp();
-   $('#pr').onclick=()=>{$('#dlg').close();printApp(a.applicationNo,{...a,photoData},a)};
+   $('#pr').onclick=()=>printApp(a.applicationNo,{...a,photoData},a);
    if(ver)$('#ev').onclick=()=>run(async()=>{await api('verifyApplication',{applicationNo:no,eduVerified:$('#e1').value,instConfirmed:$('#e2').value,eligibility:$('#e3').value,remarks:$('#e4').value,verifierName:$('#e5').value,officerApproval:$('#e6').value});await refreshApp();successPopup(b('പരിശോധന സേവ് ചെയ്തു','Verification saved'))});
    if(adm){if(a.eligibility==='Approved'&&a.hallTicket!=='Yes')$('#issueHallTicket').onclick=()=>run(async()=>{await api('publishHallTicket',{applicationNos:[no]});await refreshApp();successPopup(b('ഹാൾ ടിക്കറ്റ് നൽകി','Hall ticket issued'))});
     if(a.hallTicket==='Yes')$('#printHallTicket').onclick=()=>run(async()=>{const s=await api('getSettings');$('#dlg').close();printHall({...a,examDate:s.examDate,venue:s.examVenue,instructions:s.examInstructions},no)});
     $('#pb').onclick=()=>run(async()=>{await api('recordPayment',{applicationNo:no,amount:$('#p1').value,method:$('#p2').value,reference:$('#p3').value,paidDate:$('#p4').value,verified:$('#p5').checked});await refreshApp();successPopup(b('ഫീസ് രേഖപ്പെടുത്തി','Payment recorded'))});
-    $('#sb').onclick=()=>run(async()=>{await api('updateApplicationStatus',{applicationNo:no,status:$('#s1').value});await refreshApp();successPopup(b('സ്റ്റാറ്റസ് പുതുക്കി','Status updated'))});
+    $('#sb').onclick=()=>{
+      const button=$('#sb'),select=$('#s1');
+      button.disabled=true;
+      select.disabled=true;
+      button.setAttribute('aria-busy','true');
+      button.textContent=b('പുതുക്കുന്നു…','Updating…');
+      run(async()=>{
+        try{
+          await api('updateApplicationStatus',{applicationNo:no,status:select.value});
+          await refreshApp();
+          successPopup(b('സ്റ്റാറ്റസ് പുതുക്കി','Status updated'));
+        }finally{
+          if(button.isConnected){
+            button.disabled=false;
+            button.removeAttribute('aria-busy');
+            button.textContent=b('മാറ്റുക','Update');
+            if(select.isConnected)select.disabled=false;
+          }
+        }
+      });
+    };
     $('#vb').onclick=()=>run(async()=>{await api('assignVerifier',{applicationNo:no,verifier:$('#v1').value});await refreshApp();successPopup(b('വെരിഫയർ നിയമിച്ചു','Verifier assigned'))});
-    $('#ed').onclick=()=>editApp(a);
+    $('#ed').onclick=()=>run(()=>editApp(a));
     $('#deleteApp').onclick=async function(){
       if(!await confirmBox(b(`"${no}" എന്ന അപേക്ഷയും ബന്ധപ്പെട്ട ഫീസ് രേഖകളും സ്ഥിരമായി നീക്കട്ടെ? ഇത് പഴയപടിയാക്കാനാകില്ല.`,`Permanently delete application "${no}" and its related payment records? This cannot be undone.`)))return;
       await run(async function(){
         const r=await api('deleteApplications',{applicationNos:[no]});
-        if(r.deleted){$('#dlg').close();toast(b('അപേക്ഷ നീക്കി','Application deleted'));if(view==='apps')go('apps');else if(view==='dash')go('dash');else if(view==='results')go('results')}
+        if(r.deleted){$('#dlg').close();if(view==='apps')go('apps');else if(view==='dash')go('dash');else if(view==='results')go('results');successPopup(b('അപേക്ഷ നീക്കി','Application deleted'))}
         else toast(b('അപേക്ഷ കണ്ടെത്തിയില്ല','Application not found'),1);
       });
     }}})}
@@ -1351,7 +1425,7 @@ async function vUsers(){
   $('#v').innerHTML=`<h2>${t('users')}</h2>${sa?`<button class="btn" onclick="userForm()">+ ${b('പുതിയ ഉപയോക്താവ്','New user')}</button>`:''} <button class="btn l" onclick="pwModal(false)">${b('എന്റെ പാസ്‌വേഡ് മാറ്റുക','Change my password')}</button><div class=tw style="margin-top:10px"><table><tr><th>Username</th><th>Name</th><th>Role</th><th>Active</th><th>Last login</th><th></th></tr>${us.map(u=>`<tr><td>${esc(u.username)}</td><td>${esc(u.displayName)}</td><td>${esc(u.role)}</td><td>${u.active?'✔':'✖'}</td><td>${esc(u.lastLogin)}</td><td>${sa?`<button class="btn l s" onclick='userForm(${JSON.stringify(u)})'>${b('തിരുത്തുക','Edit')}</button>`:''}</td></tr>`).join('')}</table></div>`}
 function userForm(u){
   const n=!u;u=u||{};const d=modal(n?b('പുതിയ ഉപയോക്താവ്','New user'):u.username,`${n?`<label>Username</label><input type=text id=u1>`:''}<label>${b('പേര്','Display name')}</label><input type=text id=u2 value="${esc(u.displayName)}"><label>Role</label><select id=u3>${['SUPER_ADMIN','ADMIN','VERIFIER','VIEWER'].map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select>${n?'':`<label style="display:flex;gap:8px"><input type=checkbox id=u5 style="width:20px;height:20px" ${u.active?'checked':''}> Active</label>`}<label>${n?'Password':b('പാസ്‌വേഡ് റീസെറ്റ് (ഓപ്ഷണൽ)','Reset password (optional)')}</label><input type=password id=u4 autocomplete=new-password><div class=row><button class="btn g" id=us>${t('save')}</button></div>`);
-  $('#us').onclick=()=>run(async()=>{if(n)await api('createUser',{username:$('#u1').value,displayName:$('#u2').value,role:$('#u3').value,password:$('#u4').value});else await api('updateUser',{username:u.username,displayName:$('#u2').value,role:$('#u3').value,active:$('#u5').checked,password:$('#u4').value||undefined});d.close();toast(b('സേവ് ചെയ്തു','Saved'));go('users')})}
+  $('#us').onclick=()=>run(async()=>{if(n)await api('createUser',{username:$('#u1').value,displayName:$('#u2').value,role:$('#u3').value,password:$('#u4').value});else await api('updateUser',{username:u.username,displayName:$('#u2').value,role:$('#u3').value,active:$('#u5').checked,password:$('#u4').value||undefined});d.close();await go('users');successPopup(b('സേവ് ചെയ്തു','Saved'))})}
 async function vSettings(){
   const s=await api('getSettings'),sa=can('SUPER_ADMIN'),ex=['examDate','examVenue','examInstructions'],boolSettings=['applicationOpen','uploadsEnabled'];
   await loadInstitutions(true);
@@ -1359,9 +1433,9 @@ async function vSettings(){
   $('#v').innerHTML=`<h2>${t('settings')}</h2><div class=card><h3>${b('അഫിലിയേറ്റഡ് ഹിഫ്‌ള് കോളേജുകളുടെ പട്ടിക','Affiliated Hifz colleges')}</h3><p class=mut>${b('അപേക്ഷകർ ഈ പട്ടികയിൽ നിന്ന് ഹിഫ്‌ള് പൂർത്തിയാക്കിയ കോളേജ് തിരഞ്ഞെടുക്കും.','Applicants select their Hifz college from this list.')}</p><div class=row><input type=text id=newInstitution maxlength=160 placeholder="${b('കോളേജിന്റെ പേര്','College name')}" style="flex:1;min-width:180px"><button class="btn g" id=addInstitution>${b('കോളേജ് ചേർക്കുക','Add college')}</button></div><ul id=institutionList></ul></div><div class=card><div class=cols>${Object.keys(L_).map(k=>{const ok=sa||ex.includes(k);let input;if(boolSettings.includes(k)){const value=s[k]==='true'||s[k]==='false'?s[k]:'';input=`<select id="s_${k}" ${ok?'':'disabled'}><option value="" ${value===''?'selected':''}>Select true/false</option><option value="true" ${value==='true'?'selected':''}>true</option><option value="false" ${value==='false'?'selected':''}>false</option></select>`}else if(k==='examInstructions'||k==='feeNote'||k==='officeAddress')input=`<textarea id="s_${k}" ${ok?'':'disabled'}>${esc(s[k])}</textarea>`;else input=`<input type=text id="s_${k}" value="${esc(s[k])}" ${ok?'':'disabled'}>`;return `<div><label>${L_[k]}</label>${input}</div>`}).join('')}</div><div class=row><button class="btn g" id=sv>${t('save')}</button></div></div>`;
   const renderInstitutionList=()=>{$('#institutionList').innerHTML=INSTITUTIONS.map(name=>`<li>${esc(name)}</li>`).join('')||`<li class=mut>${b('സ്ഥാപനങ്ങൾ ചേർത്തിട്ടില്ല','No institutions added yet')}</li>`};
   renderInstitutionList();
-  $('#addInstitution').onclick=()=>{const input=$('#newInstitution'),name=input.value.trim();if(!name)return toast(b('കോളേജിന്റെ പേര് നൽകുക','Enter a college name'),1);run(async()=>{await api('addAffiliatedCollege',{name});await loadInstitutions(true);input.value='';renderInstitutionList();toast(b('കോളേജ് ചേർത്തു','College added'))})};
+  $('#addInstitution').onclick=()=>{const input=$('#newInstitution'),name=input.value.trim();if(!name)return toast(b('കോളേജിന്റെ പേര് നൽകുക','Enter a college name'),1);run(async()=>{await api('addAffiliatedCollege',{name});await loadInstitutions(true);input.value='';renderInstitutionList();successPopup(b('കോളേജ് ചേർത്തു','College added'))})};
   $('#newInstitution').onkeydown=e=>{if(e.key==='Enter')$('#addInstitution').click()};
-  $('#sv').onclick=()=>run(async()=>{const o={};Object.keys(L_).forEach(k=>{if(sa||ex.includes(k))o[k]=$('#s_'+k).value});await api('updateSettings',{settings:o});S.cfg={};toast(b('സേവ് ചെയ്തു','Saved'))})}
+  $('#sv').onclick=()=>run(async()=>{const o={};Object.keys(L_).forEach(k=>{if(sa||ex.includes(k))o[k]=$('#s_'+k).value});await api('updateSettings',{settings:o});S.cfg={};successPopup(b('സേവ് ചെയ്തു','Saved'))})}
 let AU={page:1,q:''};
 async function vAudit(){
   const d=await api('getAuditLogs',AU);
